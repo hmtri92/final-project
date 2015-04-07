@@ -54,4 +54,6 @@
       <property name="password" value="root"/>
       <property name="username" value="root"/>
    </bean>
+   
+   <import resource="spring-security.xml"/>
 </beans>
