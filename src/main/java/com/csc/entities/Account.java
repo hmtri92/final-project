@@ -66,6 +66,10 @@ public class Account {
 	private String email2;
 	
 	@NotEmpty
+	@Column (name = "availableAmount")
+	private Long availableAmount;
+	
+	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_state")
 	private State state;
