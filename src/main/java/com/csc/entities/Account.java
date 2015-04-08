@@ -92,6 +92,28 @@ public class Account {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Account(String accountNumber, String idCardNumber, String firstName,
+			String lastName, String midName, long phoneNum1, long phoneNum2,
+			String address1, String address2, String email1, String email2,
+			Long availableAmount, State state) {
+		super();
+		this.accountNumber = accountNumber;
+		this.idCardNumber = idCardNumber;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.midName = midName;
+		this.phoneNum1 = phoneNum1;
+		this.phoneNum2 = phoneNum2;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.email1 = email1;
+		this.email2 = email2;
+		this.availableAmount = availableAmount;
+		this.state = state;
+	}
+
 
 	public Account(String accountNumber, TypeAccount typeAccount,
 			String idCardNumber, String firstName, String lastName,
@@ -242,6 +264,15 @@ public class Account {
 
 	public List<Transaction> getSendTracsactions() {
 		return sendTracsactions;
+	}
+	
+
+	public Long getAvailableAmount() {
+		return availableAmount;
+	}
+
+	public void setAvailableAmount(Long availableAmount) {
+		this.availableAmount = availableAmount;
 	}
 
 	public void setSendTracsactions(List<Transaction> sendTracsactions) {

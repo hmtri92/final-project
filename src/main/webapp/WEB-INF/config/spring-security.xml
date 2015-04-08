@@ -7,9 +7,16 @@
            http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<http>
-		<intercept-url pattern="/**" access="ROLE_USER" />
-		<form-login />
-		<logout />
+		<intercept-url pattern="/admin/**" access="ROLE_USER" />
+		<form-login 
+		    login-page="/login" 
+		    default-target-url="/hello" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+		<!-- enable csrf protection -->
+		<csrf/>
 	</http>
 
 	<authentication-manager>
