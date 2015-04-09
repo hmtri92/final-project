@@ -93,6 +93,26 @@ function checkName() {
 	});
 }
 
+function checkAccount() {
+	$.ajax({
+		type : "POST",
+		url : "@ResponseBody",
+		data : {"accountNumber" : $("#accountNumber").val()},
+		success : function(result) {
+			$("#firstname").val(result.firstName);
+			$("#midname").val(result.midName);
+			$("#lastname").val(result.lastName);
+			$("#address1").val(result.address1);
+			$("#address2").val(result.address2);
+			$("#phoneNum1").val(result.phoneNum1);
+			$("#phoneNum2").val(result.phoneNum2);
+		},
+		error : function(){
+			alert("Error while request..");
+		}
+	});
+}
+
 function goHome() {
 	location.href = "home";
 }

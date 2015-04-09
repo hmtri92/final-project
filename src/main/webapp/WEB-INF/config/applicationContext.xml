@@ -55,5 +55,5 @@
       <property name="username" value="root"/>
    </bean>
    
-   <import resource="spring-security.xml"/>
+   <!-- <import resource="spring-security.xml"/> -->
 </beans>

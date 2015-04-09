@@ -17,15 +17,18 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="transferview">Transfer Money</a></li>
-				<li><a href="targetAccount">Target Account</a></li>
-				<li><a href="viewTransaction">Search transaction</a></li>
+				<!-- <li><a href="#">Transfer Money</a></li>
+				<li><a href="#">Target Account</a></li>
+				<li><a href="#">Search transaction</a></li> -->
 				<li class="dropdown">
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		          	Cards <span class="caret"></span></a>
+		          	Funds <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
-		            <li style="padding-bottom: 10px"><a href="viewCard"><i class="glyphicon glyphicon-credit-card"></i>  View card</a></li>
-		            <li><a href="addCard"><i class="glyphicon glyphicon-plus-sign"></i>  Add Card</a></li>
+		            <li style="padding-bottom: 10px">
+		            	<a href="viewAddFunds">
+		            		<i class="glyphicon glyphicon-credit-card"></i>  Add funds
+	            		</a>
+            		</li>
 		          </ul>
 		        </li>
 			</ul>
@@ -35,8 +38,8 @@
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 		          	<i class="glyphicon glyphicon-th-large"></i>  ${sessionScope.user.loginId } <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
-		            <li style="padding-bottom: 10px"><a href="editCustomerInfo"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
-		            <li><a href="logout"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>
+		            <li style="padding-bottom: 10px"><a href="#"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
+		            <li><a href="#"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>
 		          </ul>
 		        </li>
 	      	</ul>
