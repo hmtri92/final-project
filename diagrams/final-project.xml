@@ -1,43 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><entities>
 	<entity>
-		<entity-name>com.csc.entities.Account</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>406</entity-height>
-		<entity-X-Coordinate>242</entity-X-Coordinate>
-		<entity-Y-Coordinate>98</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.csc.entities.BalanceAmount</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>166</entity-height>
-		<entity-X-Coordinate>56</entity-X-Coordinate>
-		<entity-Y-Coordinate>98</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.csc.entities.LogTransaction</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>514</entity-X-Coordinate>
-		<entity-Y-Coordinate>100</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
 		<entity-name>com.csc.entities.Role</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>266</entity-height>
 		<entity-X-Coordinate>242</entity-X-Coordinate>
 		<entity-Y-Coordinate>589</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.csc.entities.Transaction</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>662</entity-X-Coordinate>
+		<entity-Y-Coordinate>98</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -71,6 +49,28 @@
 		<entity-height>366</entity-height>
 		<entity-X-Coordinate>710</entity-X-Coordinate>
 		<entity-Y-Coordinate>501</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.csc.entities.BalanceAmount</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>166</entity-height>
+		<entity-X-Coordinate>56</entity-X-Coordinate>
+		<entity-Y-Coordinate>98</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.csc.entities.Account</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>446</entity-height>
+		<entity-X-Coordinate>242</entity-X-Coordinate>
+		<entity-Y-Coordinate>98</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

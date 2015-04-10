@@ -18,14 +18,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class TypeAccount {
 
 	@Transient
-	public static final String DEPOSIT = "DEPOSIT";
+	public static final int DEPOSIT = 1;
 	@Transient
-	public static final String SAVING = "SAVING";
+	public static final int SAVING = 2;
 	@Transient
-	public static final String OTHER = "OTHER";
+	public static final int OTHER = 3;
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column (name = "id_typeaccount")
 	private int idType;
 	

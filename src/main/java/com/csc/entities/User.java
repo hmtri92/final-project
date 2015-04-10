@@ -17,56 +17,51 @@ public class User {
 	@Column (name = "login_id", length = 12)
 	private long loginID;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "password")
 	private String password;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "id_cardnumber")
 	private long idCardNumber;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "firstname")
 	private String firstName;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "lastname")
 	private String lastName;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "midname")
 	private String midName;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "phoneNum1")
 	private long phoneNum1;
 	
-	@NotEmpty
 	@Column (name = "phoneNum2")
 	private long phoneNum2;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "address1")
 	private String address1;
 	
-	@NotEmpty
 	@Column (name = "address2")
 	private String address2;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "email1")
 	private String email1;
 	
-	@NotEmpty
 	@Column (name = "email2")
 	private String email2;
 	
-	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_state")
 	private State state;
 	
-	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_role")
 	private Role role;

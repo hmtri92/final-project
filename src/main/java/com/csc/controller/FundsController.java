@@ -13,9 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.csc.entities.Account;
 import com.csc.service.AccountService;
 import com.csc.service.FundService;
+import com.csc.ultil.CreateDatabase;
 
 @Controller
-public class AddfundsController {
+public class FundsController {
 	
 	@Autowired
 	FundService fundService;

@@ -18,19 +18,18 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class State {
 	
 	@Transient
-	public static final String NEW = "NEW";
+	public static final int NEW = 1;
 	
 	@Transient
-	public static final String ACTIVE = "ACTIVE";
+	public static final int ACTIVE = 2;
 	
 	@Transient
-	public static final String DISABLE = "DISABLE";
+	public static final int DISABLE = 3;
 	
 	@Transient
-	public static final String REMOVEABLE = "REMOVEABLE";
+	public static final int REMOVEABLE = 4;
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
 	private int idState;
 	
 	@NotEmpty

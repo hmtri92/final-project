@@ -18,22 +18,21 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Role {
 
 	@Transient
-	public static final String USER_ADMIN = "USER_ADMIN";
+	public static final int USER_ADMIN = 1;
 	
 	@Transient
-	public static final String USER_SUPPORT = "USER_SUPPORT";
+	public static final int USER_SUPPORT = 2;
 	
 	@Transient
-	public static final String ACCOUNT_ADMIN = "ACCOUNT_ADMIN";
+	public static final int ACCOUNT_ADMIN = 3;
 	
 	@Transient
-	public static final String ACCOUNT_SUPPORT = "ACCOUNT_SUPPORT";
+	public static final int ACCOUNT_SUPPORT = 4;
 	
 	@Transient
-	public static final String REPORT_SUPPORT = "REPORT_SUPPORT";
+	public static final int REPORT_SUPPORT = 5;
 	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column (name = "id_role")
 	private int idRole;
 	

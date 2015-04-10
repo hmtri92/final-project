@@ -96,7 +96,7 @@ function checkName() {
 function checkAccount() {
 	$.ajax({
 		type : "POST",
-		url : "@ResponseBody",
+		url : "getAccountById",
 		data : {"accountNumber" : $("#accountNumber").val()},
 		success : function(result) {
 			$("#firstname").val(result.firstName);

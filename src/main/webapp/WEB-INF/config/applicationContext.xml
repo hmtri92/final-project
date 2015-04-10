@@ -55,5 +55,7 @@
       <property name="username" value="root"/>
    </bean>
    
+   <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+   
    <!-- <import resource="spring-security.xml"/> -->
 </beans>

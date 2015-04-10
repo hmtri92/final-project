@@ -17,6 +17,7 @@
 
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/myScript.js"></script>
 
 </head>
 <body style="padding-top: 100px !important">

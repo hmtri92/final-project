@@ -20,56 +20,43 @@ public class Account {
 	@Column (name = "id_acount", length = 12)
 	private String accountNumber;
 	
-	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_type")
 	private TypeAccount typeAccount;
 	
-	@NotEmpty
 	@Column (name = "id_cardNumber")
 	private String idCardNumber;
 	
-	@NotEmpty
 	@Column (name = "firstname")
 	private String firstName;
 	
-	@NotEmpty
 	@Column (name = "lastname")
 	private String lastName;
 	
-	@NotEmpty
 	@Column (name = "midname")
 	private String midName;
 	
-	@NotEmpty
 	@Column (name = "phoneNum1")
 	private long phoneNum1;
 	
-	@NotEmpty
 	@Column (name = "phoneNum2")
 	private long phoneNum2;
 	
-	@NotEmpty
 	@Column (name = "address1")
 	private String address1;
 	
-	@NotEmpty
 	@Column (name = "address2")
 	private String address2;
 	
-	@NotEmpty
 	@Column (name = "email1")
 	private String email1;
 	
-	@NotEmpty
 	@Column (name = "email2")
 	private String email2;
 	
-	@NotEmpty
 	@Column (name = "availableAmount")
 	private Long availableAmount;
 	
-	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_state")
 	private State state;
@@ -77,7 +64,6 @@ public class Account {
 	@OneToMany (mappedBy = "account")
 	private List<BalanceAmount> balanceAmounts;
 	
-	@NotEmpty
 	@ManyToOne
 	@JoinColumn (name = "id_role")
 	private Role role;
