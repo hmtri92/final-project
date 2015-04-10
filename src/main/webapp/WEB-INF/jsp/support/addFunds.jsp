@@ -33,7 +33,6 @@
 				</div>
 				<div class="portlet-body form">
 					<!-- BEGIN FORM-->
-					<%-- <div class="alert alert-warning" role="alert">${message}</div> --%>
 
 					<div class="alert alert-warning" role="alert" id="message">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>					

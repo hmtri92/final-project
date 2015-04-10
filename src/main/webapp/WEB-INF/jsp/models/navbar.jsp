@@ -29,6 +29,11 @@
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Add funds
 	            		</a>
             		</li>
+		            <li style="padding-bottom: 10px">
+		            	<a href="viewTransferBySupport">
+		            		<i class="glyphicon glyphicon-credit-card"></i>  Transfer
+	            		</a>
+            		</li>
 		          </ul>
 		        </li>
 			</ul>

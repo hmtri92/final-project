@@ -52,5 +52,10 @@ public class FundsController {
 			return "Error";
 		}
 	}
+	
+	@RequestMapping (value = "/viewTransferBySupport", method = RequestMethod.GET)
+	public String goViewTranferBySupport() {
+		return "support/transfer";
+	}
 
 }
