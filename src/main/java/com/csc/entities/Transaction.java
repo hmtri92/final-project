@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class Transaction {
 	private Date date;
 	
 	@Column (name = "amount")
-	private long amount;
+	private BigDecimal amount;
 	
 	@NotEmpty
 	@Column (name = "content")
@@ -50,15 +51,15 @@ public class Transaction {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(long idTransaction, Date date, long amount,
-			String content, Account sendAccount, Account receiveAccount) {
+	public Transaction(long idTransaction, Date date, BigDecimal amount,
+			String content, Account sourceAccount, Account targetAccount) {
 		super();
 		this.idTransaction = idTransaction;
 		this.date = date;
 		this.amount = amount;
 		this.content = content;
-		this.sendAccount = sendAccount;
-		this.receiveAccount = receiveAccount;
+		this.sendAccount = sourceAccount;
+		this.receiveAccount = targetAccount;
 	}
 
 	public long getIdTransaction() {
@@ -77,11 +78,11 @@ public class Transaction {
 		this.date = date;
 	}
 
-	public long getAmount() {
+	public BigDecimal getAmount() {
 		return amount;
 	}
 
-	public void setAmount(long amount) {
+	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
 
@@ -97,15 +98,15 @@ public class Transaction {
 		return sendAccount;
 	}
 
-	public void setSendAccount(Account sendAccount) {
-		this.sendAccount = sendAccount;
+	public void setSendAccount(Account sourceccount) {
+		this.sendAccount = sourceccount;
 	}
 
 	public Account getReceiveAccount() {
 		return receiveAccount;
 	}
 
-	public void setReceiveAccount(Account receiveAccount) {
-		this.receiveAccount = receiveAccount;
+	public void setReceiveAccount(Account targetAccount) {
+		this.receiveAccount = targetAccount;
 	}
 }

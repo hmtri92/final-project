@@ -41,9 +41,10 @@ public class State {
 	
 	@OneToMany (mappedBy = "state")
 	private List<Account> accounts;
-
+	
 	@OneToMany (mappedBy = "state")
 	private List<User> users;
+
 
 	public State() {
 		super();

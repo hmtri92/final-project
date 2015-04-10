@@ -18,16 +18,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Role {
 
 	@Transient
-	public static final int USER_ADMIN = 1;
+	public static final int CUSTOMER = 1;
 	
 	@Transient
-	public static final int USER_SUPPORT = 2;
+	public static final int ADMIN = 2;
 	
 	@Transient
-	public static final int ACCOUNT_ADMIN = 3;
+	public static final int ACCOUNT_SUPPORT = 3;
 	
 	@Transient
-	public static final int ACCOUNT_SUPPORT = 4;
+	public static final int USER_SUPPORT = 4;
 	
 	@Transient
 	public static final int REPORT_SUPPORT = 5;
@@ -43,21 +43,17 @@ public class Role {
 	@OneToMany (mappedBy = "role")
 	private List<User> users;
 	
-	@OneToMany (mappedBy = "role")
-	private List<Account> accounts;
 
 	public Role() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Role(int idRole, String nameRole, List<User> users,
-			List<Account> accounts) {
+	public Role(int idRole, String nameRole, List<User> users) {
 		super();
 		this.idRole = idRole;
 		this.nameRole = nameRole;
 		this.users = users;
-		this.accounts = accounts;
 	}
 
 	public int getIdRole() {
@@ -84,11 +80,5 @@ public class Role {
 		this.users = users;
 	}
 
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
+	
 }

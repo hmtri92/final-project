@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< .mine
-	<jsp:forward page="viewAddFunds"/>
-=======
 	<jsp:forward page="register"/>
->>>>>>> .r26
 </body>
 </html>

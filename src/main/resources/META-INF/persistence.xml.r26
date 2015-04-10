@@ -18,11 +18,7 @@
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.password" value="root" />
 			<property name="hibernate.show_sql" value="true" />
-<<<<<<< .mine
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
-=======
 <!-- 			<property name="hibernate.hbm2ddl.auto" value="create" /> -->
->>>>>>> .r26
 		</properties>
 	</persistence-unit>
 </persistence>

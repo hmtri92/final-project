@@ -1,5 +1,7 @@
 package com.csc.ultil;
 
+import java.math.BigDecimal;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -20,31 +22,31 @@ public class CreateDatabase {
 	
 	@Transactional
 	public void createRole() {
-		Role roleUserAdmin = new Role();
-		roleUserAdmin.setIdRole(1);
-		roleUserAdmin.setNameRole("USER_ADMIN");
+		Role roleUser = new Role();
+		roleUser.setIdRole(1);
+		roleUser.setNameRole("CUSTOMER");
 		
-		Role roleUserSupport = new Role();
-		roleUserSupport.setIdRole(2);
-		roleUserSupport.setNameRole("USER_SUPPORT");
-		
-		Role roleAccountAdmin = new Role();
-		roleAccountAdmin.setIdRole(3);
-		roleAccountAdmin.setNameRole("ACCOUNT_ADMIN");
+		Role roleAdmin = new Role();
+		roleAdmin.setIdRole(2);
+		roleAdmin.setNameRole("ADMIN");
 		
 		Role roleAccountSupport = new Role();
-		roleAccountSupport.setIdRole(4);
+		roleAccountSupport.setIdRole(3);
 		roleAccountSupport.setNameRole("ACCOUNT_SUPPORT");
+		
+		Role roleUserSupport = new Role();
+		roleUserSupport.setIdRole(4);
+		roleUserSupport.setNameRole("CUSTOMER_SUPPORT");
 		
 		Role roleReportSupport = new Role();
 		roleReportSupport.setIdRole(5);
 		roleReportSupport.setNameRole("REPORT_SUPPORT");
 		
 		try {
-			em.persist(roleUserAdmin);
-			em.persist(roleUserSupport);
-			em.persist(roleAccountAdmin);
+			em.persist(roleUser);
+			em.persist(roleAdmin);
 			em.persist(roleAccountSupport);
+			em.persist(roleUserSupport);
 			em.persist(roleReportSupport);
 		} catch ( Exception e) {
 			
@@ -104,59 +106,96 @@ public class CreateDatabase {
 			em.persist(removed);
 		} catch (Exception e) {}
 		
+	}	
+	
+	@Transactional
+	public void createUser() {
+		Role roleAdmin = em.find(Role.class, Role.ADMIN);
+		State state = em.find(State.class, State.ACTIVE);
+		
+		User minhtri = new User();
+		minhtri.setLoginID("Admin");
+		minhtri.setPassword("Admin");
+		minhtri.setIdCardNumber("272015010"); 
+		minhtri.setFirstName("Tri");
+		minhtri.setMidName("Minh");
+		minhtri.setLastName("Huynh");
+		minhtri.setAddress1("Tan Binh");
+		minhtri.setAddress2("Thu Duc");
+		minhtri.setEmail1("hmtri92@gmail.com");
+		minhtri.setEmail2("minhtri@gmail.com");
+		minhtri.setPhoneNum1("0913131313");
+		minhtri.setPhoneNum2("09090909");
+		minhtri.setRole(roleAdmin);
+		minhtri.setState(state);
+		
+		try {
+			em.persist(minhtri);
+			System.err.println("add Admin successfully!");
+		} catch (Exception e) {}
+		
+		Role roleSupport = em.find(Role.class, Role.ACCOUNT_SUPPORT);
+		State state2 = em.find(State.class, State.ACTIVE);
+		
+		User phuc = new User();
+		phuc.setLoginID("Supporter01");
+		phuc.setPassword("supporter");
+		phuc.setIdCardNumber("272015010"); 
+		phuc.setFirstName("Tri");
+		phuc.setMidName("Minh");
+		phuc.setLastName("Huynh");
+		phuc.setAddress1("Tan Binh");
+		phuc.setAddress2("Thu Duc");
+		phuc.setEmail1("hmtri92@gmail.com");
+		phuc.setEmail2("minhtri@gmail.com");
+		phuc.setPhoneNum1("0913131313");
+		phuc.setPhoneNum2("09090909");
+		phuc.setRole(roleSupport);
+		phuc.setState(state2);
+		
+		try {
+			em.persist(phuc);
+			System.err.println("add supporter successfully!");
+		} catch (Exception e) {}
+		
+		Role roleCustomer = em.find(Role.class, Role.CUSTOMER);
+		State state3 = em.find(State.class, State.ACTIVE);
+		
+		User quocanh = new User();
+		quocanh.setLoginID("betanda01");
+		quocanh.setPassword("customer");
+		quocanh.setIdCardNumber("272015010"); 
+		quocanh.setFirstName("Tri");
+		quocanh.setMidName("Minh");
+		quocanh.setLastName("Huynh");
+		quocanh.setAddress1("Tan Binh");
+		quocanh.setAddress2("Thu Duc");
+		quocanh.setEmail1("hmtri92@gmail.com");
+		quocanh.setEmail2("minhtri@gmail.com");
+		quocanh.setPhoneNum1("0913131313");
+		quocanh.setPhoneNum2("09090909");
+		quocanh.setRole(roleCustomer);
+		quocanh.setState(state3);
+		
+		try {
+			em.persist(quocanh);
+			System.err.println("add customer successfully!");
+		} catch (Exception e) {}
 	}
 	
 	@Transactional
 	public void createAccount() {
-		Role roleSupport = em.find(Role.class, Role.ACCOUNT_SUPPORT);
-		TypeAccount type = em.find(TypeAccount.class, TypeAccount.SAVING);
-		State state = em.find(State.class, State.ACTIVE);
 		
-		Account minhtri = new Account();
-		minhtri.setAccountNumber("123456789012");
-		minhtri.setIdCardNumber("123456789012");
-		minhtri.setFirstName("Huynh");
-		minhtri.setMidName("Minh");
-		minhtri.setLastName("Tri");
-		minhtri.setAddress1("Tan Binh");
-		minhtri.setAddress2("Thu Duc");
-		minhtri.setEmail1("hmtri92@gmail.com");
-		minhtri.setEmail2("minhtri@gmail.com");
-		minhtri.setAvailableAmount(1234567L);
-		minhtri.setPhoneNum1(975115833L);
-		minhtri.setPhoneNum2(975115833L);
-		minhtri.setRole(roleSupport);
-		minhtri.setTypeAccount(type);
-		minhtri.setState(state);
+		State state = em.find(State.class, State.ACTIVE);
+		TypeAccount type1 = em.find(TypeAccount.class, TypeAccount.DEPOSIT);
+		User quocanh = em.find(User.class, "betanda01");
+		
+		Account newAccount = new Account("1",type1, new BigDecimal(0), state);
 		
 		try {
-			em.persist(minhtri);
+			em.persist(newAccount);
 		} catch (Exception e) {}
-	}
-	
-	@Transactional
-	public void createUser() {
-		Role roleSupport = em.find(Role.class, Role.ACCOUNT_ADMIN);
-		State state = em.find(State.class, State.ACTIVE);
 		
-		User minhtri = new User();
-		minhtri.setLoginID(12345L);
-		minhtri.setPassword("12345");
-		minhtri.setIdCardNumber(123456789012L);
-		minhtri.setFirstName("Huynh");
-		minhtri.setMidName("Minh");
-		minhtri.setLastName("Tri");
-		minhtri.setAddress1("Tan Binh");
-		minhtri.setAddress2("Thu Duc");
-		minhtri.setEmail1("hmtri92@gmail.com");
-		minhtri.setEmail2("minhtri@gmail.com");
-		minhtri.setPhoneNum1(975115833L);
-		minhtri.setPhoneNum2(975115833L);
-		minhtri.setRole(roleSupport);
-		minhtri.setState(state);
 		
-		try {
-			em.persist(minhtri);
-		} catch (Exception e) {}
 	}
 }

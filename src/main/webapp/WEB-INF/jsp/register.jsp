@@ -23,200 +23,87 @@
 <body style="padding-top: 100px !important">
 	<%@ include file="models/navbarNonLogin.jsp"%>
 
-	<div class="container">
-		<div class="tab-pane" id="tab_1">
-			<div class="portlet box blue">
-				<div class="portlet-title">
-					<div class="caption">
-						<i class="fa fa-gift"></i>Register
-					</div>
-				</div>
-				<div class="portlet-body form">
-					<!-- BEGIN FORM-->
-					<%-- <div class="alert alert-warning" role="alert">${message}</div> --%>
 
-					<div class="alert alert-warning alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						${message}
-					</div>
+	<h1 align="center">Register</h1>
+	<form action="createAccount" method="post" style="margin-top: 10px;">
+		<table width="1063" border="0" cellpadding="0" cellspacing="0" id="id-form">
+			<tr>
+				<th width="112" valign="top">Account Number</th>
+				<td width="144"><input type="text" class="inp-form" name="accountNumber" /></td>
+			</tr>
+			<tr>
+				<th valign="top">TypeAccount:</th>
+				<td><input type="text" class="inp-form" name="typeAccount" /></td>
+				<td width="98"></td>
+			</tr>
+		
+			<tr>
+				<th valign="top">idCardNumberr</th>
+				<td><input type="text" class="inp-form" name="idCardNumber" /></td>
+			</tr>
+			<tr>
+				<th valign="top">firstName</th>
+				<td><input type="text" class="inp-form" name="firstName" /></td>
+			</tr>
+			<tr>
+				<th valign="top">lastName</th>
+				<td><input type="text" class="inp-form" name="lastName" /></td>
+			</tr>
+			<tr>
+				<th valign="top">midName</th>
+				<td><input type="text" class="inp-form" name="midName" /></td>
+			</tr>
+			<tr>
+				<th height="27" valign="top">phoneNum1</th>
+			  <td><input type="text" class="inp-form" name="phoneNum1" /></td>
+			</tr>
+			<tr>
+				<th valign="top">phoneNum2</th>
+				<td><input type="text" class="inp-form" name="phoneNum2" /></td>
+			</tr>
+			<tr>
+				<th valign="top">address1</th>
+				<td><input type="text" class="inp-form" name="address1" /></td>
+			</tr>
+			<tr>
+				<th valign="top">address2</th>
+				<td><input type="text" class="inp-form" name="address2" /></td>
+			</tr>
+			<tr>
+				<th valign="top">email1</th>
+				<td><input type="text" class="inp-form" name="email1" /></td>
+			</tr>
+			<tr>
+				<th valign="top">email2</th>
+				<td><input type="text" class="inp-form" name="email2" /></td>
+			</tr>
+			<tr>
+				<th valign="top">availableAmount</th>
+				<td><input type="text" class="inp-form" name="availableAmount" /></td>
+			</tr>
+			<tr>
+				<th valign="top">state</th>
+				<td><input type="text" class="inp-form" name="state" /></td>
+			</tr>
+			<tr>
+				<th valign="top">role</th>
+				<td><input type="text" class="inp-form" name="role" /></td>
+			</tr>
+			<tr>
+				<th colspan="3"><center>
+						<font color="red">${addError }</font>
+					</center></th>
+			</tr>
+				<tr>
+				<td></td>
+				<td><input type="submit" class="btnAdd" value="Add Account"
+					id="addAccount" /></td>
+				<td></td>
+			</tr>
+		</table>
+	</form>
 
-					<form:form id="createAccount" class="horizontal-form"
-						modelAttribute="customer" action="createAccount" method="POST">
-						<div class="form-body">
-							<h3 class="form-section">Account Info</h3>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Account Number</label>
-										<form:input type="text" name="accountNumber"
-											path="accountNumber" class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Id Card Number</label>
-										<form:input type="text" name="idCardNumber"
-											path="idCardNumber" class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
 
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Firstname</label>
-										<form:input type="text" name="firstname" path="firstname"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Lastname</label>
-										<form:input type="text" name="lastname" path="lastname"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Midname</label>
-										<form:input type="text" name="midname" path="midname"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Phone Number 1</label>
-										<form:input type="text" name="phoneNum1" path="phoneNum1"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Phone Number 2</label>
-										<form:input type="text" name="phoneNum1" path="phoneNum1"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Address 1</label>
-										<form:input type="text" name="address1" path="address1"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Address 2</label>
-										<form:input type="text" name="address2" path="address2"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Email 1</label>
-										<form:input type="text" name="email1" path="email1"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Email 2</label>
-										<form:input type="text" name="email2" path="email2"
-											class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Available Amount</label>
-										<form:input type="text" name="availableAmount"
-											path="availableAmount" class="form-control" />
-									</div>
-								</div>
-								<!--/span-->
-							</div>
-							<div class="row">
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">State</label>
-										<form:input type="text" name="state" path="state"
-											class="form-control" />
-									</div>
-								</div>
-
-							</div>
-							<!--/span-->
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Phone Number 2</label>
-									<form:input type="text" name="phoneNum1" path="phoneNum1"
-										class="form-control" />
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Address 1</label>
-									<form:input type="text" name="address1" path="address1"
-										class="form-control" />
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<div class="form-actions right">
-							<button type="button" class="btn default" onclick="goHome();">Cancel</button>
-							<button id="registerSubmit" type="submit" class="btn blue">
-								<i class="fa fa-check"></i> Save
-							</button>
-						</div>
-					</form:form>
-					<!-- END FORM-->
-				</div>
-			</div>
-		</div>
-
-		<!-- start footer -->
-		<%@ include file="models/footer.jsp"%>
-	</div>
-
-	<script type="text/javascript">
-		function goHome() {
-			location.href = "login";
-		}
-
-		$("#confirmPassword").keyup(function() {
-			if ($("#password").val() != this.value) {
-				$("#messagePassword").text("Password is fail");
-				$("#registerSubmit").attr('disabled', 'disabled');
-			} else {
-				$("#messagePassword").text("");
-				$("#registerSubmit").removeAttr('disabled');
-			}
-		});
-	</script>
-
+	
 </body>
 </html>

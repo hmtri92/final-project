@@ -18,9 +18,9 @@ public class CreateController {
 		
 		db.createRole();
 		db.createState();
-		db.createTypeAccount();
-		db.createAccount();
+		db.createTypeAccount();		
 		db.createUser();
+		db.createAccount();
 		
 		return "forward:login";
 	}
