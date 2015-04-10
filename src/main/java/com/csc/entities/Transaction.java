@@ -23,7 +23,7 @@ public class Transaction {
 	@Column (name = "id_transaction")
 	private long idTransaction;
 	
-	@NotEmpty
+//	@NotEmpty
 	@Column (name = "date")
 	private Date date;
 	

@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -19,10 +20,6 @@ public class Account {
 	@Id
 	@Column (name = "id_acount", length = 12)
 	private String accountNumber;
-	
-	@ManyToOne
-	@JoinColumn (name = "id_type")
-	private TypeAccount typeAccount;
 	
 	@Column (name = "id_cardNumber")
 	private String idCardNumber;
@@ -58,6 +55,12 @@ public class Account {
 	private Long availableAmount;
 	
 	@ManyToOne
+	@JsonIgnore
+	@JoinColumn (name = "id_type")
+	private TypeAccount typeAccount;
+	
+	@ManyToOne
+	@JsonIgnore
 	@JoinColumn (name = "id_state")
 	private State state;
 	
@@ -65,6 +68,7 @@ public class Account {
 	private List<BalanceAmount> balanceAmounts;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn (name = "id_role")
 	private Role role;
 	

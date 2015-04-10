@@ -9,7 +9,7 @@ import com.csc.dao.AccountDAO;
 import com.csc.entities.Account;
 
 @Repository
-public class AccountDaoImpl implements AccountDAO {
+public class AccountDAOImpl implements AccountDAO {
 
 	@PersistenceContext
 	EntityManager em;

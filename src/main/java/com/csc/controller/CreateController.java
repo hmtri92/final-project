@@ -13,7 +13,7 @@ public class CreateController {
 	@Autowired
 	CreateDatabase db;
 	
-	@RequestMapping( value = "createDB", method = RequestMethod.GET)
+	@RequestMapping( value = "/createDB", method = RequestMethod.GET)
 	public String createDB() {
 		
 		db.createRole();

@@ -29,6 +29,9 @@ public class State {
 	@Transient
 	public static final int REMOVEABLE = 4;
 	
+	@Transient
+	public static final int REMOVED = 5;
+	
 	@Id
 	private int idState;
 	

@@ -35,12 +35,8 @@
 					<!-- BEGIN FORM-->
 					<%-- <div class="alert alert-warning" role="alert">${message}</div> --%>
 
-					<div class="alert alert-warning alert-dismissible" role="alert">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						${message}
+					<div class="alert alert-warning" role="alert" id="message">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>					
 					</div>
 
 					<form id="createAccount" class="horizontal-form" action="" method="POST">
@@ -152,7 +148,7 @@
 						</div>
 						<div class="form-actions right">
 							<button type="button" class="btn default" onclick="goHome();">Cancel</button>
-							<button id="submit" type="submit" class="btn blue">
+							<button id="submit" type="button" class="btn blue" onclick="addFund();">
 								<i class="fa fa-check"></i> Add
 							</button>
 						</div>

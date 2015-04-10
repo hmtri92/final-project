@@ -151,3 +151,18 @@ function loadTarget() {
 	});
 }
 
+function addFund() {
+	$.ajax ({
+		type : "POST",
+		url : "addFund",
+		data : {"accountNumber" : $("#accountNumber").val(),
+			"amount" : $("#amount").val()},
+		success : function(result) {
+			$("#message").html(result);
+		},
+		error : function(){
+			alert("Error while request..");
+		}
+	})
+}
+

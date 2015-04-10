@@ -24,21 +24,33 @@ public class FundsController {
 	@Autowired
 	AccountService accountService;
 	
-	@RequestMapping (value = "viewAddFunds", method = RequestMethod.GET)
-	public String goViewAddFuncd() {
+	@RequestMapping (value = "/viewAddFunds", method = RequestMethod.GET)
+	public String goViewAddFund() {
 		return "support/addFunds";
 	}
 	
 	@RequestMapping (value = "/getAccountById", method=RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView getAccountById(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView();
+	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
-		
 		Account account = accountService.getAccountById(accountNumber);
-		model.addObject("account", account);
 		
-		return model;
+		return account;
+	}
+	
+	@RequestMapping (value = "/addFund", method = RequestMethod.POST)
+	@ResponseBody
+	public String addFund(HttpServletRequest request, HttpServletResponse response) {
+		
+		String accountNumber = request.getParameter("accountNumber");
+		long amount = Long.parseLong(request.getParameter("amount"));
+		
+		boolean result = fundService.addFund(accountNumber, amount);
+		if (result) {
+			return "success";
+		} else {
+			return "Error";
+		}
 	}
 
 }

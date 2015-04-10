@@ -92,11 +92,16 @@ public class CreateDatabase {
 		removeable.setIdState(4);
 		removeable.setName("REMOVEABLE");
 		
+		State removed = new State();
+		removed.setIdState(5);
+		removed.setName("REMOVED");
+		
 		try {
 			em.persist(snew);
 			em.persist(active);
 			em.persist(disable);
 			em.persist(removeable);
+			em.persist(removed);
 		} catch (Exception e) {}
 		
 	}
