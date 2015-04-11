@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -37,12 +36,10 @@ public class Transaction {
 	private String content;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn (name = "sendAccount")
 	private Account sendAccount;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn (name = "receiveAccount")
 	private Account receiveAccount;
 
