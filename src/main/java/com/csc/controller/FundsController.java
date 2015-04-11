@@ -1,5 +1,7 @@
 package com.csc.controller;
 
+import java.math.BigDecimal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,21 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
-import com.csc.service.AccountService;
 import com.csc.service.FundService;
-import com.csc.ultil.CreateDatabase;
 
 @Controller
 public class FundsController {
 	
 	@Autowired
 	FundService fundService;
-	
-	@Autowired
-	AccountService accountService;
 	
 	@RequestMapping (value = "/viewAddFunds", method = RequestMethod.GET)
 	public String goViewAddFund() {
@@ -33,7 +29,7 @@ public class FundsController {
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
-		Account account = accountService.getAccountById(accountNumber);
+		Account account = fundService.getAccountById(accountNumber);
 		
 		return account;
 	}
@@ -43,7 +39,7 @@ public class FundsController {
 	public String addFund(HttpServletRequest request, HttpServletResponse response) {
 		
 		String accountNumber = request.getParameter("accountNumber");
-		long amount = Long.parseLong(request.getParameter("amount"));
+		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
 		boolean result = fundService.addFund(accountNumber, amount);
 		if (result) {

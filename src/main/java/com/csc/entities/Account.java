@@ -3,6 +3,8 @@ package com.csc.entities;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,19 +18,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table ( name = "account")
-public class Account {
+public class Account extends PersonInfo {
 
-	@Id
-	@Column (name = "id_acount", length = 12)
-	private String accountNumber;
 	
-<<<<<<< .mine
-=======
-	@ManyToOne
-	@JoinColumn (name = "id_type")
-	private TypeAccount typeAccount;	
-	
->>>>>>> .r26
+	@Column (name = "id_cardNumber")
+	private String idCardNumber;
+		
 	@Column (name = "availableAmount")
 	private BigDecimal availableAmount;
 	
@@ -50,10 +45,6 @@ public class Account {
 	@JoinColumn (name = "id_role")
 	private Role role;
 	
-	@ManyToOne
-	@JoinColumn (name = "accountOwner")
-	private User accountOwner;
-	
 	@OneToMany (mappedBy = "sendAccount")
 	private List<Transaction> sendTracsactions;
 	
@@ -64,27 +55,20 @@ public class Account {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
-	public Account(String accountNumber, TypeAccount typeAccount,			
-			BigDecimal availableAmount, State state) {
-		super();
-		this.accountNumber = accountNumber;
-		this.typeAccount = typeAccount;
-		this.availableAmount = availableAmount;
-		this.state = state;
-	}
-
-
-	public Account(String accountNumber, TypeAccount typeAccount, State state,
-			BigDecimal availableAmount,
+	public Account(String idCustomer, String firstName, String lastName,
+			String midName, String phoneNum1, String phoneNum2,
+			String address1, String address2, String email1, String email2,
+			String idCardNumber, BigDecimal availableAmount,
+			TypeAccount typeAccount, State state,
 			List<BalanceAmount> balanceAmounts, Role role,
 			List<Transaction> sendTracsactions,
 			List<Transaction> receiveTracsactions) {
-		super();
-		this.accountNumber = accountNumber;
-		this.typeAccount = typeAccount;
+		super(idCustomer, firstName, lastName, midName, phoneNum1, phoneNum2, address1,
+				address2, email1, email2);
+		this.idCardNumber = idCardNumber;
 		this.availableAmount = availableAmount;
+		this.typeAccount = typeAccount;
 		this.state = state;
 		this.balanceAmounts = balanceAmounts;
 		this.role = role;
@@ -92,12 +76,36 @@ public class Account {
 		this.receiveTracsactions = receiveTracsactions;
 	}
 
-	public String getAccountNumber() {
-		return accountNumber;
+	public Account(String idCardNumber, BigDecimal availableAmount,
+			TypeAccount typeAccount, State state,
+			List<BalanceAmount> balanceAmounts, Role role,
+			List<Transaction> sendTracsactions,
+			List<Transaction> receiveTracsactions) {
+		super();
+		this.idCardNumber = idCardNumber;
+		this.availableAmount = availableAmount;
+		this.typeAccount = typeAccount;
+		this.state = state;
+		this.balanceAmounts = balanceAmounts;
+		this.role = role;
+		this.sendTracsactions = sendTracsactions;
+		this.receiveTracsactions = receiveTracsactions;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+	public String getIdCardNumber() {
+		return idCardNumber;
+	}
+
+	public void setIdCardNumber(String idCardNumber) {
+		this.idCardNumber = idCardNumber;
+	}
+
+	public BigDecimal getAvailableAmount() {
+		return availableAmount;
+	}
+
+	public void setAvailableAmount(BigDecimal availableAmount) {
+		this.availableAmount = availableAmount;
 	}
 
 	public TypeAccount getTypeAccount() {
@@ -107,7 +115,7 @@ public class Account {
 	public void setTypeAccount(TypeAccount typeAccount) {
 		this.typeAccount = typeAccount;
 	}
-	
+
 	public State getState() {
 		return state;
 	}
@@ -130,6 +138,21 @@ public class Account {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}	
-	
+	}
+
+	public List<Transaction> getSendTracsactions() {
+		return sendTracsactions;
+	}
+
+	public void setSendTracsactions(List<Transaction> sendTracsactions) {
+		this.sendTracsactions = sendTracsactions;
+	}
+
+	public List<Transaction> getReceiveTracsactions() {
+		return receiveTracsactions;
+	}
+
+	public void setReceiveTracsactions(List<Transaction> receiveTracsactions) {
+		this.receiveTracsactions = receiveTracsactions;
+	}
 }

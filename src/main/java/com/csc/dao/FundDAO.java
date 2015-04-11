@@ -1,8 +1,11 @@
 package com.csc.dao;
 
+import java.math.BigDecimal;
+
 import com.csc.entities.Account;
 
 public interface FundDAO {
-	boolean addFund(String id, long amount);
-	void saveAddFundTransaction(Account account, long amount);
+	boolean addFund(String id, BigDecimal amount);
+	boolean addFundTransaction(String id, BigDecimal amount);
+	Account getAccountById(String accountNumber);
 }

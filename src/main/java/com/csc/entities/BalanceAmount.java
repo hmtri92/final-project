@@ -1,5 +1,7 @@
 package com.csc.entities;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,7 +21,7 @@ public class BalanceAmount {
 	
 	@NotEmpty
 	@Column (name = "balance")
-	private float balance;
+	private BigDecimal balance;
 	
 	@NotEmpty
 	@Column (name = "period")
@@ -35,7 +37,7 @@ public class BalanceAmount {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BalanceAmount(String idBalanceAmount, float balance, int period,
+	public BalanceAmount(String idBalanceAmount, BigDecimal balance, int period,
 			Account account) {
 		super();
 		this.idBalanceAmount = idBalanceAmount;
@@ -52,11 +54,11 @@ public class BalanceAmount {
 		this.idBalanceAmount = idBalanceAmount;
 	}
 
-	public float getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 

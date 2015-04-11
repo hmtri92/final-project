@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -185,17 +184,30 @@ public class CreateDatabase {
 	
 	@Transactional
 	public void createAccount() {
-		
+		Role roleAdmin = em.find(Role.class, Role.ADMIN);
 		State state = em.find(State.class, State.ACTIVE);
-		TypeAccount type1 = em.find(TypeAccount.class, TypeAccount.DEPOSIT);
-		User quocanh = em.find(User.class, "betanda01");
+		TypeAccount type = em.find(TypeAccount.class, TypeAccount.OTHER);
 		
-		Account newAccount = new Account("1",type1, new BigDecimal(0), state);
+		Account minhtri = new Account();
+		minhtri.setId("123456789012");
+		minhtri.setIdCardNumber("272015010"); 
+		minhtri.setFirstName("Tri");
+		minhtri.setMidName("Minh");
+		minhtri.setLastName("Huynh");
+		minhtri.setAddress1("Tan Binh");
+		minhtri.setAddress2("Thu Duc");
+		minhtri.setEmail1("hmtri92@gmail.com");
+		minhtri.setEmail2("minhtri@gmail.com");
+		minhtri.setPhoneNum1("0913131313");
+		minhtri.setPhoneNum2("09090909");
+		minhtri.setRole(roleAdmin);
+		minhtri.setState(state);
+		minhtri.setTypeAccount(type);
+		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		try {
-			em.persist(newAccount);
+			em.persist(minhtri);
+			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
-		
-		
 	}
 }
