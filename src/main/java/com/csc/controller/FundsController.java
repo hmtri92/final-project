@@ -31,6 +31,14 @@ public class FundsController {
 		String accountNumber = request.getParameter("accountNumber");
 		Account account = fundService.getAccountById(accountNumber);
 		
+		System.out.println(account.getFirstName() + " "
+				+ account.getMidName() + " "
+				+ account.getLastName() + " "
+				+ account.getAddress1() + " "
+				+ account.getAddress2() + " "
+				+ account.getPhoneNum1() + " "
+				+ account.getPhoneNum2());
+		
 		return account;
 	}
 	
@@ -47,6 +55,27 @@ public class FundsController {
 		} else {
 			return "Error";
 		}
+	}
+	
+	@RequestMapping (value = "/viewTransferBySupport", method = RequestMethod.GET)
+	public String goViewTranferBySupport() {
+		return "support/transfer";
+	}
+	
+	
+	@RequestMapping (value = "/transferBySupport", method=RequestMethod.POST)
+	@ResponseBody
+	public String transferBySupport(HttpServletRequest request, HttpServletResponse response) {
+		String sendAccount = request.getParameter("sendAccount");
+		String targetAccount = request.getParameter("targetAccount");
+		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
+		
+		boolean result = fundService.transferBySupport(sendAccount, targetAccount, amount);
+		
+		if (result) {
+			return "success";
+		}
+		return "Error";
 	}
 
 }

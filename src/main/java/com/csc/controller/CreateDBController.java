@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.csc.ultil.CreateDatabase;
 
 @Controller
-public class CreateController {
+public class CreateDBController {
 
 	@Autowired
 	CreateDatabase db;
@@ -19,8 +19,8 @@ public class CreateController {
 		db.createRole();
 		db.createState();
 		db.createTypeAccount();		
-//		db.createUser();
 		db.createAccount();
+//		db.createUser();
 		
 		return "forward:login";
 	}

@@ -113,6 +113,26 @@ function checkAccount() {
 	});
 }
 
+function checkTargetAccount() {
+	$.ajax({
+		type : "POST",
+		url : "getAccountById",
+		data : {"accountNumber" : $("#targetaccountNumber").val()},
+		success : function(result) {
+			$("#targetfirstname").val(result.firstName);
+			$("#targetmidname").val(result.midName);
+			$("#targetlastname").val(result.lastName);
+			$("#targetaddress1").val(result.address1);
+			$("#targetaddress2").val(result.address2);
+			$("#targetphoneNum1").val(result.phoneNum1);
+			$("#targetphoneNum2").val(result.phoneNum2);
+		},
+		error : function(){
+			alert("Error while request..");
+		}
+	});
+}
+
 function goHome() {
 	location.href = "home";
 }
@@ -163,6 +183,22 @@ function addFund() {
 		error : function(){
 			alert("Error while request..");
 		}
-	})
+	});
+}
+
+function tranferBySupport() {
+	$.ajax ({
+		type : "POST",
+		url : "transferBySupport",
+		data : {"sendAccount" : $("#accountNumber").val(),
+			"targetAccount" : $("#targetaccountNumber").val(),
+			"amount" : $("#amount").val()},
+		success : function (result) {
+			$("#message").html(result);
+		},
+		error : function(){
+			alert("Error while request..");
+		}
+	});
 }
 

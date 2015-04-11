@@ -31,4 +31,15 @@ public class FundServiceImpl implements FundService {
 		return fundDao.getAccountById(accountNumber);
 	}
 
+	@Override
+	public boolean transferBySupport(String sendAccount, String targetAccount,
+			BigDecimal amount) {
+		 boolean result = fundDao.transferBySupport(sendAccount, targetAccount, amount);
+		 
+		 if(result) {
+			 return fundDao.transferTransaction(sendAccount, targetAccount, amount);
+		 }
+		 return false;
+	}
+
 }

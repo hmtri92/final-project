@@ -191,9 +191,9 @@ public class CreateDatabase {
 		Account minhtri = new Account();
 		minhtri.setId("123456789012");
 		minhtri.setIdCardNumber("272015010"); 
-		minhtri.setFirstName("Tri");
+		minhtri.setFirstName("Huynh");
 		minhtri.setMidName("Minh");
-		minhtri.setLastName("Huynh");
+		minhtri.setLastName("Tri");
 		minhtri.setAddress1("Tan Binh");
 		minhtri.setAddress2("Thu Duc");
 		minhtri.setEmail1("hmtri92@gmail.com");
@@ -205,8 +205,24 @@ public class CreateDatabase {
 		minhtri.setTypeAccount(type);
 		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
+		Account pug = new Account();
+		pug.setId("123456789013");
+		pug.setIdCardNumber("272015010"); 
+		pug.setFirstName("Tran");
+		pug.setMidName("Quoc");
+		pug.setLastName("Thao");
+		pug.setAddress1("Tan Binh");
+		pug.setAddress2("Thu Duc");
+		pug.setEmail1("pugTran@gmail.com");
+		pug.setPhoneNum1("0913131313");
+		pug.setRole(roleAdmin);
+		pug.setState(state);
+		pug.setTypeAccount(type);
+		pug.setAvailableAmount( BigDecimal.valueOf(1000000));
+		
 		try {
 			em.persist(minhtri);
+			em.persist(pug);
 			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
 	}

@@ -8,5 +8,7 @@ import com.csc.entities.Account;
 public interface FundService {
 	boolean addFund(String id, BigDecimal amount);
 	Account getAccountById(String accountNumber);
+	boolean transferBySupport(String sendAccount, String targetAccount,
+			BigDecimal amount);
 }
 
