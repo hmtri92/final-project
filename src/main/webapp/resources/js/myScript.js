@@ -202,3 +202,34 @@ function tranferBySupport() {
 	});
 }
 
+function transferByUser() {
+	$.ajax ({
+		type : "POST",
+		url : "transferByUser",
+		data : {"targetAccount" : $("#targetAccount").val(),
+			"amount" : $("#amount").val()},
+		success : function (result) {
+			$("#message").html(result);
+		},
+		error : function() {
+			alert("Error while request..");
+		}
+	});
+}
+function transferTargetID() {
+	$.ajax ({
+		type : "POST",
+		url : "transferTargetID",
+		data : {"targetAccount" : $("#targetAccount").val(),
+			"amount" : $("#amount").val()},
+			success : function (result) {
+				$("#message").html(result);
+			},
+			error : function() {
+				alert("Error while request..");
+			}
+	});
+}
+
+
+

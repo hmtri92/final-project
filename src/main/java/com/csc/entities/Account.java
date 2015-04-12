@@ -50,6 +50,12 @@ public class Account extends PersonInfo {
 	
 	@OneToMany (mappedBy = "receiveAccount")
 	private List<Transaction> receiveTracsactions;
+	
+	@OneToMany (mappedBy = "accountOwner")
+	private List<TargetAccount> targetAccounts;
+	
+	@OneToMany (mappedBy = "accountTarget")
+	private List<TargetAccount> targetOfAccounts;
 
 	public Account() {
 		super();
@@ -63,7 +69,9 @@ public class Account extends PersonInfo {
 			TypeAccount typeAccount, State state,
 			List<BalanceAmount> balanceAmounts, Role role,
 			List<Transaction> sendTracsactions,
-			List<Transaction> receiveTracsactions) {
+			List<Transaction> receiveTracsactions,
+			List<TargetAccount> targetAccounts,
+			List<TargetAccount> targetOfAccounts) {
 		super(idCustomer, firstName, lastName, midName, phoneNum1, phoneNum2, address1,
 				address2, email1, email2);
 		this.idCardNumber = idCardNumber;
@@ -74,6 +82,8 @@ public class Account extends PersonInfo {
 		this.role = role;
 		this.sendTracsactions = sendTracsactions;
 		this.receiveTracsactions = receiveTracsactions;
+		this.targetAccounts = targetAccounts;
+		this.targetOfAccounts = targetOfAccounts;
 	}
 
 	public Account(String idCardNumber, BigDecimal availableAmount,
@@ -154,5 +164,21 @@ public class Account extends PersonInfo {
 
 	public void setReceiveTracsactions(List<Transaction> receiveTracsactions) {
 		this.receiveTracsactions = receiveTracsactions;
+	}
+
+	public List<TargetAccount> getTargetAccounts() {
+		return targetAccounts;
+	}
+
+	public void setTargetAccounts(List<TargetAccount> targetAccounts) {
+		this.targetAccounts = targetAccounts;
+	}
+
+	public List<TargetAccount> getTargetOfAccounts() {
+		return targetOfAccounts;
+	}
+
+	public void setTargetOfAccounts(List<TargetAccount> targetOfAccounts) {
+		this.targetOfAccounts = targetOfAccounts;
 	}
 }

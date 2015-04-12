@@ -12,6 +12,7 @@
 		<class>com.csc.entities.State</class>
 		<class>com.csc.entities.BalanceAmount</class>
 		<class>com.csc.entities.PersonInfo</class>
+		<class>com.csc.entities.TargetAccount</class>
 		<properties>
 			<property name="hibernate.connection.charSet" value="UTF-8" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/finalDataBase" />

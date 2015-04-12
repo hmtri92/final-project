@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:forward page="viewAddFunds"/>
+	<jsp:forward page="viewTransferByUser"/>
 </body>
 </html>

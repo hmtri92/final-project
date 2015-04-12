@@ -1,12 +1,14 @@
 package com.csc.service.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.dao.FundDAO;
 import com.csc.entities.Account;
+import com.csc.entities.TargetAccount;
 import com.csc.service.FundService;
 
 @Service
@@ -32,12 +34,27 @@ public class FundServiceImpl implements FundService {
 	}
 
 	@Override
-	public boolean transferBySupport(String sendAccount, String targetAccount,
+	public boolean transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		 boolean result = fundDao.transferBySupport(sendAccount, targetAccount, amount);
+		 boolean result = fundDao.transfer(sendAccount_ID, targetAccount_ID, amount);
 		 
 		 if(result) {
-			 return fundDao.transferTransaction(sendAccount, targetAccount, amount);
+			 return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
+		 }
+		 return false;
+	}
+
+	@Override
+	public List<TargetAccount> getTargetAccount(String id) {
+		return fundDao.getTargetAccount(id);
+	}
+
+	@Override
+	public boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
+			BigDecimal amount) {
+		boolean result = fundDao.transferTargetID(sendAccount_ID, targetAccount_ID, amount);
+		if(result) {
+			 return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
 		 }
 		 return false;
 	}

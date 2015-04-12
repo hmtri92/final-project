@@ -2,6 +2,7 @@ package com.csc.dao.impl;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.csc.dao.FundDAO;
 import com.csc.entities.Account;
 import com.csc.entities.State;
+import com.csc.entities.TargetAccount;
 import com.csc.entities.Transaction;
 
 @Repository
@@ -60,48 +62,86 @@ public class FundDAOImpl implements FundDAO {
 
 	@Override
 	@Transactional
-	public boolean transferBySupport(String sendAccount, String targetAccount,
+	public boolean transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		Account sendAccount_ = em.find(Account.class, sendAccount);
-		Account targetAccount_ = em.find(Account.class, targetAccount);
+		Account sendAccount = em.find(Account.class, sendAccount_ID);
+		Account targetAccount = em.find(Account.class, targetAccount_ID);
 		
-		// if availableAmount - sendAmount < 50000 return false;
-		BigDecimal money = sendAccount_.getAvailableAmount().subtract(amount);
-		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-			return false;
-		}
+		return checkAndTransfer(sendAccount, targetAccount, amount);
+	}
+
+	@Override
+	@Transactional
+	public boolean transferTransaction(String sendAccount_ID,
+			String targetAccount_ID, BigDecimal amount) {
+		Account sendAccount = em.find(Account.class, sendAccount_ID);
+		Account targetAccount = em.find(Account.class, targetAccount_ID);
 		
-		// Check state sendAccount
-		if (sendAccount_.getState().getIdState() != State.ACTIVE) {
-			return false;
-		}
+		return saveTransfer(sendAccount, targetAccount, amount);
+	}
+	
+	@Override
+	@Transactional
+	public boolean transferTransactionTargetID(String sendAccount_ID,
+			String targetAccount_ID, BigDecimal amount) {
+		Account sendAccount = em.find(Account.class, sendAccount_ID);
+		TargetAccount target = em.find(TargetAccount.class, targetAccount_ID);
+		Account targetAccount = target.getAccountTarget();
 		
-		// transfer money
-		sendAccount_.setAvailableAmount(money);
+		return saveTransfer(sendAccount, targetAccount, amount);		
+	}
+	
+	private boolean saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+		Transaction transfer = new Transaction();
+		transfer.setDate(new Date());
+		transfer.setReceiveAccount(targetAccount);
+		transfer.setSendAccount(sendAccount);
+		transfer.setAmount(amount);
 		
-		money = targetAccount_.getAvailableAmount().add(amount);
-		targetAccount_.setAvailableAmount(money);
-			
+		String content = "Tranfer from " + sendAccount.getId() + " to " + targetAccount.getId() + ": " + amount;
+		transfer.setContent(content);
+		em.persist(transfer);
+		
 		return true;
 	}
 
 	@Override
 	@Transactional
-	public boolean transferTransaction(String sendAccount,
-			String targetAccount, BigDecimal amount) {
-		Account sendAccount_ = em.find(Account.class, sendAccount);
-		Account targetAccount_ = em.find(Account.class, targetAccount);
+	public List<TargetAccount> getTargetAccount(String id) {
+		Account account = em.find(Account.class, id);
+		return account.getTargetAccounts();
+	}
+
+	@Override
+	@Transactional
+	public boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
+			BigDecimal amount) {
+		Account sendAccount = em.find(Account.class, sendAccount_ID);
+		TargetAccount target = em.find(TargetAccount.class, targetAccount_ID);
+		Account targetAccount = target.getAccountTarget();
 		
-		Transaction transfer = new Transaction();
-		transfer.setDate(new Date());
-		transfer.setReceiveAccount(targetAccount_);
-		transfer.setSendAccount(sendAccount_);
-		transfer.setAmount(amount);
+		return checkAndTransfer(sendAccount, targetAccount, amount);
+	}
+	
+	private boolean checkAndTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+
+		// if availableAmount - sendAmount < 50000 return false;
+		BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
+		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+			return false;
+		}
 		
-		String content = "Tranfer from " + sendAccount_.getId() + " to " + targetAccount_.getId() + ": " + amount;
-		transfer.setContent(content);
-		em.persist(transfer);
+		// Check state sendAccount
+		if (sendAccount.getState().getIdState() != State.ACTIVE) {
+			return false;
+		}
 		
+		// transfer money
+		sendAccount.setAvailableAmount(money);
+		
+		money = targetAccount.getAvailableAmount().add(amount);
+		targetAccount.setAvailableAmount(money);
+			
 		return true;
 	}
 
