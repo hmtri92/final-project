@@ -17,20 +17,8 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<!-- <li><a href="#">Transfer Money</a></li>
-				<li><a href="#">Target Account</a></li>
-				<li><a href="#">Search transaction</a></li> -->
-				<li class="dropdown">
-		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		          	Funds <span class="caret"></span></a>
-		          <ul class="dropdown-menu" role="menu">
-            		<li style="padding-bottom: 10px">
-		            	<a href="viewTransferByUser">
-		            		<i class="glyphicon glyphicon-credit-card"></i>  Transfer
-	            		</a>
-            		</li>
-		          </ul>
-		        </li>
+				<li><a href="viewTransferByUser">Transfer Money</a></li>
+				<li><a href="viewTransferTarget">Transfer Money In Target</a></li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">

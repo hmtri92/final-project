@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -32,6 +33,11 @@ public class Transaction {
 	@Column (name = "amount")
 	private BigDecimal amount;
 	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn (name = "state")
+	private State state;
+	
 	@NotEmpty
 	@Column (name = "content")
 	private String content;
@@ -52,14 +58,24 @@ public class Transaction {
 	}
 
 	public Transaction(long idTransaction, Date date, BigDecimal amount,
-			String content, Account sourceAccount, Account targetAccount) {
+			State state, String content, Account sendAccount,
+			Account receiveAccount) {
 		super();
 		this.idTransaction = idTransaction;
 		this.date = date;
 		this.amount = amount;
+		this.state = state;
 		this.content = content;
-		this.sendAccount = sourceAccount;
-		this.receiveAccount = targetAccount;
+		this.sendAccount = sendAccount;
+		this.receiveAccount = receiveAccount;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
 	}
 
 	public long getIdTransaction() {

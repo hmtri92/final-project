@@ -44,6 +44,9 @@ public class State {
 	
 	@OneToMany (mappedBy = "state")
 	private List<User> users;
+	
+	@OneToMany (mappedBy = "state")
+	private List<Transaction> transactions;
 
 
 	public State() {
@@ -51,13 +54,23 @@ public class State {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public State(int idState, String name, List<Account> accounts,
-			List<User> users) {
+			List<User> users, List<Transaction> transactions) {
 		super();
 		this.idState = idState;
 		this.name = name;
 		this.accounts = accounts;
 		this.users = users;
+		this.transactions = transactions;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 	public int getIdState() {

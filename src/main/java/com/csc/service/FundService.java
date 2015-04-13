@@ -14,5 +14,6 @@ public interface FundService {
 			BigDecimal amount);
 	List<TargetAccount> getTargetAccount(String id);
 	boolean transferTargetID(String sendAccount_ID, String targetAccount_ID, BigDecimal amount);
+	boolean withdraw(String accountNumber, BigDecimal amount);
 }
 

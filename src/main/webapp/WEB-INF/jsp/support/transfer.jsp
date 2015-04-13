@@ -19,13 +19,15 @@
 <script type="text/javascript" src="js/myScript.js"></script>
 
 </head>
-<body style="padding-top: 100px !important">
+<body style="padding-top: 90px !important">
 	<%@ include file="../models/navbar.jsp"%>
 	
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert alert-danger fade in" id="message">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+			<div class="alert alert-warning alert-dismissible" role="alert" id="message">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
 			</div>
 			<div class="portlet light">
 				<div class="row">

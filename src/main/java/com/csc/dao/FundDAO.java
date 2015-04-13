@@ -19,4 +19,6 @@ public interface FundDAO {
 			BigDecimal amount);
 	boolean transferTransactionTargetID(String sendAccount_ID,
 			String targetAccount_ID, BigDecimal amount);
+	boolean withdraw(String accountNumber, BigDecimal amount);
+	boolean withdrawTransaction(String accountNumber, BigDecimal amount);
 }

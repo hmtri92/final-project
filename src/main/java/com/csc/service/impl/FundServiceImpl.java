@@ -19,13 +19,15 @@ public class FundServiceImpl implements FundService {
 	
 	@Override
 	public boolean addFund(String id, BigDecimal amount) {
-		boolean result = fundDao.addFund(id, amount);
+//		boolean result = fundDao.addFund(id, amount);
+//		
+//		if (result) {
+//			return fundDao.addFundTransaction(id, amount);
+//		}
+//		
+//		return false;
 		
-		if (result) {
-			return fundDao.addFundTransaction(id, amount);
-		}
-		
-		return false;
+		return fundDao.addFundTransaction(id, amount);
 	}
 
 	@Override
@@ -36,12 +38,14 @@ public class FundServiceImpl implements FundService {
 	@Override
 	public boolean transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		 boolean result = fundDao.transfer(sendAccount_ID, targetAccount_ID, amount);
-		 
-		 if(result) {
-			 return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
-		 }
-		 return false;
+//		 boolean result = fundDao.transfer(sendAccount_ID, targetAccount_ID, amount);
+//		 
+//		 if(result) {
+//			 return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
+//		 }
+//		 return false;
+		
+		return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
 	}
 
 	@Override
@@ -52,11 +56,23 @@ public class FundServiceImpl implements FundService {
 	@Override
 	public boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		boolean result = fundDao.transferTargetID(sendAccount_ID, targetAccount_ID, amount);
-		if(result) {
-			 return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
-		 }
-		 return false;
+//		boolean result = fundDao.transferTargetID(sendAccount_ID, targetAccount_ID, amount);
+//		if(result) {
+//			 return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
+//		 }
+//		 return false;
+		return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
+	}
+
+	@Override
+	public boolean withdraw(String accountNumber, BigDecimal amount) {
+//		boolean result = fundDao.withdraw(accountNumber, amount);
+//		if(result) {
+//			 return fundDao.withdrawTransaction(accountNumber, amount);
+//		 }
+//		return false;
+//		
+		return fundDao.withdrawTransaction(accountNumber, amount);
 	}
 
 }

@@ -150,6 +150,25 @@ public class FundsController {
 		}
 		return "Error";
 	}
-
-
+	
+	@RequestMapping (value = "/viewWithdraw", method = RequestMethod.GET)
+	public String viewWithdraw() {
+		return "support/withdraw";
+	}
+	
+	@RequestMapping (value = "/withdraw", method = RequestMethod.POST)
+	@ResponseBody
+	public String withdraw(HttpServletRequest request, HttpServletResponse response) {
+		
+		String accountNumber = request.getParameter("accountNumber");
+		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
+		
+		boolean result = fundService.withdraw(accountNumber, amount);
+		if (result) {
+			return "success";
+		} else {
+			return "Error";
+		}
+	}
+	
 }

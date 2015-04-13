@@ -46,12 +46,14 @@ public class FundDAOImpl implements FundDAO {
 	@Transactional
 	public boolean addFundTransaction(String id, BigDecimal amount) {
 		Account account = em.find(Account.class, id);
+		State newState = em.find(State.class, State.NEW);
 		
 		Transaction add = new Transaction();
 		add.setDate(new Date());
 		add.setReceiveAccount(account);
 		add.setSendAccount(account);
 		add.setAmount(amount);
+		add.setState(newState);
 		
 		String content = "Add " + amount;
 		add.setContent(content);
@@ -92,11 +94,14 @@ public class FundDAOImpl implements FundDAO {
 	}
 	
 	private boolean saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+		State newState = em.find(State.class, State.NEW);
+		
 		Transaction transfer = new Transaction();
 		transfer.setDate(new Date());
 		transfer.setReceiveAccount(targetAccount);
 		transfer.setSendAccount(sendAccount);
 		transfer.setAmount(amount);
+		transfer.setState(newState);
 		
 		String content = "Tranfer from " + sendAccount.getId() + " to " + targetAccount.getId() + ": " + amount;
 		transfer.setContent(content);
@@ -142,6 +147,51 @@ public class FundDAOImpl implements FundDAO {
 		money = targetAccount.getAvailableAmount().add(amount);
 		targetAccount.setAvailableAmount(money);
 			
+		return true;
+	}
+
+	@Override
+	@Transactional
+	public boolean withdraw(String accountNumber, BigDecimal amount) {
+		try {
+			Account account = em.find(Account.class, accountNumber);
+			
+			// if availableAmount - amount < 50000 return false;
+			BigDecimal money = account.getAvailableAmount().subtract(amount);
+			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+				return false;
+			}
+			
+			// Check state sendAccount
+			if (account.getState().getIdState() != State.ACTIVE) {
+				return false;
+			}
+		
+			account.setAvailableAmount(money);
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public boolean withdrawTransaction(String accountNumber, BigDecimal amount) {
+		Account account = em.find(Account.class, accountNumber);
+		State newState = em.find(State.class, State.NEW);
+		
+		Transaction withdraw = new Transaction();
+		withdraw.setDate(new Date());
+		withdraw.setReceiveAccount(account);
+		withdraw.setSendAccount(account);
+		withdraw.setAmount(amount);
+		withdraw.setState(newState);
+		
+		String content = "Withdraw " + amount;
+		withdraw.setContent(content);
+		em.persist(withdraw);
+		
 		return true;
 	}
 
