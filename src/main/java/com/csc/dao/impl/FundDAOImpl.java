@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -193,6 +194,17 @@ public class FundDAOImpl implements FundDAO {
 		em.persist(withdraw);
 		
 		return true;
+	}
+
+	@Override
+	@Transactional
+	public List<Transaction> getNewTransaction() {
+		String sql = "SELECT t FROM Transaction t WHERE t.state.idState = :state";
+		TypedQuery<Transaction> query = em.createQuery(sql, Transaction.class);
+		query.setParameter("state", State.NEW);
+		
+		List<Transaction> transactions = query.getResultList();
+		return transactions;
 	}
 
 }

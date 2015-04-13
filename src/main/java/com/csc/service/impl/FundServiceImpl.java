@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.csc.dao.FundDAO;
 import com.csc.entities.Account;
 import com.csc.entities.TargetAccount;
+import com.csc.entities.Transaction;
 import com.csc.service.FundService;
 
 @Service
@@ -73,6 +74,11 @@ public class FundServiceImpl implements FundService {
 //		return false;
 //		
 		return fundDao.withdrawTransaction(accountNumber, amount);
+	}
+
+	@Override
+	public List<Transaction> getNewTransaction() {
+		return fundDao.getNewTransaction();
 	}
 
 }
