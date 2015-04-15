@@ -9,18 +9,17 @@ import com.csc.entities.Transaction;
 
 public interface FundDAO {
 	boolean addFund(String id, BigDecimal amount);
-	boolean addFundTransaction(String id, BigDecimal amount);
+	
 	Account getAccountById(String accountNumber);
+	
 	boolean transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount);
-	boolean transferTransaction(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount);
+	
 	List<TargetAccount> getTargetAccount(String id);
+	
 	boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount);
-	boolean transferTransactionTargetID(String sendAccount_ID,
-			String targetAccount_ID, BigDecimal amount);
+	
 	boolean withdraw(String accountNumber, BigDecimal amount);
-	boolean withdrawTransaction(String accountNumber, BigDecimal amount);
-	List<Transaction> getNewTransaction();
+	
 }

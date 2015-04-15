@@ -2,9 +2,9 @@
 	<entity>
 		<entity-name>com.csc.entities.Transaction</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>607</entity-X-Coordinate>
-		<entity-Y-Coordinate>102</entity-Y-Coordinate>
+		<entity-height>306</entity-height>
+		<entity-X-Coordinate>726</entity-X-Coordinate>
+		<entity-Y-Coordinate>1</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -14,8 +14,8 @@
 		<entity-name>com.csc.entities.TargetAccount</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>166</entity-height>
-		<entity-X-Coordinate>36</entity-X-Coordinate>
-		<entity-Y-Coordinate>58</entity-Y-Coordinate>
+		<entity-X-Coordinate>44</entity-X-Coordinate>
+		<entity-Y-Coordinate>29</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -25,8 +25,8 @@
 		<entity-name>com.csc.entities.PersonInfo</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>268</entity-height>
-		<entity-X-Coordinate>398</entity-X-Coordinate>
-		<entity-Y-Coordinate>434</entity-Y-Coordinate>
+		<entity-X-Coordinate>444</entity-X-Coordinate>
+		<entity-Y-Coordinate>443</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -36,8 +36,8 @@
 		<entity-name>com.csc.entities.TypeAccount</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>206</entity-height>
-		<entity-X-Coordinate>70</entity-X-Coordinate>
-		<entity-Y-Coordinate>590</entity-Y-Coordinate>
+		<entity-X-Coordinate>44</entity-X-Coordinate>
+		<entity-Y-Coordinate>524</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -48,7 +48,7 @@
 		<entity-width>120</entity-width>
 		<entity-height>166</entity-height>
 		<entity-X-Coordinate>36</entity-X-Coordinate>
-		<entity-Y-Coordinate>269</entity-Y-Coordinate>
+		<entity-Y-Coordinate>264</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -58,8 +58,8 @@
 		<entity-name>com.csc.entities.User</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>168</entity-height>
-		<entity-X-Coordinate>607</entity-X-Coordinate>
-		<entity-Y-Coordinate>679</entity-Y-Coordinate>
+		<entity-X-Coordinate>726</entity-X-Coordinate>
+		<entity-Y-Coordinate>698</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -80,8 +80,8 @@
 		<entity-name>com.csc.entities.Account</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>268</entity-height>
-		<entity-X-Coordinate>306</entity-X-Coordinate>
-		<entity-Y-Coordinate>97</entity-Y-Coordinate>
+		<entity-X-Coordinate>393</entity-X-Coordinate>
+		<entity-Y-Coordinate>-1</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -90,9 +90,9 @@
 	<entity>
 		<entity-name>com.csc.entities.State</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>266</entity-height>
-		<entity-X-Coordinate>607</entity-X-Coordinate>
-		<entity-Y-Coordinate>336</entity-Y-Coordinate>
+		<entity-height>286</entity-height>
+		<entity-X-Coordinate>726</entity-X-Coordinate>
+		<entity-Y-Coordinate>353</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

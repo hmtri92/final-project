@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
 import com.csc.entities.TargetAccount;
-import com.csc.entities.Transaction;
 import com.csc.entities.User;
 import com.csc.service.FundService;
 
@@ -171,16 +170,4 @@ public class FundsController {
 			return "Error";
 		}
 	}
-	
-	@RequestMapping (value = "/verifyTransaction", method = RequestMethod.GET)
-	public ModelAndView verifyTransaction(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("admin/verifyTransaction");
-		
-		List<Transaction> transactions = null;
-		transactions = fundService.getNewTransaction();
-		model.addObject("transactions", transactions);
-		
-		return model;
-	}
-	
 }

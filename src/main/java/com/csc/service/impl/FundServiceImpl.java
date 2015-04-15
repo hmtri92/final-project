@@ -3,10 +3,13 @@ package com.csc.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.dao.FundDAO;
+import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
 import com.csc.entities.TargetAccount;
 import com.csc.entities.Transaction;
@@ -18,67 +21,75 @@ public class FundServiceImpl implements FundService {
 	@Autowired
 	FundDAO fundDao;
 	
+	@Autowired
+	TransactionHistoryDAO transactionDao;
+	
 	@Override
+	@Transactional
 	public boolean addFund(String id, BigDecimal amount) {
-//		boolean result = fundDao.addFund(id, amount);
-//		
-//		if (result) {
-//			return fundDao.addFundTransaction(id, amount);
-//		}
-//		
-//		return false;
-		
-		return fundDao.addFundTransaction(id, amount);
+		return transactionDao.addFundTransaction(id, amount);
 	}
 
 	@Override
+	@Transactional
 	public Account getAccountById(String accountNumber) {
 		return fundDao.getAccountById(accountNumber);
 	}
 
 	@Override
+	@Transactional
 	public boolean transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-//		 boolean result = fundDao.transfer(sendAccount_ID, targetAccount_ID, amount);
-//		 
-//		 if(result) {
-//			 return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
-//		 }
-//		 return false;
-		
-		return fundDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
+		return transactionDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
 	}
 
 	@Override
+	@Transactional
 	public List<TargetAccount> getTargetAccount(String id) {
 		return fundDao.getTargetAccount(id);
 	}
 
 	@Override
+	@Transactional
 	public boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-//		boolean result = fundDao.transferTargetID(sendAccount_ID, targetAccount_ID, amount);
-//		if(result) {
-//			 return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
-//		 }
-//		 return false;
-		return fundDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
+		return transactionDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
 	}
 
 	@Override
+	@Transactional
 	public boolean withdraw(String accountNumber, BigDecimal amount) {
-//		boolean result = fundDao.withdraw(accountNumber, amount);
-//		if(result) {
-//			 return fundDao.withdrawTransaction(accountNumber, amount);
-//		 }
-//		return false;
-//		
-		return fundDao.withdrawTransaction(accountNumber, amount);
+		return transactionDao.withdrawTransaction(accountNumber, amount);
 	}
 
 	@Override
+	@Transactional
 	public List<Transaction> getNewTransaction() {
-		return fundDao.getNewTransaction();
+		return transactionDao.getNewTransaction();
+	}
+
+	@Override
+	@Transactional
+	public boolean verifyTransaction(long idTransaction) {
+		Transaction transaction = transactionDao.getTransaction(idTransaction);
+		boolean result = false;
+		
+		if (transaction.getTypeTransaction() == Transaction.ADD_FUND)
+		{
+			result = fundDao.addFund(transaction.getSendAccount().getId(), transaction.getAmount());
+		} else if (transaction.getTypeTransaction() == Transaction.TRANSFER) {
+			
+			result = fundDao.transfer(transaction.getSendAccount().getId(), 
+					transaction.getReceiveAccount().getId(), transaction.getAmount());
+		} else {
+			result = fundDao.withdraw(transaction.getSendAccount().getId(), transaction.getAmount());
+		}
+		
+		if (result) {
+			transactionDao.changeStateTransaction(transaction.getIdTransaction());
+		}
+		
+		return result;
 	}
 
 }

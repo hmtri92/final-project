@@ -10,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,12 +21,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "logTransaction")
 public class Transaction {
 	
+	@Transient
+	public static int ADD_FUND = 1;
+	
+	@Transient
+	public static int WITHDRAW = 2;
+	
+	@Transient
+	public static int TRANSFER = 3;
+	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column (name = "id_transaction")
 	private long idTransaction;
 	
-//	@NotEmpty
 	@Column (name = "date")
 	private Date date;
 	
@@ -38,9 +46,11 @@ public class Transaction {
 	@JoinColumn (name = "state")
 	private State state;
 	
-	@NotEmpty
 	@Column (name = "content")
 	private String content;
+	
+	@Column (name = "typeTransaction")
+	private int typeTransaction;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -58,16 +68,25 @@ public class Transaction {
 	}
 
 	public Transaction(long idTransaction, Date date, BigDecimal amount,
-			State state, String content, Account sendAccount,
-			Account receiveAccount) {
+			State state, String content, int typeTransaction,
+			Account sendAccount, Account receiveAccount) {
 		super();
 		this.idTransaction = idTransaction;
 		this.date = date;
 		this.amount = amount;
 		this.state = state;
 		this.content = content;
+		this.typeTransaction = typeTransaction;
 		this.sendAccount = sendAccount;
 		this.receiveAccount = receiveAccount;
+	}
+
+	public int getTypeTransaction() {
+		return typeTransaction;
+	}
+
+	public void setTypeTransaction(int typeTransaction) {
+		this.typeTransaction = typeTransaction;
 	}
 
 	public State getState() {
