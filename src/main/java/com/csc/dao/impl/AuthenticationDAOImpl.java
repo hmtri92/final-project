@@ -11,7 +11,7 @@ import com.csc.dao.AuthenticationDAO;
 import com.csc.entities.User;
 
 @Repository
-public class AutheticationDAOImpl implements AuthenticationDAO {
+public class AuthenticationDAOImpl implements AuthenticationDAO {
 
 	@PersistenceContext
 	EntityManager em;
@@ -19,7 +19,7 @@ public class AutheticationDAOImpl implements AuthenticationDAO {
 	@Override
 	@Transactional
 	public User getUserByLoginID(String loginId) {
-		String sql = "SELECT u FROM User WHERE u.loginID = :loginId";
+		String sql = "SELECT u FROM User u WHERE u.loginID = :loginId";
 		TypedQuery<User> query = em.createQuery(sql, User.class);
 		query.setParameter("loginId", loginId);
 		return query.getSingleResult();

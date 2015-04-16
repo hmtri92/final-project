@@ -4,7 +4,11 @@ import com.csc.entities.User;
 
 public interface UserDAO {
 	
-	public User getUserInfo(String customerId);
+	public User getUser(String customerId);
+
+	public boolean changeInfo(User user);
+
+	
 	
 
 }

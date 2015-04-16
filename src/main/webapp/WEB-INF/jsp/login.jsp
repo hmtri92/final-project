@@ -32,19 +32,19 @@
 				<h4 class="modal-title">Login</h4>
 			</div>
 			<div class="panel-body">
-				<form id="loginform" action="checkLogin"
-					html="{:multipart=>true}" class="form-horizontal" method="post" role="form">
+				<form id="loginform" method="post" action="j_spring_security_check"
+					html="{:multipart=>true}" class="form-horizontal" role="form">
 					<div style="margin-bottom: 25px" class="input-group">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-user"></i>
-						</span> <input id="login-username" type="text" class="form-control"
-							name="username" placeholder="username">
+						<span class="input-group-addon"> 
+							<i class="glyphicon glyphicon-user"></i>
+						</span> 
+						<input id="j_username" name="j_username" type="text" class="form-control" placeholder="j_username">
 					</div>
 					<div style="margin-bottom: 25px" class="input-group">
-						<span class="input-group-addon"> <i
-							class="glyphicon glyphicon-lock"></i>
-						</span> <input id="login-password" type="password" class="form-control"
-							name="password" placeholder="password">
+						<span class="input-group-addon"> 
+							<i class="glyphicon glyphicon-lock"></i>
+						</span> 
+						<input id="j_password" name="j_password" placeholder="Password" type="password" class="form-control">
 					</div>
 					<div class="input-group">
 						<div class="checkbox">
