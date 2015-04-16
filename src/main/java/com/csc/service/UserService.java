@@ -11,5 +11,9 @@ public interface UserService {
 
 	public String editUserInfo(String id, String firstName, String midName,
 			String lastName, String address2, String phone2);
+	/*
+	 * MinhTri
+	 */
+	User getUserByLoginId (String loginId);
 
 }

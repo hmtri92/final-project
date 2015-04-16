@@ -113,8 +113,9 @@ public class CreateDatabase {
 		State state = em.find(State.class, State.ACTIVE);
 		
 		User minhtri = new User();
-		minhtri.setLoginID("Admin");
-		minhtri.setPassword("Admin");
+		minhtri.setId("01234567892");
+		minhtri.setLoginID("admin");
+		minhtri.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		minhtri.setIdCardNumber("272015010"); 
 		minhtri.setFirstName("Tri");
 		minhtri.setMidName("Minh");
@@ -137,8 +138,7 @@ public class CreateDatabase {
 		State state2 = em.find(State.class, State.ACTIVE);
 		
 		User phuc = new User();
-		phuc.setLoginID("Supporter01");
-		phuc.setPassword("supporter");
+		phuc.setId("01234567891");
 		phuc.setIdCardNumber("272015010"); 
 		phuc.setFirstName("Tri");
 		phuc.setMidName("Minh");
@@ -151,6 +151,8 @@ public class CreateDatabase {
 		phuc.setPhoneNum2("09090909");
 		phuc.setRole(roleSupport);
 		phuc.setState(state2);
+		phuc.setLoginID("support");
+		phuc.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		
 		try {
 			em.persist(phuc);
@@ -161,8 +163,9 @@ public class CreateDatabase {
 		State state3 = em.find(State.class, State.ACTIVE);
 		
 		User quocanh = new User();
-		quocanh.setLoginID("betanda01");
-		quocanh.setPassword("customer");
+		quocanh.setId("01234567890");
+		quocanh.setLoginID("customer");
+		quocanh.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		quocanh.setIdCardNumber("272015010"); 
 		quocanh.setFirstName("Tri");
 		quocanh.setMidName("Minh");

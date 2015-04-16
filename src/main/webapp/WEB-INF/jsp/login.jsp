@@ -38,7 +38,7 @@
 						<span class="input-group-addon"> 
 							<i class="glyphicon glyphicon-user"></i>
 						</span> 
-						<input id="j_username" name="j_username" type="text" class="form-control" placeholder="j_username">
+						<input id="j_username" name="j_username" type="text" class="form-control" placeholder="username">
 					</div>
 					<div style="margin-bottom: 25px" class="input-group">
 						<span class="input-group-addon"> 

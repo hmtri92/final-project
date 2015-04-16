@@ -5,49 +5,47 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
 import com.csc.entities.TargetAccount;
 import com.csc.entities.User;
 import com.csc.service.FundService;
+import com.csc.service.UserService;
 
 @Controller
+@SessionAttributes({"username", "role" })
 public class FundsController {
 	
 	@Autowired
 	FundService fundService;
 	
-	@RequestMapping (value = "/viewAddFunds", method = RequestMethod.GET)
+	@Autowired
+	UserService userService;
+	
+	@RequestMapping (value = "support/viewAddFunds", method = RequestMethod.GET)
 	public String goViewAddFund() {
 		return "support/addFunds";
 	}
 	
-	@RequestMapping (value = "/getAccountById", method=RequestMethod.POST)
+	@RequestMapping (value = "support/getAccountById", method=RequestMethod.POST)
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
 		Account account = fundService.getAccountById(accountNumber);
 		
-//		System.out.println(account.getFirstName() + " "
-//				+ account.getMidName() + " "
-//				+ account.getLastName() + " "
-//				+ account.getAddress1() + " "
-//				+ account.getAddress2() + " "
-//				+ account.getPhoneNum1() + " "
-//				+ account.getPhoneNum2());
-		
 		return account;
 	}
 	
-	@RequestMapping (value = "/addFund", method = RequestMethod.POST)
+	@RequestMapping (value = "support/addFund", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFund(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -62,13 +60,13 @@ public class FundsController {
 		}
 	}
 	
-	@RequestMapping (value = "/viewTransferBySupport", method = RequestMethod.GET)
+	@RequestMapping (value = "support/viewTransferBySupport", method = RequestMethod.GET)
 	public String goViewTranferBySupport() {
 		return "support/transfer";
 	}
 	
 	
-	@RequestMapping (value = "/transferBySupport", method=RequestMethod.POST)
+	@RequestMapping (value = "support/transferBySupport", method=RequestMethod.POST)
 	@ResponseBody
 	public String transferBySupport(HttpServletRequest request, HttpServletResponse response) {
 		String sendAccount = request.getParameter("sendAccount");
@@ -83,17 +81,17 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "/viewTransferByUser", method=RequestMethod.GET)
+	@RequestMapping (value = "user/viewTransferByUser", method=RequestMethod.GET)
 	public String viewTransferByUser (){
 		return "users/transfer";
 	}
 	
-	@RequestMapping (value = "/viewTransferTarget", method=RequestMethod.GET)
-	public ModelAndView viewTransferTarget (HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping (value = "user/viewTransferTarget", method=RequestMethod.GET)
+	public ModelAndView viewTransferTarget (@PathVariable( value = "username") String username, 
+			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("users/transferTarget");
 		
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+		User user = userService.getUserByLoginId(username);
 		
 //		if (user != null) {
 //			model.setViewName("forward:/home");
@@ -107,12 +105,12 @@ public class FundsController {
 	}
 	
 	
-	@RequestMapping (value = "/transferByUser", method=RequestMethod.POST)
+	@RequestMapping (value = "user/transferByUser", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferByUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public String transferByUser (@PathVariable( value = "username") String username,
+			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = (User)session.getAttribute("user");
+		User user = userService.getUserByLoginId(username);
 		
 		if (user != null) {
 			return "Error";
@@ -129,12 +127,12 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "/transferTargetID", method=RequestMethod.POST)
+	@RequestMapping (value = "user/transferTargetID", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferTargetID(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
+	public String transferTargetID(@PathVariable( value = "username") String username,
+			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = (User)session.getAttribute("user");
+		User user = userService.getUserByLoginId(username);
 		
 		if (user != null) {
 			return "Error";
@@ -151,12 +149,12 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "/viewWithdraw", method = RequestMethod.GET)
+	@RequestMapping (value = "support/viewWithdraw", method = RequestMethod.GET)
 	public String viewWithdraw() {
 		return "support/withdraw";
 	}
 	
-	@RequestMapping (value = "/withdraw", method = RequestMethod.POST)
+	@RequestMapping (value = "support/withdraw", method = RequestMethod.POST)
 	@ResponseBody
 	public String withdraw(HttpServletRequest request, HttpServletResponse response) {
 		

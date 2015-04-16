@@ -17,8 +17,8 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="viewTransferByUser">Transfer Money</a></li>
-				<li><a href="viewTransferTarget">Transfer Money In Target</a></li>
+				<li><a href="user/viewTransferByUser">Transfer Money</a></li>
+				<li><a href="user/viewTransferTarget">Transfer Money In Target</a></li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">

@@ -23,17 +23,17 @@
 		          	Funds <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li style="padding-bottom: 10px">
-		            	<a href="viewAddFunds">
+		            	<a href="support/viewAddFunds">
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Add funds
 	            		</a>
             		</li>
             		<li style="padding-bottom: 10px">
-		            	<a href="viewTransferBySupport">
+		            	<a href="support/viewTransferBySupport">
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Transfer
 	            		</a>
             		</li>
             		<li style="padding-bottom: 10px">
-		            	<a href="viewWithdraw">
+		            	<a href="support/viewWithdraw">
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Withdraw
 	            		</a>
             		</li>

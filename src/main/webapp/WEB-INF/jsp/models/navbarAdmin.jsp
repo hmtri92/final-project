@@ -17,13 +17,13 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="verifyTransaction">Transaction</a></li>
+				<li><a href="admin/viewVerifyTransaction">Transaction</a></li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">
 		        <li class="dropdown">
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		          	<i class="glyphicon glyphicon-th-large"></i>  ${sessionScope.user.loginId } <span class="caret"></span></a>
+		          	<i class="glyphicon glyphicon-th-large"></i>  ${sessionScope.user } <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li style="padding-bottom: 10px"><a href="#"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
 		            <li><a href="#"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>

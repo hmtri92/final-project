@@ -20,7 +20,7 @@ public class CreateDBController {
 		db.createState();
 		db.createTypeAccount();		
 		db.createAccount();
-//		db.createUser();
+		db.createUser();
 		
 		return "forward:login";
 	}

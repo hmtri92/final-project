@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.beans.UserBean;
+import com.csc.dao.AuthenticationDAO;
 import com.csc.dao.UserDAO;
 import com.csc.entities.User;
 import com.csc.service.UserService;
@@ -13,6 +14,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserDAO userDAO;
+	
+	@Autowired
+	AuthenticationDAO authenticationDao;
 
 	@Override
 	public User getUserInfo(String userId) {
@@ -73,6 +77,15 @@ public class UserServiceImpl implements UserService{
 			return "SUCCESS: The information is updated successfully!";
 		}
 		return "FAIL: Error while processing request...";
+	}
+
+	/*
+	 * Minh Tri
+	 * @see com.csc.service.UserService#getUserByLoginId(java.lang.String)
+	 */
+	@Override
+	public User getUserByLoginId(String loginId) {
+		return authenticationDao.getUserByLoginID(loginId);
 	}
 
 }

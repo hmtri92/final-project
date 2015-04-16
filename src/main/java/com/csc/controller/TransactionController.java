@@ -22,7 +22,7 @@ public class TransactionController {
 	@Autowired
 	FundService fundService;
 	
-	@RequestMapping (value = "/viewVerifyTransaction", method = RequestMethod.GET)
+	@RequestMapping (value = "admin/viewVerifyTransaction", method = RequestMethod.GET)
 	public ModelAndView verifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("admin/verifyTransaction");
 		
@@ -33,11 +33,11 @@ public class TransactionController {
 		return model;
 	}
 	
-	@RequestMapping (value = "verifyTransaction", method = RequestMethod.POST)
+	@RequestMapping (value = "admin/verifyTransaction", method = RequestMethod.POST)
 	@ResponseBody
 	public String doVerifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("idTransaction");
-		long idTransaction = Long.parseLong(request.getParameter("idTransaction").trim());
+		long idTransaction = Long.parseLong(id);
 		boolean result = fundService.verifyTransaction(idTransaction);
 		if (result == true) {
 			return "success";

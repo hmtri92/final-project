@@ -31,7 +31,7 @@
 			var id = $(this).parent().parent().parent().attr('id');
 			$.ajax({
 		        type : "POST",
-		       	url : "verifyTransaction",
+		       	url : "admin/verifyTransaction",
 		       	data : {"idTransaction" : id},
 		       	success : function (result){
 			       	if (!result.localeCompare("success")) {

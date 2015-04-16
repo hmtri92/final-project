@@ -60,43 +60,10 @@ $("#registerSubmit").click(function(event){
 		});
 	});
 
-function loadBranch() {
-	$("#branchlist")
-	.empty()
-	.append('<option value="-1">--Choose Branch--</option>')
-	$.ajax({
-		type : "POST",
-		url : "getBranch",
-		data : {"idBank" : $("#banklist").val()},
-		success : function(results) {
-			$.each(results, function(i, item){
-				$("#branchlist").append($("<option></option>").text(this.nameBranch).val(this.id));
-			});
-		},
-		error: function(){      
-	   		alert("Error while request..");
-	  	}
-	});
-}
-
-function checkName() {
-	$.ajax({
-		type : "POST",
-		url : "checkName",
-		data : {"idAccount" : $("#accountNumber").val()},
-		success : function(result) {
-			$("#name").val(result);
-		},
-		error: function(){      
-	   		alert("Error while request..");
-	  	}
-	});
-}
-
 function checkAccount() {
 	$.ajax({
 		type : "POST",
-		url : "getAccountById",
+		url : "support/getAccountById",
 		data : {"accountNumber" : $("#accountNumber").val()},
 		success : function(result) {
 			$("#firstname").val(result.firstName);
@@ -116,7 +83,7 @@ function checkAccount() {
 function checkTargetAccount() {
 	$.ajax({
 		type : "POST",
-		url : "getAccountById",
+		url : "support/getAccountById",
 		data : {"accountNumber" : $("#targetaccountNumber").val()},
 		success : function(result) {
 			$("#targetfirstname").val(result.firstName);
@@ -152,29 +119,11 @@ function changeCheckBox() {
 	}
 }
 
-function loadTarget() {
-	$("#recentAccount")
-	.empty()
-	.append('<option value="-1">--Choose Recent Account--</option>')
-	$.ajax({
-		type : "POST",
-		url : "getTargetByAccount",
-		data : {"idAccount" : $("#sendaccount").val()},
-		success : function(results) {
-			$.each(results, function(i, item){
-				$("#recentAccount").append($("<option></option>").text(this.name).val(this.id_taget));
-			});
-		},
-		error: function(){      
-	   		alert("Error while request..");
-	  	}
-	});
-}
 
 function addFund() {
 	$.ajax ({
 		type : "POST",
-		url : "addFund",
+		url : "support/addFund",
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
@@ -189,7 +138,7 @@ function addFund() {
 function tranferBySupport() {
 	$.ajax ({
 		type : "POST",
-		url : "transferBySupport",
+		url : "support/transferBySupport",
 		data : {"sendAccount" : $("#accountNumber").val(),
 			"targetAccount" : $("#targetaccountNumber").val(),
 			"amount" : $("#amount").val()},
@@ -205,7 +154,7 @@ function tranferBySupport() {
 function transferByUser() {
 	$.ajax ({
 		type : "POST",
-		url : "transferByUser",
+		url : "user/transferByUser",
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 		success : function (result) {
@@ -219,7 +168,7 @@ function transferByUser() {
 function transferTargetID() {
 	$.ajax ({
 		type : "POST",
-		url : "transferTargetID",
+		url : "user/transferTargetID",
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 			success : function (result) {
@@ -234,7 +183,7 @@ function transferTargetID() {
 function withdraw() {
 	$.ajax ({
 		type : "POST",
-		url : "withdraw",
+		url : "support/withdraw",
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
