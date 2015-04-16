@@ -7,20 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/myStyle.css">
-<link rel="stylesheet" href="css/logo-nav.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/plugins.css">
-<link rel="stylesheet" href="css/screen.css">
-<link rel="stylesheet" href="css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/myStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/logo-nav.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/plugins.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/screen.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css">
 
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="js/myScript.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myScript.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -60,9 +60,6 @@
 	
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert alert-danger fade in" id="message">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-			</div>
 			<div class="portlet light">
 				<div >
 					<table id="mytable" class="table table-striped table-bordered" cellspacing="0" width="100%"
