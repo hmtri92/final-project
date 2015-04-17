@@ -77,7 +77,20 @@
 					
 						</form>
 							<center>
-								<font color="red">${message }</font>
+								<table id="mytable">
+								<thead>
+									<tr>
+										<th>Account Number</th>
+										<th>State of Account</th>
+									</tr>
+								</thead>
+								<tbody>
+										<tr>
+											<td><center>${listAccount.id}</center></td>
+											<td><center>${listAccount.state.name}</center></td>
+										</tr>
+								</tbody>
+							</table>
 							</center>
 						<form id="update" class="horizontal-form" action="doupdateState"
 							method="POST">

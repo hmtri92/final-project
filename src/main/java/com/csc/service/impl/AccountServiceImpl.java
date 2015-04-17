@@ -24,13 +24,23 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account getAccountById(String id) {
-	return	accountDao.getAccountById(id);
-		
+		return	accountDao.getAccountById(id);
 	}
 
 	@Override
 	public Account updateStateAccountById(String id, int state) {
 		return accountDao.updateStateAccountById(id, state);
 	}
+
+	@Override
+	public Account updateAccount(String id, int idstate, int idRole,
+			String firtname, String lastname, String midname, int idType,
+			String email1, String email2, String address1, String address2,
+			String phoneNumber1, String phoneNumber2, String idcardNumber) {
+		// TODO Auto-generated method stub
+		return accountDao.updateAccount(id, idstate, idRole, firtname, lastname, midname, idType, email1, email2, address1, address2, phoneNumber1, phoneNumber2, idcardNumber);
+	}
+
+
 
 }

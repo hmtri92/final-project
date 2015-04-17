@@ -8,5 +8,6 @@ public interface AccountService {
 	Account getAccountById(String id);
 
 	public Account updateStateAccountById(String id, int state);
-
+	public Account updateAccount(String id, int idstate, int idRole,String firtname,String lastname,String midname,
+			int idType,String email1,String email2,String address1,String address2,String phoneNumber1,String phoneNumber2,String idcardNumber);
 }

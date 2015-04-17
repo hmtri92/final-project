@@ -64,7 +64,9 @@ public class UpdateStateController {
 			
 		} else {
 			model.addAttribute("message1", "This account is  valid");
+			model.addAttribute("listAccount", account);
 			return "support/updateState";
+			
 
 		}
 
