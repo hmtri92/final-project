@@ -10,7 +10,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="home"> <img src="${pageContext.request.contextPath}/images/logo.png"
+			<a class="navbar-brand" href="home"> <img src="<c:url value='/images/logo.png'/>"
 				width="229" height="74" alt="">
 			</a>
 		</div>

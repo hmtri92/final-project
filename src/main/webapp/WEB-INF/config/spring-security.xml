@@ -23,6 +23,7 @@
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/loginfail" access="permitAll" />
 		<intercept-url pattern="/resources" access="permitAll" />
+		<intercept-url pattern="/createDB" access="permitAll" />
  
  		<!-- ROLE_ADMIN -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
@@ -31,7 +32,7 @@
 		<intercept-url pattern="/support/**" access="hasRole('USER_SUPPORT')"/>
 		
 		<!-- ROLE_USER -->
-		<intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')"/>
+		<intercept-url pattern="/user/**" access="hasRole('CUSTOMER')"/>
 		
 		<!-- hasAnyRole -->
 		<intercept-url pattern='/**'

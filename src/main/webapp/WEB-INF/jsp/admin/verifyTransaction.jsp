@@ -7,20 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-theme.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/myStyle.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/logo-nav.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/components.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/plugins.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/screen.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/myScript.js"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

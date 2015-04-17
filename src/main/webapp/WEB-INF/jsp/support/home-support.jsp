@@ -5,6 +5,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
+
+<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
+
 </head>
 <body>
 home support
