@@ -14,7 +14,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="home"> <img src="<c:url value='/images/logo.png'/>"
+			<a class="navbar-brand" href="<c:url value='/userhome'/>" > <img src="<c:url value='/images/logo.png'/>"
 				width="229" height="74" alt="">
 			</a>
 		</div>
@@ -27,17 +27,17 @@
 		          	Funds <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li style="padding-bottom: 10px">
-		            	<a href="support/viewAddFunds">
+		            	<a href="<c:url value='/support/viewAddFunds'/>">
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Add funds
 	            		</a>
             		</li>
             		<li style="padding-bottom: 10px">
-		            	<a href="support/viewTransferBySupport">
+		            	<a  href="<c:url value='/support/viewTransferBySupport'/>" >
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Transfer
 	            		</a>
             		</li>
             		<li style="padding-bottom: 10px">
-		            	<a href="support/viewWithdraw">
+		            	<a  href="<c:url value='/support/viewWithdraw'/>">
 		            		<i class="glyphicon glyphicon-credit-card"></i>  Withdraw
 	            		</a>
             		</li>
@@ -51,7 +51,7 @@
 		          	  ${username} <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
 		            <li style="padding-bottom: 10px"><a href="#"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
-		            <li><a href="<c:url value="j_spring_security_logout" />"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>
+		            <li><a href="<c:url value="/j_spring_security_logout" />"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>
 		          </ul>
 		        </li>
 	      	</ul>

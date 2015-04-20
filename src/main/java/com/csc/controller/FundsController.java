@@ -22,7 +22,7 @@ import com.csc.service.FundService;
 import com.csc.service.UserService;
 
 @Controller
-@SessionAttributes({"username", "role" })
+@SessionAttributes({"username", "role", "id" })
 public class FundsController {
 	
 	@Autowired
@@ -31,12 +31,12 @@ public class FundsController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping (value = "support/viewAddFunds", method = RequestMethod.GET)
+	@RequestMapping (value = "/support/viewAddFunds", method = RequestMethod.GET)
 	public String goViewAddFund() {
 		return "support/addFunds";
 	}
 	
-	@RequestMapping (value = "support/getAccountById", method=RequestMethod.POST)
+	@RequestMapping (value = "/support/getAccountById", method=RequestMethod.POST)
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
@@ -60,13 +60,13 @@ public class FundsController {
 		}
 	}
 	
-	@RequestMapping (value = "support/viewTransferBySupport", method = RequestMethod.GET)
+	@RequestMapping (value = "/support/viewTransferBySupport", method = RequestMethod.GET)
 	public String goViewTranferBySupport() {
 		return "support/transfer";
 	}
 	
 	
-	@RequestMapping (value = "support/transferBySupport", method=RequestMethod.POST)
+	@RequestMapping (value = "/support/transferBySupport", method=RequestMethod.POST)
 	@ResponseBody
 	public String transferBySupport(HttpServletRequest request, HttpServletResponse response) {
 		String sendAccount = request.getParameter("sendAccount");
@@ -81,17 +81,17 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "user/viewTransferByUser", method=RequestMethod.GET)
+	@RequestMapping (value = "/user/viewTransferByUser", method=RequestMethod.GET)
 	public String viewTransferByUser (){
 		return "users/transfer";
 	}
 	
-	@RequestMapping (value = "user/viewTransferTarget", method=RequestMethod.GET)
-	public ModelAndView viewTransferTarget (@PathVariable( value = "username") String username, 
+	@RequestMapping (value = "/user/viewTransferTarget", method=RequestMethod.GET)
+	public ModelAndView viewTransferTarget (@PathVariable( value = "id") String id, 
 			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("users/transferTarget");
 		
-		User user = userService.getUserByLoginId(username);
+		User user = userService.getUserByID(id);
 		
 //		if (user != null) {
 //			model.setViewName("forward:/home");
@@ -105,7 +105,7 @@ public class FundsController {
 	}
 	
 	
-	@RequestMapping (value = "user/transferByUser", method=RequestMethod.POST)
+	@RequestMapping (value = "/user/transferByUser", method=RequestMethod.POST)
 	@ResponseBody
 	public String transferByUser (@PathVariable( value = "username") String username,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -127,7 +127,7 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "user/transferTargetID", method=RequestMethod.POST)
+	@RequestMapping (value = "/user/transferTargetID", method=RequestMethod.POST)
 	@ResponseBody
 	public String transferTargetID(@PathVariable( value = "username") String username,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -149,12 +149,12 @@ public class FundsController {
 		return "Error";
 	}
 	
-	@RequestMapping (value = "support/viewWithdraw", method = RequestMethod.GET)
+	@RequestMapping (value = "/support/viewWithdraw", method = RequestMethod.GET)
 	public String viewWithdraw() {
 		return "support/withdraw";
 	}
 	
-	@RequestMapping (value = "support/withdraw", method = RequestMethod.POST)
+	@RequestMapping (value = "/support/withdraw", method = RequestMethod.POST)
 	@ResponseBody
 	public String withdraw(HttpServletRequest request, HttpServletResponse response) {
 		
