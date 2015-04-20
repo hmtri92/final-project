@@ -15,5 +15,7 @@ public interface UserService {
 	 * MinhTri
 	 */
 	User getUserByLoginId (String loginId);
+	
+	User getUserByID(String id);
 
 }

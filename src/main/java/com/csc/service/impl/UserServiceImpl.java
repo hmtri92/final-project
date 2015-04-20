@@ -3,7 +3,6 @@ package com.csc.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.csc.beans.UserBean;
 import com.csc.dao.AuthenticationDAO;
 import com.csc.dao.UserDAO;
 import com.csc.entities.User;
@@ -86,6 +85,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByLoginId(String loginId) {
 		return authenticationDao.getUserByLoginID(loginId);
+	}
+
+	@Override
+	public User getUserByID(String id) {
+		return userDAO.getUserByID(id);
 	}
 
 }

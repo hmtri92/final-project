@@ -3,6 +3,7 @@ package com.csc.controller;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.csc.service.UserService;
+
 
 @Controller
 @SessionAttributes({"username", "role" })
 public class LoginController {
 	
-//	@Autowired
-//	AuthenticationDAO authenticationDao;
+	@Autowired
+	UserService userService;
 	
 	private Logger logger = Logger.getLogger(LoginController.class);
 
@@ -53,10 +56,12 @@ public class LoginController {
 		org.springframework.security.core.userdetails.User user = 
 				(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
-		String username = user.getUsername();
+		String id = user.getUsername();
+		String username = userService.getUserByID(id).getLoginID();
 
 		// Set session user
 		model.addAttribute("username", username);
+		model.addAttribute("id", id);
 		// Get role - add session rolesuser
 		Collection<GrantedAuthority> authorities = user.getAuthorities();
 

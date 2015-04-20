@@ -73,7 +73,7 @@
 									<td>${listAccount.state.name}</td>
 									<td>
 										
-									<form id="update" class="horizontal-form" action="doupdateState"
+									<form id="update" class="horizontal-form" action="doVerifyStateDis"
 						method="POST">
 						<input
 											type="text" name="accountNumber" id="accountNumber"

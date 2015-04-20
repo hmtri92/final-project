@@ -20,7 +20,7 @@ public class ModifiAccountController {
 	AccountService accountService;
 	@RequestMapping(value = "/modifyAccount", method = RequestMethod.GET)
 	public String goViewAddFund2() {
-		return "support/modifyAccount";
+	return "support/modifyAccount";
 	}
 
 	@RequestMapping(value = "/domodifyAccount", method = RequestMethod.POST)
@@ -62,9 +62,34 @@ public class ModifiAccountController {
 					lastName, midName, typeAccount, email1, email2, address1, 
 					address2, phoneNum1, phoneNum2, idCardNumber);
 			
-			model.addAttribute("message", "Create Account Success!");
+			model.addAttribute("message", "Modify Account Success!");
 			return "support/modifyAccount";
 
 //		}
 	}
+	@RequestMapping(value = "/checkAccount1", method = RequestMethod.POST)
+	public String checkAccount(HttpServletRequest request,
+			HttpServletResponse response ,Model model) {{
+		String accountNumber1 = request.getParameter("accountNumber1");
+
+		Account account;
+		account = accountService.getAccountById(accountNumber1);
+		Account existedAccount = accountService.getAccountById(accountNumber1);	
+		
+		if (existedAccount==null) {
+			model.addAttribute("message1", "This account is not valid");
+			return "support/modifyAccount";
+
+
+			
+		} else {
+			model.addAttribute("message1", "This account is  valid");
+			model.addAttribute("accountExit", existedAccount);
+			return "support/modifyAccount";
+
+
+		}
+
+	
+	}}
 }

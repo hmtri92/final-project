@@ -1,9 +1,11 @@
 package com.csc.dao.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -56,6 +58,7 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		
 	}
+	
 	@Override
 	@Transactional
 	public Account updateAccount(String id, int idstate, int idRole,String firtname,String lastname,String midname,
@@ -81,6 +84,27 @@ public class AccountDAOImpl implements AccountDAO {
 			em.persist(account);
 			return account;
 	}
-
+	@Override
+	@Transactional
+	public List<Account> getStateNew() {
+		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("state", State.NEW);
+		
+		List<Account> listState = query.getResultList();
+		
+		return listState;
+		
+	}
+	@Override
+	public List<Account> getStateDis() {
+		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("state", State.DISABLE);
+		
+		List<Account> listState = query.getResultList();
+		
+		return listState;		
+	}
 }
 

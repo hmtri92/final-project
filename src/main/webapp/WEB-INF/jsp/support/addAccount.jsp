@@ -8,13 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/myStyle.css">
-<link rel="stylesheet" href="css/logo-nav.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/plugins.css">
-<link rel="stylesheet" href="css/screen.css">
+
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
 
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>

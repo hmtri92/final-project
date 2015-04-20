@@ -11,8 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.csc.dao.UserDAO;
 import com.csc.entities.User;
 
-import freemarker.core.ReturnInstruction.Return;
-
 @Repository
 public class UserDAOImpl implements UserDAO{
 	
@@ -40,6 +38,15 @@ public class UserDAOImpl implements UserDAO{
 		}
 		
 		return true;
+	}
+
+	/*
+	 * minh tri
+	 * 
+	 */
+	@Override
+	public User getUserByID(String id) {
+		return em.find(User.class, id);
 	}
 
 	

@@ -47,16 +47,40 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>createAccount
+							<i class="fa fa-gift"></i>Modify Account
 						</div>
 					</div>
 					<div class="portlet-body form">
 						<!-- BEGIN FORM-->
+						<form id="checkAccount" class="horizontal-form" action="checkAccount1"
+							method="POST">
+							<div class="form-body">
 
+								<h3 class="form-section">Check Account</h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Account Number: </label> <input
+												type="text" name="accountNumber1" id="accountNumber1"
+												class="form-control" />
+										</div>
+									</div>
+
+								</div>
+									<div class="form-actions right">
+								<center><button id="Checkaccount" type="submit" class="btn blue" onclick="">
+									<i class="fa fa-check"></i> Check Account
+								</button></center>
+							</div>
+
+							
+							</div>
+					
+						</form>
 						<form id="modifyAccount" class="horizontal-form"
 							action="domodifyAccount" method="POST">
 							<div class="form-body">
-
+							<font color="red">${message1 } </font>					
 								<h3 class="form-section">Account Info</h3>
 
 								<div class="col-md-6">
@@ -64,13 +88,13 @@
 										<label class="control-label">IdAccount:</label> <input
 											type="text" name="id" id="id"
 											class=" validate[required,length[12,12]]"
-											placeholder="12 Number" />
+											placeholder="12 Number" value="${ accountExit.id}" />
 									</div>
 									<div class="form-group">
 										<label class="control-label">ID-Card : </label> <input
 											type="text" name="idCardNumber" id="idCardNumber"
 											class=" validate[required,length[9,9]]"
-											placeholder="9 Number" />
+											 value="${ accountExit.idCardNumber}"  >
 									</div>
 								</div>
 								<!--/span-->
@@ -80,7 +104,7 @@
 										<label class="control-label">TypeAccount :</label> <select
 											name="typeAccount" id="typeAccount"
 											class="validate[required]" id="typeAccount">
-											<option value="">Choose Type Account</option>
+											<option value="${ accountExit.typeAccount.idType}">${ accountExit.typeAccount.type}</option>
 											<option value="1">DEPOSIT</option>
 											<option value="2">SAVING</option>
 											<option value="3">OTHER</option>
@@ -93,8 +117,8 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label class="control-label">Role :</label> <select
-											name="role" id="role" class="validate[required]" id="role">
-											<option value="">Choose role</option>
+											name="role" id="role" class="validate[required]" id="role" >
+											<option value="${ accountExit.role.idRole}">${ accountExit.role.nameRole}</option>
 											<option value="1">Customer</option>
 											<option value="2">Admin</option>
 											<option value="3">ACCOUNT_SUPPORT</option>
@@ -104,9 +128,9 @@
 									</div>
 								</div>
 									<div class="form-group">
-										<label class="control-label">State :</label> <select
+										<label class="control-label"> State :</label> <select
 											name="state" id="state" class="validate[required]" id="state">
-											<option value="">Choose state</option>
+											<option value="${ accountExit.state.idState}">${ accountExit.state.name}</option>
 											<option value="1">NEW</option>
 											<option value="2">ACTIVE</option>
 											<option value="3">DISABLE</option>
@@ -127,31 +151,31 @@
 									<label class="control-label">FirstName :</label> <input
 										type="text" name="firstName" id="firstName"
 										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										placeholder="Only input letter" />
+										value="${ accountExit.firstName}" />
 								</div>
 								<div class="form-group">
 									<label class="control-label">LastName :</label> <input
 										type="text" name="lastName" id="lastName"
 										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										placeholder="Only input letter" />
+										placeholder="Only input letter" value="${ accountExit.lastName}"/>
 								</div>
 								<div class="form-group">
 									<label class="control-label">Mid-Name :</label> <input
 										type="text" name="midName" id="midName"
 										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										placeholder="Only input letter" />
+										placeholder="Only input letter" value="${ accountExit.midName}"/>
 								</div>
 								<div class="form-group">
 									<label class="control-label">Address-1 : </label> <input
 										type="text" name="address1" id="address1"
 										class="validate[required] text-input"
-										placeholder="input Address" />
+										placeholder="input Address" value="${ accountExit.address1}"/>
 								</div>
 								<div class="form-group">
 									<label class="control-label">Address-2 :</label> <input
 										type="text" name="address2" id="address2"
 										class="validate[required] text-input"
-										placeholder="input Address" />
+										placeholder="input Address" value="${ accountExit.address2}"/>
 								</div>
 							</div>
 							<!--/span-->
@@ -162,7 +186,7 @@
 									<label class="control-label">PhoneNum1 : </label> <input
 										type="text" name="phoneNum1" id="phoneNum1"
 										class="validate[required,custom[telephone]] text-input"
-										type="text" placeholder="only input number" />
+										type="text" placeholder="only input number" value="${ accountExit.phoneNum1}"/>
 								</div>
 							</div>
 							<!--/span-->
@@ -172,7 +196,7 @@
 									<label class="control-label">PhoneNum2 :</label> <input
 										type="text" name="phoneNum2" id="phoneNum2"
 										class="validate[required,custom[telephone]] text-input"
-										type="text" placeholder="only input number" />
+										type="text" placeholder="only input number" value="${ accountExit.phoneNum2}"/>
 								</div>
 							</div>
 
@@ -182,7 +206,7 @@
 									<label class="control-label"> Email1 : </label> <input
 										type="text" name="email1" id="email1"
 										class="validate[groupRequired[payments],custom[email]] text-input"
-										placeholder="abc@gmail.com" />
+										placeholder="abc@gmail.com" value="${ accountExit.email1}"/>
 								</div>
 							</div>
 							<!--/span-->
@@ -192,7 +216,7 @@
 									<label class="control-label"> Email2 : </label> <input
 										type="text" name="email2" id="email2"
 										class="validate[groupRequired[payments],custom[email]] text-input"
-										placeholder="abc@gmail.com" />
+										placeholder="abc@gmail.com" value="${ accountExit.email2}"/>
 								</div>
 							</div>
 							<!--/span-->
@@ -203,8 +227,8 @@
 
 								<center>
 									<button id="submit" type="submit" class="submit"
-										value="Add Account">
-										<i class="fa fa-check"></i> Add Account
+										value="Update Account">
+										<i class="fa fa-check"></i> Update Account
 									</button>
 								</center>
 

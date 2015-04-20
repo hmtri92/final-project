@@ -55,8 +55,7 @@ public class AccountController {
 		String address2 = request.getParameter("address2");
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
-		String stat = request.getParameter("state");
-		int state = Integer.parseInt(stat);
+		
 		String rol = request.getParameter("role");
 		int role = Integer.parseInt(rol);
 		String typeAccount1 = request.getParameter("typeAccount");

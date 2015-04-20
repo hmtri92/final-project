@@ -1,5 +1,7 @@
 package com.csc.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
 	public Account updateStateAccountById(String id, int state) {
 		return accountDao.updateStateAccountById(id, state);
 	}
+	
 
 	@Override
 	public Account updateAccount(String id, int idstate, int idRole,
@@ -39,6 +42,18 @@ public class AccountServiceImpl implements AccountService {
 			String phoneNumber1, String phoneNumber2, String idcardNumber) {
 		// TODO Auto-generated method stub
 		return accountDao.updateAccount(id, idstate, idRole, firtname, lastname, midname, idType, email1, email2, address1, address2, phoneNumber1, phoneNumber2, idcardNumber);
+	}
+
+	@Override
+	public List<Account> getStateNew() {
+		// TODO Auto-generated method stub
+		return accountDao.getStateNew();
+	}
+
+	@Override
+	public List<Account> getStateDis() {
+		// TODO Auto-generated method stub
+		return accountDao.getStateDis();
 	}
 
 

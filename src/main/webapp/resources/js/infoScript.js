@@ -5,8 +5,8 @@
 
 function changePassword(){
 	$("#buttonChange").css("visibility","hidden");
-	$("#buttonSubmit").css("display","inline");
-	$("#changePassSection").css("display","inline");
+	$("#buttonSubmit").css("display","block");
+	$("#changePassSection").css("display","block");
 	$("#newPassword").val("");		
 	$("#retypePassword").val("");	
 	$("#password").val("");	
@@ -53,8 +53,8 @@ function doChangePassword(currentPass){
 			success : function (result) {
 				var success = result.substring(0,result.indexOf(':'));
 				result = result.substring(result.indexOf(':')+1);
-				$("#message").css("display","inline");	
-				$("#message").html(result);
+				$("#message").css("display","block");	
+				$("#message").html('<i class="fa fa-cogs"></i>' + result);
 				if (success == "SUCCESS") {					
 					$("#message").attr("class","Metronic-alerts alert fade in alert-success");									
 					return $("#newPassword").val();	
@@ -77,11 +77,24 @@ function cancelChangePassword(password){
 	$("#password").attr("disabled","disabled");	
 }
 
+var oldFirstName;
+var oldLastName;
+var oldMidName;
+var oldPhone2;
+var oldAddress2;
+var oldEmail2;
+
 function changeInfo(){
 	if ($("#buttonSubmitEdit").html() == "Edit") {		
 		$(".editable").removeAttr("disabled");
 		$("#buttonCancelEdit").css("visibility","visible");
 		$("#buttonSubmitEdit").html("Submit");
+		oldFirstName = $("#firstName").val();
+		oldMidName = $("#midName").val();
+		oldLastName = $("#lastName").val();
+		oldPhone2 = $("#phoneNume2").val();
+		oldAddress2 = $("#address2").val();
+		oldEmail2 = $("#email2").val();
 	}else{
 		
 		if ($("#firstName").val() == "") {
@@ -108,21 +121,20 @@ function doEditInfo(){
 			"midName" : $("#midName").val(),
 			"lastName" : $("#lastName").val(),	
 			"address2" : $("#address2").val(),
+			"email2" : $("#email2").val(),
 			"phone2" : $("#phoneNum2").val()},					
 			success : function (result) {
 				var success = result.substring(0,result.indexOf(':'));
 				result = result.substring(result.indexOf(':')+1);
 				
-				$("#message").css("display","inline");	
-				
-				if (success != "SUCCESS") {
-					$("#message").html(result);
+				$("#message").css("display","block");	
+				$("#message").html('<i class="fa fa-cogs"></i>' + result);
+				if (success != "SUCCESS") {					
 					$("#message").attr("class","Metronic-alerts alert fade in alert-alert");
 					cancelEditInfo(true);
 					return;
 				}	
-				else{
-					$("#message").html(result);
+				else{			
 					$("#message").attr("class","Metronic-alerts alert fade in alert-success");
 					cancelEditInfo(false);					
 					return;
@@ -137,10 +149,16 @@ function doEditInfo(){
 }
 
 function cancelEditInfo(isReload){
-	if (!isReload) {
-		$(".editable").attr("disabled","disabled");
-		$("#buttonCancelEdit").css("visibility","hidden");
-		$("#buttonSubmitEdit").html("Edit");
+	$(".editable").attr("disabled","disabled");
+	$("#buttonCancelEdit").css("visibility","hidden");
+	$("#buttonSubmitEdit").html("Edit");
+	if (isReload) {		
+		$("#firstName").val(oldFirstName);
+		$("#midName").val(oldMidName);
+		$("#lastName").val(oldLastName);
+		$("#phoneNume2").val(oldPhone2);
+		$("#address2").val(oldAddress2);
+		$("#email2").val(oldEmail2);
 	}
 }
 

@@ -7,21 +7,22 @@
 <meta charset="ISO-8859-1">
 <title>CSC Banking System</title>
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/myStyle.css">
-<link rel="stylesheet" href="css/logo-nav.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/plugins.css">
-<link rel="stylesheet" href="css/screen.css">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/infoScript.js"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/infoScript.js'/>"></script>
+
 </head>
 <body>
 <body style="padding-top: 100px !important">
-	<%@ include file="models/navbar.jsp"%>
+	<%@ include file=../models/navbarCustomer.jsp"%>
 
 	<div class="page-content">
 		<div class="container">
@@ -220,10 +221,30 @@
 									</div>
 									<!--/span-->
 								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Email 1 *</label>
+											<input type="text" name="email1" id="email1"
+												class="form-control" disabled="disabled" 
+												value="${user.email1}"/>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Email 2</label>
+											<input type="text" name="email2" id="email2"
+												class="form-control editable" disabled="disabled" 
+												value="${user.email2}"/>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
 								<div style="float: right">
 									<button id="buttonCancelEdit" style="visibility:hidden"
 										type="button" class="btn red" 
-										onclick="cancelChangeInfo()">Cancel</button>
+										onclick="cancelEditInfo(true)">Cancel</button>
 									<button id="buttonSubmitEdit" type="button" 
 										class="btn blue" onclick="changeInfo()">Edit</button>
 								</div>
@@ -239,6 +260,6 @@
 	
 
 	<!-- start footer -->
-	<%@ include file="models/footer.jsp"%>
+	<%@ include file=../models/footer.jsp"%>
 </body>
 </html>
