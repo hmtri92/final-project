@@ -24,7 +24,7 @@ public class LoginController {
 
 	@RequestMapping (value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
 	public String doLogin() {
-		return "login";
+		return "login_soft";
 	}
 	
 	@RequestMapping(value = "/admin/admin", method = RequestMethod.GET)

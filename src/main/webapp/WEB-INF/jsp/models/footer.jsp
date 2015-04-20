@@ -1,8 +1,8 @@
 <div class="container">
-	<div style="bottom:1.33%; position: relative; ">
+	<div style="bottom:1.33%; position: relative; text-align: center">
 		<!--  start footer-left -->
 		<div>
-			&copy; Copyright 2014 DAOnJPA| Java Fresher Training Program. <span
+			&copy; Copyright 2014 final| Java Fresher Training Program. <span
 				id="spanYear"></span> <a href="http://www.csc.com" target="_blank">www.csc.com</a>
 		</div>
 		<!--  end footer-left -->
