@@ -64,23 +64,21 @@ public class LoginController {
 		
 		if (authorities.toString().contains("ROLE_ADMIN")) {
 			model.addAttribute("role", "admin");
-			url = "admin/home-admin";
+			
 		} else if (authorities.toString().contains("USER_SUPPORT")){
 			model.addAttribute("role", "user_support");
-			url = "support/home-support";
 			
 		} else if (authorities.toString().contains("CUSTOMER")) {
 			model.addAttribute("role", "customer");
-			url = "user/home-user";
 			
 		} else if (authorities.toString().contains("REPORT_SUPPORT")) {
 			model.addAttribute("role", "report_support");
-			url = "support/home-support";
 			
 		} else if (authorities.toString().contains("ACCOUNT_SUPPORT")) {
 			model.addAttribute("role", "account_support");
-			url = "support/home-support";
 		}
+		
+		url = "forward:/userhome";
 
 		return url;
 	}
@@ -88,6 +86,12 @@ public class LoginController {
 	@RequestMapping(value = "/403", method = {RequestMethod.GET, RequestMethod.POST})
 	public String error() {
 		return "403";
+	}
+	
+	@RequestMapping(value = "/userhome", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView goHome() {
+		ModelAndView model = new ModelAndView("home");
+		return model;
 	}
 	
 }

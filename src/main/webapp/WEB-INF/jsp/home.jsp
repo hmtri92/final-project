@@ -20,50 +20,28 @@
 
 </head>
 <body style="padding-top: 100px !important">
-	<%@ include file="models/navbar.jsp"%>
+	<%
+		String role = (String)request.getSession().getAttribute("role");
+	%>
+	<c:choose>
+		<c:when test="${role == 'admin'}">
+			<%@ include file="models/navbarAdmin.jsp"%>
+		</c:when>
+		<c:when test="${role == 'account_support'}">
+			<%@ include file="models/navbar.jsp"%>
+		</c:when>
+		<c:when test="${role == 'customer'}">
+			<%@ include file="models/navbarCustomer.jsp"%>
+		</c:when>
+	</c:choose>
 
 	<div class="container">
 		<div id="content-outer">
 			<!-- start content -->
 			<div id="content">
 
-				<!-- BEGIN SAMPLE TABLE PORTLET-->
-				<div class="portlet box blue-hoki">
-					<div class="portlet-title">
-						<div class="caption">
-							<i class="fa fa-cogs"></i>Account Management
-						</div>
-						<div class="tools">
-							<a href="javascript:;" class="collapse"> </a> <a
-								href="#portlet-config" data-toggle="modal" class="config"> </a>
-							<a href="javascript:;" class="reload"> </a> <a
-								href="javascript:;" class="remove"> </a>
-						</div>
-					</div>
-					<div class="portlet-body">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Account Name</th>
-									<th>Account Type</th>
-									<th>Available Amount</th>
-								</tr>
-							</thead>
-							<tbody>
-							<c:forEach var="item" items="${listAccount}" varStatus="count">
-								<tr>
-									<td>${count.count}</td>
-									<td>${item.accountName}</td>
-									<td>${item.accountType}</td>
-									<td>${item.availableAmount}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- END SAMPLE TABLE PORTLET-->
+				Home
+				
 			</div>
 		</div>
 	</div>

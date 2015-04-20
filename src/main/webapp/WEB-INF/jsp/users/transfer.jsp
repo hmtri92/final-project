@@ -20,7 +20,7 @@
 
 </head>
 <body style="padding-top: 100px !important">
-	<%@ include file="../models/navbarUser.jsp"%>
+	<%@ include file="../models/navbarCustomer.jsp"%>
 	
 	<div class="page-content">
 		<div class="container">

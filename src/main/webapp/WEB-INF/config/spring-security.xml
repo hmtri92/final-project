@@ -29,14 +29,14 @@
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- ROLE_SUPPORT -->
-		<intercept-url pattern="/support/**" access="hasRole('USER_SUPPORT')"/>
+		<intercept-url pattern="/support/**" access="hasRole('ACCOUNT_SUPPORT')"/>
 		
 		<!-- ROLE_USER -->
 		<intercept-url pattern="/user/**" access="hasRole('CUSTOMER')"/>
 		
 		<!-- hasAnyRole -->
 		<intercept-url pattern='/**'
-			access="hasAnyRole('ROLE_ADMIN', 'USER_SUPPORT', 'CUSTOMER')" />
+			access="hasAnyRole('ROLE_ADMIN', 'ACCOUNT_SUPPORT', 'CUSTOMER')" />
  
 		<!-- access denied page -->
 		<access-denied-handler error-page="/403" />

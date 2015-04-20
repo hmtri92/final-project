@@ -27,6 +27,7 @@
 <body style="padding-top: 100px !important">
 	<%@ include file="../models/navbarAdmin.jsp"%>
 	
+	<jsp:forward page="admin/viewVerifyTransaction"/>
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

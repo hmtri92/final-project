@@ -11,18 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Transaction;
 import com.csc.service.FundService;
 
 @Controller
+@SessionAttributes({"username", "role" })
 public class TransactionController {
 
 	@Autowired
 	FundService fundService;
 	
-	@RequestMapping (value = "admin/viewVerifyTransaction", method = RequestMethod.GET)
+	@RequestMapping (value = "/admin/viewVerifyTransaction", method = RequestMethod.GET)
 	public ModelAndView verifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("admin/verifyTransaction");
 		
@@ -33,7 +35,7 @@ public class TransactionController {
 		return model;
 	}
 	
-	@RequestMapping (value = "admin/verifyTransaction", method = RequestMethod.POST)
+	@RequestMapping (value = "/admin/verifyTransaction", method = RequestMethod.POST)
 	@ResponseBody
 	public String doVerifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("idTransaction");

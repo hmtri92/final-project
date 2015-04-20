@@ -58,9 +58,9 @@ public class MyUserDetailsService implements UserDetailsService {
 		case Role.ADMIN:
 			roles.add("ROLE_ADMIN");
 			break;
-		case Role.USER_SUPPORT:
-			roles.add("USER_SUPPORT");
-			break;
+//		case Role.USER_SUPPORT:
+//			roles.add("CUSTOMER_SUPPORT");
+//			break;
 		case Role.CUSTOMER:
 			roles.add("CUSTOMER");
 			break;
