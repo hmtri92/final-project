@@ -21,10 +21,12 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping (value = "/viewinfo", method = RequestMethod.GET)
+	@RequestMapping (value = "viewinfo", method=RequestMethod.GET)
 	public String viewuserinfo(HttpServletRequest request, Model model){
 		
-		User user = userService.getUserInfo("123456789012");
+		
+		
+		User user = userService.getUserByLoginId(request.getSession().getAttribute("username").toString());
 		
 		model.addAttribute("user", user);
 		
@@ -68,9 +70,12 @@ public class UserController {
 		String lastName = request.getParameter("lastName");
 		String address2 = request.getParameter("address2");
 		String phone2 = request.getParameter("phone2");
+		String email2 = request.getParameter("email2");
 		
-		return userService.editUserInfo(id, firstName, midName, lastName, address2, phone2);		
+		return userService.editUserInfo(id, firstName, midName, lastName, address2, phone2, email2);		
 		
 	}
+	
+	
 }
 

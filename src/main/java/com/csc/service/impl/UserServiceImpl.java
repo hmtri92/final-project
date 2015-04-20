@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
 	public User getUserInfo(String userId) {
 		User user = null;
 		
-		user = userDAO.getUser(userId);
+		user = userDAO.getUserByID(userId);
 		
 		return user;
 	}
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 	public String changePassword(String id, String oldPassword,
 			String newPassword) {
 		// TODO Auto-generated method stub
-		User user = userDAO.getUser(id);
+		User user = userDAO.getUserByID(id);
 		
 		if (!user.getPassword().equals(oldPassword)) {
 			return "FAIL: The current password is incorrect!";
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public String editUserInfo(String id, String firstName, String midName,
-			String lastName, String address2, String phone2) {
+			String lastName, String address2, String phone2, String email2) {
 		
 		
 		if (firstName == null || firstName == "") {
@@ -62,13 +62,14 @@ public class UserServiceImpl implements UserService{
 			return "FAIL: The last name is incorrect!";
 		}
 		
-		User user = userDAO.getUser(id);
+		User user = userDAO.getUserByID(id);
 		
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
 		user.setMidName(midName);
 		user.setAddress2(address2);
 		user.setPhoneNum2(phone2);
+		user.setEmail2(email2);
 		
 		boolean result = userDAO.changeInfo(user);
 		

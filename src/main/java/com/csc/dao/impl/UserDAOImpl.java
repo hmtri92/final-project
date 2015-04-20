@@ -13,19 +13,9 @@ import com.csc.entities.User;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
-	
 	@PersistenceContext
 	EntityManager em;
-
-	@Override
-	public User getUser(String UserId) {
-		User user = null;
-		
-		user = em.find(User.class, UserId);
-		
-		return user;
-	}
-
+	
 	@Override
 	@Transactional
 	public boolean changeInfo(User user) {

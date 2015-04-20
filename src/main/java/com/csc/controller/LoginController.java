@@ -2,6 +2,8 @@ package com.csc.controller;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.csc.entities.User;
 import com.csc.service.UserService;
 
 
@@ -49,7 +52,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String goHome(Model model) {
+	public String goHome(HttpServletRequest request, Model model) {
 		logger.info("Go Home!");
 		String url = "";
 		// Get username - add session user
@@ -83,7 +86,11 @@ public class LoginController {
 			model.addAttribute("role", "account_support");
 		}
 		
-		url = "forward:/userhome";
+		User userEntity = userService.getUserByID(id);
+		
+		model.addAttribute("user", userEntity);
+		
+		url = "home";
 
 		return url;
 	}
@@ -95,7 +102,9 @@ public class LoginController {
 	
 	@RequestMapping(value = "/userhome", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView goHome() {
-		ModelAndView model = new ModelAndView("home");
+		ModelAndView model = new ModelAndView("home");	
+		
+		
 		return model;
 	}
 	

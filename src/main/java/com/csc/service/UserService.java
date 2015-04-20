@@ -10,7 +10,7 @@ public interface UserService {
 			String newPassword);
 
 	public String editUserInfo(String id, String firstName, String midName,
-			String lastName, String address2, String phone2);
+			String lastName, String address2, String phone2, String email2);
 	/*
 	 * MinhTri
 	 */
