@@ -27,9 +27,6 @@
 	<div class="page-content">
 		<div class="container">
 		
-			<div class="alert alert-warning" role="alert" id="message">
-				<a href="#" class="close" data-dismiss="alert">&times;</a>					
-			</div>
 			<!-- <div class="portlet light"> -->
 				<div class="tab-pane" id="tab_1">
 					<div class="portlet box blue">
@@ -162,6 +159,9 @@
 			<!-- </div> -->
 		</div>
 	</div>
+	
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
 
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

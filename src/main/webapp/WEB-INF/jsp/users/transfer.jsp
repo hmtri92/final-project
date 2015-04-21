@@ -25,12 +25,10 @@
 	
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert alert-danger fade in" id="message">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-			</div>
 			<div class="portlet light">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
+						<h3 class="form-section" style="color: rgb(210, 105, 30);">Transfer money</h3>
 						<div class="form-group">
 							<label class="control-label">Account Number</label>
 							<input type="text" name="targetAccount"
@@ -63,6 +61,8 @@
 		</div>
 	</div>
 	
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

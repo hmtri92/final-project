@@ -130,11 +130,6 @@ public class CreateDatabase {
 		minhtri.setState(state);
 		minhtri.setRole(roleAdmin);
 		
-		try {
-			em.persist(minhtri);
-			System.err.println("add Admin successfully!");
-		} catch (Exception e) {}
-		
 		Role roleSupport = em.find(Role.class, Role.ACCOUNT_SUPPORT);
 		State state2 = em.find(State.class, State.ACTIVE);
 		
@@ -155,10 +150,6 @@ public class CreateDatabase {
 		phuc.setLoginID("support");
 		phuc.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		
-		try {
-			em.persist(phuc);
-			System.err.println("add supporter successfully!");
-		} catch (Exception e) {}
 		
 		Role roleCustomer = em.find(Role.class, Role.CUSTOMER);
 		State state3 = em.find(State.class, State.ACTIVE);
@@ -181,7 +172,9 @@ public class CreateDatabase {
 		quocanh.setState(state3);
 		
 		try {
+			em.persist(minhtri);
 			em.persist(quocanh);
+			em.persist(phuc);
 			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
 	}
@@ -223,7 +216,7 @@ public class CreateDatabase {
 		
 		try {
 			em.persist(minhtri);
-//			em.persist(pug);
+			em.persist(pug);
 			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
 	}

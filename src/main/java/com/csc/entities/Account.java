@@ -33,12 +33,10 @@ public class Account extends PersonInfo implements Serializable {
 	private BigDecimal availableAmount;
 	
 	@ManyToOne
-//	@JsonIgnore
 	@JoinColumn (name = "id_type")
 	private TypeAccount typeAccount;
 	
 	@ManyToOne
-//	@JsonIgnore
 	@JoinColumn (name = "id_state")
 	private State state;
 	

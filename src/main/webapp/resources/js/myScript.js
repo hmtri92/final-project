@@ -36,29 +36,6 @@ function checkMyRegister() {
 	
 }
 
-function submitUpdateProfile() {
-	$.ajax({
-		url: "UpdateProfile",
-		type: "POST",
-		data: $("#frmUpdate").serialize(),
-		success: function(result) {
-			var json = JSON.parse(result);
-		}
-	})
-}
-
-$("#registerSubmit").click(function(event){
-	aler(2222);
-	$.ajax({
-		url: "Register",
-		type: "POST",
-		data: $("#frmRegister").serialize(),
-		success:function() {
-			},
-		error:function(){
-			}
-		});
-	});
 
 function checkAccount() {
 	$.ajax({
@@ -104,22 +81,7 @@ function checkTargetAccount() {
 }
 
 function goHome() {
-	location.href = "home";
-}
-
-function changeCheckBox() {
-	if ($("#checkBox").prop("checked")) {
-		$("#recentAccount").removeAttr('disabled');
-		$("#accountNumber").attr('disabled','disabled');
-		$("#banklist").attr('disabled','disabled');
-		$("#branchlist").attr('disabled','disabled');
-		
-	} else {
-		$("#accountNumber").removeAttr('disabled');
-		$("#banklist").removeAttr('disabled');
-		$("#branchlist").removeAttr('disabled');
-		$("#recentAccount").attr('disabled','disabled');
-	}
+	location.href = "../userhome";
 }
 
 
@@ -130,10 +92,12 @@ function addFund() {
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
-			$("#message").html(result);
+			$("#bodyMessage").html(result);
+			$("#message").modal('show');
 		},
 		error : function(){
-			alert("Error while request..");
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
 		}
 	});
 }
@@ -146,10 +110,12 @@ function tranferBySupport() {
 			"targetAccount" : $("#targetaccountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function (result) {
-			$("#message").html(result);
+			$("#bodyMessage").html(result);
+			$("#message").modal('show');
 		},
 		error : function(){
-			alert("Error while request..");
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
 		}
 	});
 }
@@ -157,28 +123,34 @@ function tranferBySupport() {
 function transferByUser() {
 	$.ajax ({
 		type : "POST",
-		url : "user/transferByUser",
+		url : "transferByUser",
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 		success : function (result) {
-			$("#message").html(result);
+			$("#bodyMessage").html(result);
+			$("#message").modal('show');
+			console.log(result);
 		},
-		error : function() {
-			alert("Error while request..");
+		error : function(result){
+			console.log(result);
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
 		}
 	});
 }
 function transferTargetID() {
 	$.ajax ({
 		type : "POST",
-		url : "user/transferTargetID",
+		url : "transferTargetID",
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 			success : function (result) {
-				$("#message").html(result);
+				$("#bodyMessage").html(result);
+				$("#message").modal('show');
 			},
-			error : function() {
-				alert("Error while request..");
+			error : function(){
+				$("#bodyMessage").html("Error");
+				$("#message").modal('show');
 			}
 	});
 }
@@ -190,10 +162,12 @@ function withdraw() {
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
-			$("#message").html(result);
+			$("#bodyMessage").html(result);
+			$("#message").modal('show');
 		},
 		error : function(){
-			alert("Error while request..");
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
 		}
 	});
 }

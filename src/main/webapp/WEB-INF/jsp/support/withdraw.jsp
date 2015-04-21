@@ -26,9 +26,6 @@
 	
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert alert-danger fade in" id="message">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-			</div>
 			<!-- <div class="portlet light"> -->
 				<div class="tab-pane" id="tab_1">
 					<div class="portlet box blue">
@@ -161,6 +158,9 @@
 			<!-- </div> -->
 		</div>
 	</div>
+	
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

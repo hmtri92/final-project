@@ -31,7 +31,7 @@
 			var id = $(this).parent().parent().parent().attr('id');
 			$.ajax({
 		        type : "POST",
-		       	url : "admin/verifyTransaction",
+		       	url : "verifyTransaction",
 		       	data : {"idTransaction" : id},
 		       	success : function (result){
 			       	if (!result.localeCompare("success")) {
@@ -44,10 +44,11 @@
 			       	}
 		       	},
 		        error : function() {
+		        	$('#'+ id + ' button').removeClass("btn-primary");
+			       	$('#'+ id + ' button').addClass("btn-danger");
 		        	alert("Error while request..");
 		        }
 	        });
-			$(this).attr('disabled','disabled');
 		});
 	    
 	} );

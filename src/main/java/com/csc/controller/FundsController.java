@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,21 +88,14 @@ public class FundsController {
 	}
 	
 	@RequestMapping (value = "/user/viewTransferTarget", method=RequestMethod.GET)
-	public ModelAndView viewTransferTarget (@PathVariable( value = "id") String id, 
+	public ModelAndView viewTransferTarget (@ModelAttribute( value = "id") String id, 
 			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("users/transferTarget");
 		
-		
-		
-		User user = userService.getUserByID(id);
-		
-//		if (user != null) {
-//			model.setViewName("forward:/home");
-//			return model;
-//		}
-		
-		List<TargetAccount> targets = fundService.getTargetAccount(user.getId());
-		model.addObject("targetAccounts", targets);
+		List<TargetAccount> targets = fundService.getTargetAccount(id);
+		if (targets != null) {
+			model.addObject("targetAccounts", targets);
+		}
 		
 		return model;
 	}
@@ -109,10 +103,10 @@ public class FundsController {
 	
 	@RequestMapping (value = "/user/transferByUser", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferByUser (@PathVariable( value = "username") String username,
+	public String transferByUser (@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = userService.getUserByLoginId(username);
+		User user = userService.getUserByID(id);
 		
 		if (user != null) {
 			return "Error";
@@ -131,10 +125,10 @@ public class FundsController {
 	
 	@RequestMapping (value = "/user/transferTargetID", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferTargetID(@PathVariable( value = "username") String username,
+	public String transferTargetID(@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = userService.getUserByLoginId(username);
+		User user = userService.getUserByID(id);
 		
 		if (user != null) {
 			return "Error";

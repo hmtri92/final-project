@@ -26,11 +26,6 @@
 	
 	<div class="page-content">
 		<div class="container">
-			<div class="alert alert-warning alert-dismissible" role="alert" id="message">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
 			<div class="portlet light">
 				<div class="row">
 					<div class="col-md-6">
@@ -240,6 +235,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
@@ -49,8 +50,18 @@ public class FundDAOImpl implements FundDAO {
 
 	@Override
 	public List<TargetAccount> getTargetAccount(String id) {
-		Account account = em.find(Account.class, id);
-		return account.getTargetAccounts();
+		try {
+			String sql = "SELECT t FROM TargetAccount t WHERE t.accountOwner.id = :id";
+			TypedQuery<TargetAccount> query = em.createQuery(sql, TargetAccount.class);
+			query.setParameter("id", id);
+			
+			List<TargetAccount> targetAccounts = query.getResultList();
+			
+			return targetAccounts;
+		} catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 	@Override
