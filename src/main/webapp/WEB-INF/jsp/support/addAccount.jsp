@@ -74,6 +74,12 @@
 											class=" validate[required,length[9,9]]"
 											placeholder="9 Number" />
 									</div>
+										<div class="form-group">
+										<label class="control-label">ID-Login : </label> <input
+											type="text" name="loginId" id="loginId"
+											class=" validate[required,length[9,9]]"
+											placeholder="9 Number" />
+									</div>
 								</div>
 								<!--/span-->
 								<!--/span-->
@@ -205,6 +211,9 @@
 
 							<center>
 								<font color="red">${message }</font>
+								User: <font color="red">${User.loginID }</font>
+								Password: <font color="red">${User.password }</font>
+								
 							</center>
 
 						</div>

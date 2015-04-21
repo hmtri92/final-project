@@ -1,10 +1,13 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -14,9 +17,15 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table ( name = "account")
-public class Account extends PersonInfo {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Account extends PersonInfo implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column (name = "id_cardNumber")
 	private String idCardNumber;
 		
@@ -24,33 +33,33 @@ public class Account extends PersonInfo {
 	private BigDecimal availableAmount;
 	
 	@ManyToOne
-	@JsonIgnore
+//	@JsonIgnore
 	@JoinColumn (name = "id_type")
 	private TypeAccount typeAccount;
 	
 	@ManyToOne
-	@JsonIgnore
+//	@JsonIgnore
 	@JoinColumn (name = "id_state")
 	private State state;
 	
 	@OneToMany (mappedBy = "account")
+	@JsonIgnore
 	private List<BalanceAmount> balanceAmounts;
 	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn (name = "id_role")
-	private Role role;
-	
 	@OneToMany (mappedBy = "sendAccount")
+	@JsonIgnore
 	private List<Transaction> sendTracsactions;
 	
 	@OneToMany (mappedBy = "receiveAccount")
+	@JsonIgnore
 	private List<Transaction> receiveTracsactions;
 	
 	@OneToMany (mappedBy = "accountOwner")
+	@JsonIgnore
 	private List<TargetAccount> targetAccounts;
 	
 	@OneToMany (mappedBy = "accountTarget")
+	@JsonIgnore
 	private List<TargetAccount> targetOfAccounts;
 
 	public Account() {
@@ -63,7 +72,7 @@ public class Account extends PersonInfo {
 			String address1, String address2, String email1, String email2,
 			String idCardNumber, BigDecimal availableAmount,
 			TypeAccount typeAccount, State state,
-			List<BalanceAmount> balanceAmounts, Role role,
+			List<BalanceAmount> balanceAmounts,
 			List<Transaction> sendTracsactions,
 			List<Transaction> receiveTracsactions,
 			List<TargetAccount> targetAccounts,
@@ -75,7 +84,6 @@ public class Account extends PersonInfo {
 		this.typeAccount = typeAccount;
 		this.state = state;
 		this.balanceAmounts = balanceAmounts;
-		this.role = role;
 		this.sendTracsactions = sendTracsactions;
 		this.receiveTracsactions = receiveTracsactions;
 		this.targetAccounts = targetAccounts;
@@ -84,7 +92,7 @@ public class Account extends PersonInfo {
 
 	public Account(String idCardNumber, BigDecimal availableAmount,
 			TypeAccount typeAccount, State state,
-			List<BalanceAmount> balanceAmounts, Role role,
+			List<BalanceAmount> balanceAmounts,
 			List<Transaction> sendTracsactions,
 			List<Transaction> receiveTracsactions) {
 		super();
@@ -93,7 +101,6 @@ public class Account extends PersonInfo {
 		this.typeAccount = typeAccount;
 		this.state = state;
 		this.balanceAmounts = balanceAmounts;
-		this.role = role;
 		this.sendTracsactions = sendTracsactions;
 		this.receiveTracsactions = receiveTracsactions;
 	}
@@ -136,14 +143,6 @@ public class Account extends PersonInfo {
 
 	public void setBalanceAmounts(List<BalanceAmount> balanceAmounts) {
 		this.balanceAmounts = balanceAmounts;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public List<Transaction> getSendTracsactions() {

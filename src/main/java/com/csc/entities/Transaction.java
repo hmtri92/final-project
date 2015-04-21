@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,13 +15,17 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
 @Table(name = "logTransaction")
-public class Transaction {
+public class Transaction implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Transient
 	public static int ADD_FUND = 1;
 	

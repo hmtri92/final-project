@@ -27,8 +27,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#mytable").dataTable();		
-		var listkey = ${listKey}; 
-		alert(listkey);	
 		$( "#keyInput" ).autocomplete({
 		      source: ${listKey}
 		    });
@@ -42,8 +40,30 @@
 			$("#stateInput").css("display","block");
 		} else if(mySelect.value == 4) {
 			$("#typeInput").css("display","block");
-		} else
+		} else{
 			$("#textInput").css("display","block");
+			$.ajax ({
+				type : "POST",
+				url : "getRecomendKey",
+				data : {"type" : mySelect.value},					
+					success : function (result) {
+						alert(result);
+						$( "#keyInput" ).autocomplete({
+						      source: null
+						    });
+						$( "#keyInput" ).autocomplete({
+						      source: result
+						    });
+					},
+					error : function() {
+						alert("Error while processing request..");
+					}
+			});	
+		}
+			
+
+		
+		
 		
 	}
 </script>
@@ -51,7 +71,7 @@
 </head>
 <body>
 <body style="padding-top: 100px !important">
-	<%@ include file=../models/navbarCustomer.jsp"%>
+	<%@ include file="../models/navbar.jsp"%>
 
 	<div class="page-content">
 		<div class="container">
@@ -167,6 +187,6 @@
 	
 
 	<!-- start footer -->
-	<%@ include file=../models/footer.jsp"%>
+	<%@ include file="../models/footer.jsp"%>
 </body>
 </html>

@@ -63,9 +63,11 @@ $("#registerSubmit").click(function(event){
 function checkAccount() {
 	$.ajax({
 		type : "POST",
-		url : "support/getAccountById",
+		url : "getAccountById",
+		datatype:"json",
 		data : {"accountNumber" : $("#accountNumber").val()},
 		success : function(result) {
+			console.log(result);
 			$("#firstname").val(result.firstName);
 			$("#midname").val(result.midName);
 			$("#lastname").val(result.lastName);
@@ -74,7 +76,8 @@ function checkAccount() {
 			$("#phoneNum1").val(result.phoneNum1);
 			$("#phoneNum2").val(result.phoneNum2);
 		},
-		error : function(){
+		error : function(result){
+			console.log(result);
 			alert("Error while request..");
 		}
 	});
@@ -83,7 +86,7 @@ function checkAccount() {
 function checkTargetAccount() {
 	$.ajax({
 		type : "POST",
-		url : "support/getAccountById",
+		url : "getAccountById",
 		data : {"accountNumber" : $("#targetaccountNumber").val()},
 		success : function(result) {
 			$("#targetfirstname").val(result.firstName);
@@ -123,7 +126,7 @@ function changeCheckBox() {
 function addFund() {
 	$.ajax ({
 		type : "POST",
-		url : "support/addFund",
+		url : "addFund",
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
@@ -138,7 +141,7 @@ function addFund() {
 function tranferBySupport() {
 	$.ajax ({
 		type : "POST",
-		url : "support/transferBySupport",
+		url : "transferBySupport",
 		data : {"sendAccount" : $("#accountNumber").val(),
 			"targetAccount" : $("#targetaccountNumber").val(),
 			"amount" : $("#amount").val()},
@@ -183,7 +186,7 @@ function transferTargetID() {
 function withdraw() {
 	$.ajax ({
 		type : "POST",
-		url : "support/withdraw",
+		url : "withdraw",
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {

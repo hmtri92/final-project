@@ -47,7 +47,7 @@
 			always-use-default-target="true" 
 			username-parameter="j_username"
 			password-parameter="j_password"
-			authentication-failure-url="/login" />
+			authentication-failure-url="/login?fail" />
  
 		<logout logout-success-url="/login?logout"  />
 	</http>

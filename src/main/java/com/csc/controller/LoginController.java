@@ -1,5 +1,6 @@
 package com.csc.controller;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,21 +11,26 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.User;
+import com.csc.service.AccountService;
 import com.csc.service.UserService;
 
 
 @Controller
-@SessionAttributes({"username", "role" })
+@SessionAttributes({"username", "role", "id" })
 public class LoginController {
 	
 	@Autowired
 	UserService userService;
+	@Autowired
+	AccountService accountService;
+	
 	
 	private Logger logger = Logger.getLogger(LoginController.class);
 
@@ -51,7 +57,7 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/home")
 	public String goHome(HttpServletRequest request, Model model) {
 		logger.info("Go Home!");
 		String url = "";
@@ -60,10 +66,11 @@ public class LoginController {
 				(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();
 		String id = user.getUsername();
-		String username = userService.getUserByID(id).getLoginID();
+		
+		User userEntity = userService.getUserByID(id);	
 
 		// Set session user
-		model.addAttribute("username", username);
+		model.addAttribute("username", userEntity.getLoginID());
 		model.addAttribute("id", id);
 		// Get role - add session rolesuser
 		Collection<GrantedAuthority> authorities = user.getAuthorities();
@@ -78,6 +85,8 @@ public class LoginController {
 			
 		} else if (authorities.toString().contains("CUSTOMER")) {
 			model.addAttribute("role", "customer");
+			BigDecimal availableAmount = accountService.getAccountById(id).getAvailableAmount();
+			model.addAttribute("availableAmount", availableAmount.toString());
 			
 		} else if (authorities.toString().contains("REPORT_SUPPORT")) {
 			model.addAttribute("role", "report_support");
@@ -86,9 +95,10 @@ public class LoginController {
 			model.addAttribute("role", "account_support");
 		}
 		
-		User userEntity = userService.getUserByID(id);
-		
+			
 		model.addAttribute("user", userEntity);
+		
+		
 		
 		url = "home";
 

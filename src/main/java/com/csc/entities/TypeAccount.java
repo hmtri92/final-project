@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,12 +10,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table (name = "typeAccount")
-public class TypeAccount {
+public class TypeAccount implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Transient
 	public static final int DEPOSIT = 1;
 	@Transient
@@ -31,6 +37,7 @@ public class TypeAccount {
 	private String type;
 	
 	@OneToMany (mappedBy = "typeAccount")
+	@JsonIgnore
 	private List<Account> accounts;
 
 	public TypeAccount() {

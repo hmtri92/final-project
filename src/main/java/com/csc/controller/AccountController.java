@@ -1,10 +1,11 @@
 package com.csc.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,26 +13,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
+import com.csc.entities.User;
 import com.csc.service.AccountService;
-import com.csc.service.FundService;
-
 
 @Controller
+@SessionAttributes({ "support", "role", "id" })
 public class AccountController {
 	@Autowired
 	AccountService accountService;
 
 	public ModelAndView AccountPage() {
-		 
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName("support/addAccount");
- 
+
 		return model;
- 
+
 	}
+
 	@RequestMapping(value = "/createAccount", method = RequestMethod.GET)
 	public String goViewAddFund2() {
 		return "support/addAccount";
@@ -39,11 +42,11 @@ public class AccountController {
 
 	@RequestMapping(value = "/docreateAccount", method = RequestMethod.POST)
 	public String addAccount(HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("id");
-//		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request
-//				.getParameter("availableAmount")));
+		// BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request
+		// .getParameter("availableAmount")));
 		BigDecimal amount = BigDecimal.valueOf(0);
 		String idCardNumber = request.getParameter("idCardNumber");
 		String firstName = request.getParameter("firstName");
@@ -55,39 +58,78 @@ public class AccountController {
 		String address2 = request.getParameter("address2");
 		String email1 = request.getParameter("email1");
 		String email2 = request.getParameter("email2");
-		
+		String loginId = request.getParameter("loginId");
 		String rol = request.getParameter("role");
+
 		int role = Integer.parseInt(rol);
 		String typeAccount1 = request.getParameter("typeAccount");
 		int typeAccount = Integer.parseInt(typeAccount1);
+		int password = accountService.random(100000, 999999);
+		String pass = Integer.toString(password);
+		User user = new User();
+		user.setId(accountNumber);
+		user.setAvailableAmount(amount);
+		user.setIdCardNumber(idCardNumber);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setMidName(midName);
+		user.setAddress1(address1);
+		user.setAddress2(address2);
+		user.setEmail1(email1);
+		user.setEmail2(email2);
+		user.setPhoneNum1(phoneNum1);
+		user.setPhoneNum2(phoneNum2);
+		user.setPassword(pass);
+		user.setLoginID(loginId);
 
-		Account account = new Account();
-		account.setId(accountNumber);
-		account.setAvailableAmount(amount);
-		account.setIdCardNumber(idCardNumber);
-		account.setFirstName(firstName);
-		account.setLastName(lastName);
-		account.setMidName(midName);
-		account.setAddress1(address1);
-		account.setAddress2(address2);
-		account.setEmail1(email1);
-		account.setEmail2(email2);
-		account.setPhoneNum1(phoneNum1);
-		account.setPhoneNum2(phoneNum2);
-		
-		Account existedAccount = accountService.getAccountById(accountNumber);	
-		
-		if (existedAccount==null) {
-			accountService.addAccount(account, role, typeAccount);
-			model.addAttribute("message", "Create Account Success!");
-			return "support/addAccount";
+		Account existedAccount = accountService.getAccountById(accountNumber);
 
-			
+		if (existedAccount == null) {
+			boolean result = accountService.checkLoginid(loginId);
+			if (!result) {
+				accountService.addUser(user, role, typeAccount);
+				// accountService.addUser(accountNumber, state, role,
+				// idCardNumber, pass, loginId);
+				model.addAttribute("message", "Create Account Success!");
+				model.addAttribute("User", user);
+				return "support/addAccount";
+
+			} else {
+				model.addAttribute("message", "LoginId has Exit!");
+				return "support/addAccount";
+
+			}
 		} else {
 			model.addAttribute("message", "Create Account Fail!");
 			return "support/addAccount";
 
 		}
-	}
 
+	}
+	@RequestMapping (value = "/support/searchaccount", method = RequestMethod.GET)
+	public String searchAccount(HttpServletRequest request, Model model){
+		
+		List<String> listKey = accountService.getRecomendedKey(1);
+		
+		for (int i = 0; i < listKey.size(); i++) {
+			listKey.set(i, "\'" + listKey.get(i) +"\'");
+		}
+		List<Account> listAccount = new ArrayList<Account>();	
+		
+		model.addAttribute("listAccount", listAccount);		
+		model.addAttribute("listKey", listKey);		
+				
+		return "support/searchaccount";
+	}
+	
+	
+	@RequestMapping (value = "/support/getRecomendKey", method=RequestMethod.POST)
+	@ResponseBody
+	public List<String> getRecommendKey(HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("type");
+		
+		System.err.println(type);
+		
+		return accountService.getRecomendedKey(Integer.parseInt(type));
+	}
 }

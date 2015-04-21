@@ -7,18 +7,19 @@
 <meta charset="ISO-8859-1">
 <title>CSC Banking System</title>
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/myStyle.css">
-<link rel="stylesheet" href="css/logo-nav.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/plugins.css">
-<link rel="stylesheet" href="css/screen.css">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/jquery.dataTables.css'/>">
 <link rel="stylesheet" href="css/jquery.dataTables.css">
 
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/jquery/jquery.dataTables.js"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery/jquery.dataTables.js'/>"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -29,7 +30,7 @@
 </head>
 <body>
 <body style="padding-top: 100px !important">
-	<%@ include file=../models/navbarCustomer.jsp"%>
+	<%@ include file="../models/navbarCustomer.jsp"%>
 
 	<div class="page-content">
 		<div class="container">
@@ -75,6 +76,6 @@
 	
 
 	<!-- start footer -->
-	<%@ include file=../models/footer.jsp"%>
+	<%@ include file="../models/footer.jsp"%>
 </body>
 </html>

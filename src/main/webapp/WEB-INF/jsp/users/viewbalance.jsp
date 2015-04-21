@@ -30,7 +30,7 @@
 </head>
 <body>
 <body style="padding-top: 100px !important">
-	<%@ include file=../models/navbarCustomer.jsp"%>
+	<%@ include file="../models/navbarCustomer.jsp"%>
 
 	<div class="page-content">
 		<div class="container">
@@ -72,6 +72,6 @@
 	
 
 	<!-- start footer -->
-	<%@ include file=../models/footer.jsp"%>
+	<%@ include file="../models/footer.jsp"%>
 </body>
 </html>

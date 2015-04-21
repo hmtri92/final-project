@@ -22,6 +22,8 @@
 			<ul style="font-size: 18px" class="nav navbar-nav">
 				<li><a href="<c:url value='/user/viewTransferByUser'/>" >Transfer Money</a></li>
 				<li><a href="<c:url value='/user/viewTransferTarget'/>" >Transfer Money In Target</a></li>
+				<li><a href="<c:url value='/user/viewlog'/>" >Transaction Log</a></li>
+				<li><a href="<c:url value='/user/viewbalance'/>" >Balance Info</a></li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">
@@ -29,7 +31,7 @@
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 		          	${username} <span class="caret"></span></a>
 		          <ul class="dropdown-menu" role="menu">
-		            <li style="padding-bottom: 10px"><a href="#"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
+		            <li style="padding-bottom: 10px"><a href="<c:url value='/viewprofile'/>"><i class="glyphicon glyphicon-user"></i>  Edit profile</a></li>
 		            <li><a href="<c:url value="/j_spring_security_logout" />"><i class="glyphicon glyphicon-off"></i>  Sign out</a></li>
 		          </ul>
 		        </li>

@@ -36,7 +36,7 @@ public class FundsController {
 		return "support/addFunds";
 	}
 	
-	@RequestMapping (value = "/support/getAccountById", method=RequestMethod.POST)
+	@RequestMapping (value = "/support/getAccountById", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
@@ -45,7 +45,7 @@ public class FundsController {
 		return account;
 	}
 	
-	@RequestMapping (value = "support/addFund", method = RequestMethod.POST)
+	@RequestMapping (value = "/support/addFund", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFund(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -90,6 +90,8 @@ public class FundsController {
 	public ModelAndView viewTransferTarget (@PathVariable( value = "id") String id, 
 			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("users/transferTarget");
+		
+		
 		
 		User user = userService.getUserByID(id);
 		

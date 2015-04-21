@@ -1,6 +1,8 @@
 package com.csc.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.csc.entities.BalanceAmount;
+import com.csc.entities.Transaction;
 import com.csc.entities.User;
 import com.csc.service.UserService;
 
@@ -21,18 +25,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping (value = "viewinfo", method=RequestMethod.GET)
-	public String viewuserinfo(HttpServletRequest request, Model model){
-		
-		
-		
-		User user = userService.getUserByLoginId(request.getSession().getAttribute("username").toString());
-		
-		model.addAttribute("user", user);
-		
-		return "viewinfo";
-		
-	}
 	
 	@RequestMapping (value = "/changeUserPassword", method=RequestMethod.POST)
 	@ResponseBody
@@ -76,6 +68,68 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping (value = "/user/viewprofile")
+	public String viewProfile(HttpServletRequest request, Model model){
+		User user = userService.getUserByLoginId(request.getSession().getAttribute("username").toString());
+		
+		model.addAttribute("user", user);
+		
+		return "viewprofile";
+	}
+	
+	@RequestMapping (value = "/user/viewlog", method = RequestMethod.GET)
+	public String viewuserlog(HttpServletRequest request, Model model){
+		HttpSession session = request.getSession();
+		
+//		User user = (User)session.getAttribute("user");
+//		
+//		if (user != null) {
+//			return "Error";
+//		}
+		
+		List<Transaction> listTransaction = null;
+		
+		listTransaction = userService.getTransactionByUserId("123456789012", 2);
+		model.addAttribute("accountNumber", "123456789012");
+		if (listTransaction == null) {
+			model.addAttribute("listTransaction", new ArrayList<Transaction>());
+			model.addAttribute("RESULT", "No result found");
+		}else{
+			model.addAttribute("listTransaction", listTransaction);
+			model.addAttribute("RESULT", listTransaction.size() + " result(s) found");
+		}
+				
+		return "users/viewlog";
+		
+	}
+	
+	@RequestMapping (value = "/user/viewbalance", method = RequestMethod.GET)
+	public String viewbalancelog(HttpServletRequest request, Model model){
+		HttpSession session = request.getSession();
+		
+//		User user = (User)session.getAttribute("user");
+//		
+//		if (user != null) {
+//			return "Error";
+//		}
+		
+		List<BalanceAmount> listBalance = null;
+		
+		listBalance = userService.getBalanceLogByUserId("123456789012");
+		
+		
+		model.addAttribute("accountNumber", "123456789012");
+		if (listBalance == null) {
+			model.addAttribute("listBalance", new ArrayList<BalanceAmount>());
+			model.addAttribute("RESULT", "No result found");
+		}else{
+			model.addAttribute("listBalance", listBalance);
+			model.addAttribute("RESULT", listBalance.size() + " result(s) found");
+		}
+				
+		return "users/viewbalance";
+		
+	}
 	
 }
 

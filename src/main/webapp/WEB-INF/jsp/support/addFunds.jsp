@@ -41,7 +41,7 @@
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
 		
-							<form id="createAccount" class="horizontal-form" action="" method="POST">
+							<form class="horizontal-form">
 								<div class="form-body">
 									
 									<h3 class="form-section">Account Info</h3>

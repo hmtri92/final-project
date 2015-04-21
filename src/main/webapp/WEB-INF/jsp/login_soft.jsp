@@ -94,30 +94,15 @@
 	<!-- start footer -->
 	<%@ include file="models/footer.jsp"%>
 
-<!-- END COPYRIGHT -->
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-<!-- BEGIN CORE PLUGINS -->
-<!--[if lt IE 9]>
-<script src="../../assets/global/plugins/respond.min.js"></script>
-<script src="../../assets/global/plugins/excanvas.min.js"></script> 
-<![endif]-->
 <!-- END PAGE LEVEL SCRIPTS -->
-<script>
-jQuery(document).ready(function() {     
-  Metronic.init(); // init metronic core components
-Layout.init(); // init current layout
-  Login.init();
-  Demo.init();
-       // init background slide images
-      /*  $.backstretch([
-        "<c:url value='images/backstretch.jpg' />",
-        ], {
-          fade: 1000,
-          duration: 8000
-    }
-    ); */
-});
-</script>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {     
+		  Metronic.init(); // init metronic core components
+		Layout.init(); // init current layout
+		  Login.init();
+		  Demo.init();
+		});
+	</script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

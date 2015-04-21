@@ -4,10 +4,11 @@ import java.util.List;
 
 import com.csc.entities.Account;
 import com.csc.entities.Transaction;
+import com.csc.entities.User;
 
 public interface AccountDAO {
 	boolean addAccount(Account account, int idRole, int idType);
-
+	
 	public Account getAccountById(String id);
 
 	public Account updateStateAccountById(String id, int state);
@@ -17,6 +18,11 @@ public interface AccountDAO {
 			String email2, String address1, String address2,
 			String phoneNumber1, String phoneNumber2, String idcardNumber);
 
-		public List<Account> getStateNew();
-		public List<Account> getStateDis();
+	public List<Account> getStateNew();
+	public List<Account> getStateDis();
+	public List<String> getRecomendedKeyList(int searchType);
+		public List<User> getAllUser();
+		public boolean checkLoginid(String LoginId);
+		public boolean addUser(User user, int idRole, int idType);
+
 }

@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,11 +10,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table (name = "role")
-public class Role {
+public class Role implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Transient
 	public static final int CUSTOMER = 1;
@@ -26,7 +33,7 @@ public class Role {
 	
 	@Transient
 	public static final int USER_SUPPORT = 4;
-	
+
 	@Transient
 	public static final int REPORT_SUPPORT = 5;
 	
@@ -39,19 +46,19 @@ public class Role {
 	private String nameRole;
 	
 	@OneToMany (mappedBy = "role")
-	private List<User> users;
+	@JsonIgnore
+	List<User> users;
 	
-
+	
 	public Role() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Role(int idRole, String nameRole, List<User> users) {
+	public Role(int idRole, String nameRole) {
 		super();
 		this.idRole = idRole;
 		this.nameRole = nameRole;
-		this.users = users;
 	}
 
 	public int getIdRole() {
@@ -69,14 +76,4 @@ public class Role {
 	public void setNameRole(String nameRole) {
 		this.nameRole = nameRole;
 	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	
 }

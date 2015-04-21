@@ -128,6 +128,7 @@ public class CreateDatabase {
 		minhtri.setPhoneNum2("09090909");
 		minhtri.setRole(roleAdmin);
 		minhtri.setState(state);
+		minhtri.setRole(roleAdmin);
 		
 		try {
 			em.persist(minhtri);
@@ -187,12 +188,11 @@ public class CreateDatabase {
 	
 	@Transactional
 	public void createAccount() {
-		Role roleAdmin = em.find(Role.class, Role.ADMIN);
 		State state = em.find(State.class, State.ACTIVE);
 		TypeAccount type = em.find(TypeAccount.class, TypeAccount.OTHER);
 		
 		Account minhtri = new Account();
-		minhtri.setId("123456789012");
+		minhtri.setId("1234567890");
 		minhtri.setIdCardNumber("272015010"); 
 		minhtri.setFirstName("Huynh");
 		minhtri.setMidName("Minh");
@@ -203,7 +203,6 @@ public class CreateDatabase {
 		minhtri.setEmail2("minhtri@gmail.com");
 		minhtri.setPhoneNum1("0913131313");
 		minhtri.setPhoneNum2("09090909");
-		minhtri.setRole(roleAdmin);
 		minhtri.setState(state);
 		minhtri.setTypeAccount(type);
 		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
@@ -218,14 +217,13 @@ public class CreateDatabase {
 		pug.setAddress2("Thu Duc");
 		pug.setEmail1("pugTran@gmail.com");
 		pug.setPhoneNum1("0913131313");
-		pug.setRole(roleAdmin);
 		pug.setState(state);
 		pug.setTypeAccount(type);
 		pug.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		try {
 			em.persist(minhtri);
-			em.persist(pug);
+//			em.persist(pug);
 			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
 	}

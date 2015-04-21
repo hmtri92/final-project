@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,12 +10,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table (name = "state")
-public class State {
+public class State implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Transient
 	public static final int NEW = 1;
 	
@@ -38,12 +45,11 @@ public class State {
 	private String name;
 	
 	@OneToMany (mappedBy = "state")
+	@JsonIgnore
 	private List<Account> accounts;
 	
 	@OneToMany (mappedBy = "state")
-	private List<User> users;
-	
-	@OneToMany (mappedBy = "state")
+	@JsonIgnore
 	private List<Transaction> transactions;
 
 
@@ -54,12 +60,11 @@ public class State {
 
 
 	public State(int idState, String name, List<Account> accounts,
-			List<User> users, List<Transaction> transactions) {
+			List<Transaction> transactions) {
 		super();
 		this.idState = idState;
 		this.name = name;
 		this.accounts = accounts;
-		this.users = users;
 		this.transactions = transactions;
 	}
 
@@ -94,13 +99,4 @@ public class State {
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
 	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-	
 }

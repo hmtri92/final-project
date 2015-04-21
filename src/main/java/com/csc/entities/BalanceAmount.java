@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -13,7 +14,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table (name = "balanceAmount")
-public class BalanceAmount {
+public class BalanceAmount implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column (name = "id_balance")

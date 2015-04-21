@@ -1,21 +1,31 @@
 package com.csc.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.dao.AuthenticationDAO;
+import com.csc.dao.BalanceDAO;
+import com.csc.dao.TransactionDAO;
 import com.csc.dao.UserDAO;
+import com.csc.entities.BalanceAmount;
+import com.csc.entities.Transaction;
 import com.csc.entities.User;
 import com.csc.service.UserService;
+import com.csc.ultil.PasswordUtils;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
-	UserDAO userDAO;
-	
+	UserDAO userDAO;	
 	@Autowired
 	AuthenticationDAO authenticationDao;
+	@Autowired
+	TransactionDAO transactionDAO;
+	@Autowired
+	BalanceDAO balanceDAO;
 
 	@Override
 	public User getUserInfo(String userId) {
@@ -40,7 +50,7 @@ public class UserServiceImpl implements UserService{
 			return "FAIL: The new password is incorrect!";
 		}
 		
-		user.setPassword(newPassword);
+		user.setPassword(PasswordUtils.encodePassword(newPassword));
 		
 		boolean result = userDAO.changeInfo(user);
 		
@@ -91,6 +101,26 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User getUserByID(String id) {
 		return userDAO.getUserByID(id);
+	}
+
+	@Override
+	public List<Transaction> getTransactionByUserId(String id, int state) {
+		// TODO Auto-generated method stub
+		List<Transaction> result = null;
+		
+		result = transactionDAO.getTransactionByUserId(id, state);
+		
+		return result;
+	}
+
+	@Override
+	public List<BalanceAmount> getBalanceLogByUserId(String accountNumber) {
+		// TODO Auto-generated method stub
+		List<BalanceAmount> result = null;
+		
+		result = balanceDAO.getBalanceLogByUserId(accountNumber);
+		
+		return result;
 	}
 
 }

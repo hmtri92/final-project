@@ -1,6 +1,5 @@
 package com.csc.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,38 +13,34 @@ import com.csc.dao.AccountDAO;
 import com.csc.entities.Account;
 import com.csc.entities.Role;
 import com.csc.entities.State;
-import com.csc.entities.Transaction;
 import com.csc.entities.TypeAccount;
+import com.csc.entities.User;
 
 
 @Repository
 public class AccountDAOImpl implements AccountDAO {
-
-
-
 	@PersistenceContext
 	EntityManager em;
 	
 	@Override
 	@Transactional
 	public boolean addAccount(Account account, int idRole, int idType) {
-		
 
-		Role role = em.find(Role.class, idRole);
 		TypeAccount type = em.find(TypeAccount.class, idType);
 		State state = em.find(State.class, State.NEW);
 
-		account.setRole(role);
 		account.setTypeAccount(type);
 		account.setState(state);
 		em.persist(account);
-		
+	
 		return true;
 	}
+	
 	@Override
 	public Account getAccountById(String id) {
 		return em.find(Account.class, id);
-}
+	}
+	
 	@Override
 	@Transactional
 	public Account updateStateAccountById(String id,int idstate) {
@@ -55,8 +50,6 @@ public class AccountDAOImpl implements AccountDAO {
 			em.persist(account);
 			
 			return account;
-		
-		
 	}
 	
 	@Override
@@ -66,10 +59,8 @@ public class AccountDAOImpl implements AccountDAO {
 		
 			Account account = em.find(Account.class, id);
 			State state = em.find(State.class, idstate);
-			Role role = em.find(Role.class, idRole);
 			TypeAccount type = em.find(TypeAccount.class, idType);
 			account.setState(state);
-			account.setRole(role);
 			account.setTypeAccount(type);
 			account.setAddress1(address1);
 			account.setAddress2(address2);
@@ -97,6 +88,7 @@ public class AccountDAOImpl implements AccountDAO {
 		
 	}
 	@Override
+	@Transactional
 	public List<Account> getStateDis() {
 		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
@@ -105,6 +97,96 @@ public class AccountDAOImpl implements AccountDAO {
 		List<Account> listState = query.getResultList();
 		
 		return listState;		
+	}
+
+	@Override
+	@Transactional
+	public boolean addUser(User user, int idRole, int idType) {
+
+		Role role = em.find(Role.class, idRole);
+		TypeAccount type = em.find(TypeAccount.class, idType);
+		State state = em.find(State.class, State.NEW);
+
+		user.setRole(role);
+		user.setTypeAccount(type);
+		user.setState(state);
+		em.persist(user);
+	
+		return true;
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		String sql = "SELECT t FROM User t ";
+		TypedQuery<User> query = em.createQuery(sql, User.class);
+	
+		List<User> listUser = query.getResultList();
+		
+		return listUser;		
+	}
+
+	@Override
+	public boolean checkLoginid(String LoginId) {
+		try {
+			String sql = "SELECT t FROM User t WHERE t.loginID = :LoginId";
+			TypedQuery<User> query = em.createQuery(sql, User.class);
+			query.setParameter("LoginId", LoginId);
+			
+			User user = query.getSingleResult();
+			if (user == null) {
+				return false;
+			}
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public List<String> getRecomendedKeyList(int searchType) {
+		String sql1 = null;
+		String sql2 = null;
+		
+		switch (searchType) {
+		case 1:
+			sql1 = "SELECT a.id FROM Account a";
+			break;
+		case 2:
+			sql1 = "SELECT a.idCardNumber FROM Account a";
+			break;
+		case 3:
+			sql1 = "SELECT CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName)  FROM Account a";
+			break;
+		case 6:
+			sql1 = "SELECT a.phoneNum1 FROM Account a";
+			sql2 = "SELECT a.phoneNum2 FROM Account a";			
+			break;
+		case 7:
+			sql1 = "SELECT a.address1 FROM Account a";
+			sql2 = "SELECT a.address2 FROM Account a";
+			break;
+		case 8:
+			sql1 = "SELECT a.email1 FROM Account a";
+			sql2 = "SELECT a.email2 FROM Account a";
+			break;
+		default:
+			break;
+		}
+
+		
+		
+		
+		TypedQuery<String> query = em.createQuery(sql1, String.class);
+		
+		List<String> listRecomend = query.getResultList();
+		
+		if (sql2 != null) {
+			query = em.createQuery(sql2, String.class);
+			listRecomend.addAll(query.getResultList());
+		}
+		
+		return listRecomend;
 	}
 }
 

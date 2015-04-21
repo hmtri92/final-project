@@ -1,5 +1,8 @@
 package com.csc.entities;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,42 +11,63 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "user")
-public class User extends PersonInfo {
+public class User extends Account {
 
     
-    @Column (name = "login_id")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column (name = "login_id")
     private String loginID;
 
     @Column (name = "password")
     private String password;
-
-    @Column (name = "id_cardnumber")
-    private String idCardNumber;
-
+    
     @ManyToOne
-    @JoinColumn (name = "id_state")
-    private State state;
+	@JoinColumn (name = "id_role")
+	private Role role;
 
-    @ManyToOne
-    @JoinColumn (name = "id_role")
-    private Role role;
-
-    public User() {
+	public User() {
         super();
-        // TODO Auto-generated constructor stub
     }
+
+	
+	public User(String idCardNumber, BigDecimal availableAmount,
+			TypeAccount typeAccount, State state,
+			List<BalanceAmount> balanceAmounts,
+			List<Transaction> sendTracsactions,
+			List<Transaction> receiveTracsactions) {
+		super(idCardNumber, availableAmount, typeAccount, state, balanceAmounts,
+				sendTracsactions, receiveTracsactions);
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public User(String idCustomer, String firstName, String lastName,
 			String midName, String phoneNum1, String phoneNum2,
 			String address1, String address2, String email1, String email2,
-			String loginID, String password, String idCardNumber,
-			State state, Role role) {
+			String idCardNumber, BigDecimal availableAmount,
+			TypeAccount typeAccount, State state,
+			List<BalanceAmount> balanceAmounts,
+			List<Transaction> sendTracsactions,
+			List<Transaction> receiveTracsactions,
+			List<TargetAccount> targetAccounts,
+			List<TargetAccount> targetOfAccounts) {
 		super(idCustomer, firstName, lastName, midName, phoneNum1, phoneNum2, address1,
-				address2, email1, email2);
-		this.loginID = loginID;
-		this.password = password;
-		this.idCardNumber = idCardNumber;
-		this.state = state;
+				address2, email1, email2, idCardNumber, availableAmount, typeAccount,
+				state, balanceAmounts, sendTracsactions, receiveTracsactions,
+				targetAccounts, targetOfAccounts);
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -61,29 +85,5 @@ public class User extends PersonInfo {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getIdCardNumber() {
-		return idCardNumber;
-	}
-
-	public void setIdCardNumber(String idCardNumber) {
-		this.idCardNumber = idCardNumber;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 }
