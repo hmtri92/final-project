@@ -13,17 +13,10 @@ function changePassword(){
 	$("#password").removeAttr("disabled");	
 }
 
-function submitChangePassword(currentPass){
+function submitChangePassword(){
 	var password = $("#password").val();
 	var newPassword = $("#newPassword").val();
-	var retypePassword = $("#retypePassword").val();	
-	
-	if (password !=  currentPass) {
-		alert("Please enter the correct password!");
-		$("#password").select();	
-		return;
-	}
-	
+	var retypePassword = $("#retypePassword").val(); 
 	
 	if (8 > newPassword.length || newPassword.indexOf(' ') != -1) {
 		alert("Please enter the new password! Password length must have more than 8 character and no space character.");
@@ -32,18 +25,18 @@ function submitChangePassword(currentPass){
 		return;
 	}
 	
-	
 	if (retypePassword != newPassword) {
 		alert("Please enter the same password!");
 		$("#retypePassword").select();	
 		return;
 	}
+	doChangePassword();
 	
-	cancelChangePassword(doChangePassword(currentPass));
+	cancelChangePassword();
 	
 }
 
-function doChangePassword(currentPass){
+function doChangePassword(){
 	$.ajax ({
 		type : "POST",
 		url : "changeUserPassword",
@@ -56,11 +49,11 @@ function doChangePassword(currentPass){
 				$("#message").css("display","block");	
 				$("#message").html('<i class="fa fa-cogs"></i>' + result);
 				if (success == "SUCCESS") {					
-					$("#message").attr("class","Metronic-alerts alert fade in alert-success");									
-					return $("#newPassword").val();	
+					$("#message").attr("class","Metronic-alerts alert fade in alert-success");
+					return;
 				} else {					
-					$("#message").attr("class","Metronic-alerts alert fade in alert-alert");	
-					return currentPass;
+					$("#message").attr("class","Metronic-alerts alert fade in alert-alert");
+					return;
 				}				
 			},
 			error : function() {
@@ -69,11 +62,10 @@ function doChangePassword(currentPass){
 	});
 }
 
-function cancelChangePassword(password){
+function cancelChangePassword(){
 	$("#buttonChange").css("visibility","visible");
 	$("#buttonSubmit").css("display","none");
-	$("#changePassSection").css("display","none");	
-	$("#password").val(password);	
+	$("#changePassSection").css("display","none");
 	$("#password").attr("disabled","disabled");	
 }
 

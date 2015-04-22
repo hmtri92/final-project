@@ -28,11 +28,12 @@
 </script>
 
 </head>
-<body>
+
 <body style="padding-top: 100px !important">
+<div style = "min-height:100%;position:relative;">
 	<%@ include file="../models/navbarCustomer.jsp"%>
 
-	<div class="page-content">
+	<div class="page-content"  style = "padding-bottom:250px;">
 		<div class="container">
 			<div class="Metronic-alerts alert fade in alert-success" id="message"><i class="fa fa-cogs"></i>${RESULT}</div>
 			<div class="portlet light">
@@ -41,13 +42,14 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<div class="caption">
-									<i class="fa fa-cogs"></i>Exchange History - Account Number: '${accountNumber}'</div>
+									<i class="fa fa-cogs"></i>Exchange History - Account Number: '${userId}'</div>
 							</div>
 							<div class="panel-body">
 								<table id="mytable">
 								<thead>
 									<tr>
 										<th><center>Id</center></th>
+										<th><center>Type</center></th>
 										<th><center>Source Account</center></th>
 										<th><center>Target Account</center></th>										
 										<th><center>Money Amount</center></th>	
@@ -58,6 +60,19 @@
 									<c:forEach var="transaction" items="${listTransaction}">
 										<tr>
 											<td><center>${transaction.idTransaction}</center></td>
+											<td><center>													
+													<c:choose>
+														<c:when test="${transaction.typeTransaction == '1'}">
+															Adding
+														</c:when>
+														<c:when test="${transaction.typeTransaction == '2'}">
+															Withdrawing
+														</c:when>
+														<c:when test="${transaction.typeTransaction == '3'}">
+															Transferring
+														</c:when>
+													</c:choose>											
+											</center></td>
 											<td><center>${transaction.sendAccount.id}</center></td>
 											<td><center>${transaction.receiveAccount.id}</center></td>										
 											<td><center>${transaction.amount}</center></td>
@@ -77,5 +92,6 @@
 
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	</div>
 </body>
 </html>

@@ -37,7 +37,7 @@ public class UserController {
 //			return "Error";
 //		}
 		
-		String id = request.getParameter("id");
+		String id = (String) session.getAttribute("id");
 		String oldPassword = request.getParameter("password");
 		String newPassword = request.getParameter("newPassword");
 		
@@ -50,13 +50,7 @@ public class UserController {
 	public String editUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
-//		User user = (User)session.getAttribute("user");
-//		
-//		if (user != null) {
-//			return "Error";
-//		}
-		
-		String id = request.getParameter("id");
+		String id = (String) session.getAttribute("id");
 		String firstName = request.getParameter("firstName");
 		String midName = request.getParameter("midName");
 		String lastName = request.getParameter("lastName");
@@ -68,7 +62,7 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping (value = "/user/viewprofile")
+	@RequestMapping (value = "/viewprofile")
 	public String viewProfile(HttpServletRequest request, Model model){
 		User user = userService.getUserByLoginId(request.getSession().getAttribute("username").toString());
 		
@@ -81,16 +75,14 @@ public class UserController {
 	public String viewuserlog(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
 		
-//		User user = (User)session.getAttribute("user");
-//		
-//		if (user != null) {
-//			return "Error";
-//		}
+		String userID = (String) session.getAttribute("id");
 		
 		List<Transaction> listTransaction = null;
 		
-		listTransaction = userService.getTransactionByUserId("123456789012", 2);
-		model.addAttribute("accountNumber", "123456789012");
+		
+		listTransaction = userService.getTransactionByUserId(userID, 2);
+		
+		model.addAttribute("userId", userID);
 		if (listTransaction == null) {
 			model.addAttribute("listTransaction", new ArrayList<Transaction>());
 			model.addAttribute("RESULT", "No result found");
@@ -107,11 +99,7 @@ public class UserController {
 	public String viewbalancelog(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
 		
-//		User user = (User)session.getAttribute("user");
-//		
-//		if (user != null) {
-//			return "Error";
-//		}
+	
 		
 		List<BalanceAmount> listBalance = null;
 		

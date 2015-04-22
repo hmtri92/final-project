@@ -7,6 +7,8 @@ import java.io.IOException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import freemarker.core.ReturnInstruction.Return;
+
 public class PasswordUtils {
 
 	public static String generateRandomString(int length) throws Exception {
@@ -47,6 +49,14 @@ public class PasswordUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean matchPassword(String rawPass, String encodedPass){
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(passwordEncoder.matches(rawPass, encodedPass))
+			return true;
+		else
+			return false;
 	}
 
 	public static void main(String[] args) {

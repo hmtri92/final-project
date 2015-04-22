@@ -19,26 +19,26 @@
 
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 </head>
 <body style="padding-top: 100px !important">
-	<%
-		String role = (String)request.getSession().getAttribute("role");
-	%>
-	<c:choose>
-		<c:when test="${role == 'admin'}">
-			<%@ include file="models/navbarAdmin.jsp"%>
-		</c:when>
-		<c:when test="${role == 'account_support'}">
-			<%@ include file="models/navbar.jsp"%>
-		</c:when>
-		<c:when test="${role == 'customer'}">
-			<%@ include file="models/navbarCustomer.jsp"%>
-		</c:when>
-	</c:choose>
 
-	<div class="page-content">
+	<div class="page-content" style="min-height:100%;position:relative;">
+		<%
+			String role = (String)request.getSession().getAttribute("role");
+		%>
+		<c:choose>
+			<c:when test="${role == 'admin'}">
+				<%@ include file="models/navbarAdmin.jsp"%>
+			</c:when>
+			<c:when test="${role == 'account_support'}">
+				<%@ include file="models/navbar.jsp"%>
+			</c:when>
+			<c:when test="${role == 'customer'}">
+				<%@ include file="models/navbarCustomer.jsp"%>
+			</c:when>
+		</c:choose>
+			
 		<div class="container">
 			<div class="portlet light">
 				<div class="row">
@@ -56,17 +56,6 @@
 								value="${user.loginID}"/>
 						</div>
 					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Account Number</label>
-							<input type="text" name="accountNumber"
-								id="accountNumber" class="form-control" disabled="disabled"
-								value="${user.id}"/>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row">
 					<div class="col-md-6 ">
 						<div class="form-group">
 							<label class="control-label">ID Card Number</label>
@@ -74,7 +63,31 @@
 								id="idCard" class="form-control" disabled="disabled"
 								value="${user.idCardNumber}"/>
 						</div>
-					</div>										
+					</div>						
+				</div>
+				
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label class="control-label">Account Number</label>
+							<input type="text" name="accountNumber"
+								id="accountNumber" class="form-control" disabled="disabled"
+								value="${user.id}"/>
+						</div>
+					</div>	
+					<c:choose>					
+						<c:when test="${role == 'customer'}">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label">Balance Amount</label>
+									<input type="text" name="balanceAmount"
+										id="balanceAmount" class="form-control" disabled="disabled"
+										value="${user.availableAmount}"/>
+								</div>
+							</div>		
+						</c:when>
+					</c:choose>
+									
 				</div>
 				
 				<div class="row">
@@ -85,7 +98,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label">Firstname </label>
+							<label class="control-label">First Name </label>
 							<input type="text" name="firstName" id="firstName"
 								class="form-control editable" disabled="disabled"
 								value="${user.firstName}"/>
@@ -93,7 +106,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label">Midname</label>
+							<label class="control-label">Mid Name</label>
 							<input type="text" name="midName" id="midName"
 								class="form-control editable" disabled="disabled" 
 								value="${user.midName}"/>
@@ -102,7 +115,7 @@
 					<!--/span-->
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label">Lastname </label>
+							<label class="control-label">Last Name </label>
 							<input type="text" name="lastName" id="lastName"
 								class="form-control editable" disabled="disabled" 
 								value="${user.lastName}"/>
@@ -170,9 +183,10 @@
 				</div>
 			</div>
 		</div>
+		<%@ include file="models/footer.jsp"%>
 	</div>
 				
 	<!-- start footer -->
-	<%@ include file="models/footer.jsp"%>
+	
 </body>
 </html>

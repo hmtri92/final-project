@@ -22,8 +22,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 		// TODO Auto-generated method stub
 		List<Transaction> result = null;
 		
-		TypedQuery<Transaction> query = em.createQuery("SELECT t FROM Transaction t WHERE t.sendAccount.id = :id "
-				+ " OR t.receiveAccount.id = :id AND t.state.idState = :state", Transaction.class);
+		TypedQuery<Transaction> query = em.createQuery("SELECT t FROM Transaction t WHERE (t.sendAccount.id = :id "
+				+ " OR t.receiveAccount.id = :id) AND t.state.idState = :state", Transaction.class);
 		query.setParameter("id", id);
 		query.setParameter("state", state);
 		result = query.getResultList();
