@@ -22,7 +22,7 @@ public class StateResult implements Serializable {
 		this.message = message;
 	}
 	
-	public boolean getsState() {
+	public boolean getState() {
 		return state;
 	}
 

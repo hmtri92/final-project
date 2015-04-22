@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
 import com.csc.entities.State;
+import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
 import com.csc.entities.Transaction;
 
@@ -43,25 +44,46 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 	}
 
 	@Override
-	public boolean transferTransaction(String sendAccount_ID,
+	public StateResult transferTransaction(String sendAccount_ID,
 			String targetAccount_ID, BigDecimal amount) {
+		StateResult state = new StateResult();
+		
 		Account sendAccount = em.find(Account.class, sendAccount_ID);
+		
+		// if availableAmount - sendAmount < 50000 return false;
+		BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
+		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+			state.setState(false);
+			state.setMessage("The amount in the account is not enough to transfer");
+			return state;
+		}
+		
+		// Check state sendAccount
+		if (sendAccount.getState().getIdState() != State.ACTIVE) {
+			state.setState(false);
+			state.setMessage("Account is not ACTIVE");
+			return state;
+		}
+		
 		Account targetAccount = em.find(Account.class, targetAccount_ID);
 		
 		return saveTransfer(sendAccount, targetAccount, amount);	
 	}
 	
 	@Override
-	public boolean transferTransactionTargetID(String sendAccount_ID,
+	public StateResult transferTransactionTargetID(String sendAccount_ID,
 			String targetAccount_ID, BigDecimal amount) {
 		Account sendAccount = em.find(Account.class, sendAccount_ID);
-		TargetAccount target = em.find(TargetAccount.class, targetAccount_ID);
+		
+		int idtarget = Integer.parseInt(targetAccount_ID);
+		TargetAccount target = em.find(TargetAccount.class, idtarget);
 		Account targetAccount = target.getAccountTarget();
 		
 		return saveTransfer(sendAccount, targetAccount, amount);	
 	}
 	
-	private boolean saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+	private StateResult saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+		StateResult state = new StateResult();
 		State newState = em.find(State.class, State.NEW);
 		
 		Transaction transfer = new Transaction();
@@ -76,13 +98,31 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 		transfer.setContent(content);
 		em.persist(transfer);
 		
-		return true;
+		state.setState(true);
+		state.setMessage("Success");
+		return state;
 	}
 
 	@Override
-	public boolean withdrawTransaction(String accountNumber, BigDecimal amount) {
+	public StateResult withdrawTransaction(String accountNumber, BigDecimal amount) {
+		StateResult state = new StateResult();
 		Account account = em.find(Account.class, accountNumber);
 		State newState = em.find(State.class, State.NEW);
+		
+		// if availableAmount - sendAmount < 50000 return false;
+		BigDecimal money = account.getAvailableAmount().subtract(amount);
+		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+			state.setState(false);
+			state.setMessage("The amount in the account is not enough to withdraw");
+			return state;
+		}
+		
+		// Check state sendAccount
+		if (account.getState().getIdState() != State.ACTIVE) {
+			state.setState(false);
+			state.setMessage("Account is not ACTIVE");
+			return state;
+		}
 		
 		Transaction withdraw = new Transaction();
 		withdraw.setDate(new Date());
@@ -96,7 +136,9 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 		withdraw.setContent(content);
 		em.persist(withdraw);
 		
-		return true;
+		state.setState(true);
+		state.setMessage("success");
+		return state;
 	}
 
 	@Override

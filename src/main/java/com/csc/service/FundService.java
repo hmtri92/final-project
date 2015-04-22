@@ -12,12 +12,13 @@ import com.csc.entities.Transaction;
 public interface FundService {
 	boolean addFund(String id, BigDecimal amount);
 	Account getAccountById(String accountNumber);
-	boolean transfer(String sendAccount_ID, String targetAccount_ID,
+	StateResult transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount);
 	List<TargetAccount> getTargetAccount(String id);
-	boolean transferTargetID(String sendAccount_ID, String targetAccount_ID, BigDecimal amount);
-	boolean withdraw(String accountNumber, BigDecimal amount);
+	StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID, BigDecimal amount);
+	StateResult withdraw(String accountNumber, BigDecimal amount);
 	List<Transaction> getNewTransaction();
 	StateResult verifyTransaction(long idTransaction);
+	List<TargetAccount> getListTargetByAccountOwnerId(String id);
 }
 

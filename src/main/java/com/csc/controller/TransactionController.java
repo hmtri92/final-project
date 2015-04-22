@@ -42,7 +42,6 @@ public class TransactionController {
 		String id = request.getParameter("idTransaction");
 		long idTransaction = Long.parseLong(id);
 		
-		StateResult result = fundService.verifyTransaction(idTransaction);
-		return result;
+		return fundService.verifyTransaction(idTransaction);
 	}
 }

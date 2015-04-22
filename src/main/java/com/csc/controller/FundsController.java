@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,8 +16,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
+import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
-import com.csc.entities.User;
 import com.csc.service.AccountService;
 import com.csc.service.FundService;
 import com.csc.service.UserService;
@@ -73,17 +72,12 @@ public class FundsController {
 	
 	@RequestMapping (value = "/support/transferBySupport", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferBySupport(HttpServletRequest request, HttpServletResponse response) {
+	public StateResult transferBySupport(HttpServletRequest request, HttpServletResponse response) {
 		String sendAccount = request.getParameter("sendAccount");
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.transfer(sendAccount, targetAccount, amount);
-		
-		if (result) {
-			return "success";
-		}
-		return "Error";
+		return fundService.transfer(sendAccount, targetAccount, amount);
 	}
 	
 	@RequestMapping (value = "/user/viewTransferByUser", method=RequestMethod.GET)
@@ -107,46 +101,40 @@ public class FundsController {
 	
 	@RequestMapping (value = "/user/transferByUser", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferByUser (@ModelAttribute( value = "id") String id,
+	public StateResult transferByUser (@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		
+		StateResult result = new StateResult();
 		Account account = accountService.getAccountById(id);
 		
 		if (account == null) {
-			return "Error";
+			result.setState(false);
+			result.setMessage("Account not fund!");
+			return result;
 		}
 		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.transfer(id, targetAccount, amount);
-		
-		if (result) {
-			return "success";
-		}
-		return "Error";
+		return fundService.transfer(id, targetAccount, amount);
 	}
 	
 	@RequestMapping (value = "/user/transferTargetID", method=RequestMethod.POST)
 	@ResponseBody
-	public String transferTargetID(@ModelAttribute( value = "id") String id,
+	public StateResult transferTargetID(@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		
+		StateResult result = new StateResult();
 		Account account = accountService.getAccountById(id);
 		
 		if (account == null) {
-			return "Error";
+			result.setState(false);
+			result.setMessage("Account not fund!");
+			return result;
 		}
 		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.transferTargetID(id, targetAccount, amount);
-		
-		if (result) {
-			return "success";
-		}
-		return "Error";
+		return fundService.transferTargetID(id, targetAccount, amount);
 	}
 	
 	@RequestMapping (value = "/support/viewWithdraw", method = RequestMethod.GET)
@@ -156,16 +144,10 @@ public class FundsController {
 	
 	@RequestMapping (value = "/support/withdraw", method = RequestMethod.POST)
 	@ResponseBody
-	public String withdraw(HttpServletRequest request, HttpServletResponse response) {
-		
+	public StateResult withdraw(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.withdraw(accountNumber, amount);
-		if (result) {
-			return "success";
-		} else {
-			return "Error";
-		}
+		return fundService.withdraw(accountNumber, amount);
 	}
 }

@@ -110,7 +110,7 @@ function tranferBySupport() {
 			"targetAccount" : $("#targetaccountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function (result) {
-			$("#bodyMessage").html(result);
+			$("#bodyMessage").html(result.message);
 			$("#message").modal('show');
 		},
 		error : function(){
@@ -127,7 +127,7 @@ function transferByUser() {
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 		success : function (result) {
-			$("#bodyMessage").html(result);
+			$("#bodyMessage").html(result.message);
 			$("#message").modal('show');
 		},
 		error : function(result){
@@ -143,7 +143,7 @@ function transferTargetID() {
 		data : {"targetAccount" : $("#targetAccount").val(),
 			"amount" : $("#amount").val()},
 			success : function (result) {
-				$("#bodyMessage").html(result);
+				$("#bodyMessage").html(result.message);
 				$("#message").modal('show');
 			},
 			error : function(){
@@ -160,7 +160,7 @@ function withdraw() {
 		data : {"accountNumber" : $("#accountNumber").val(),
 			"amount" : $("#amount").val()},
 		success : function(result) {
-			$("#bodyMessage").html(result);
+			$("#bodyMessage").html(result.message);
 			$("#message").modal('show');
 		},
 		error : function(){

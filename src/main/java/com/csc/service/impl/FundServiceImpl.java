@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.dao.FundDAO;
+import com.csc.dao.ITargetAccountDAO;
 import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
 import com.csc.entities.StateResult;
@@ -25,6 +26,9 @@ public class FundServiceImpl implements FundService {
 	@Autowired
 	TransactionHistoryDAO transactionDao;
 	
+	@Autowired
+	ITargetAccountDAO targetAccountDao;
+	
 	@Override
 	@Transactional
 	public boolean addFund(String id, BigDecimal amount) {
@@ -39,7 +43,7 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	@Transactional
-	public boolean transfer(String sendAccount_ID, String targetAccount_ID,
+	public StateResult transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
 		return transactionDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
 	}
@@ -52,14 +56,14 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	@Transactional
-	public boolean transferTargetID(String sendAccount_ID, String targetAccount_ID,
+	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
 		return transactionDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
 	}
 
 	@Override
 	@Transactional
-	public boolean withdraw(String accountNumber, BigDecimal amount) {
+	public StateResult withdraw(String accountNumber, BigDecimal amount) {
 		return transactionDao.withdrawTransaction(accountNumber, amount);
 	}
 
@@ -86,11 +90,16 @@ public class FundServiceImpl implements FundService {
 			result = fundDao.withdraw(transaction.getSendAccount().getId(), transaction.getAmount());
 		}
 		
-		if (result.getsState()) {
+		if (result.getState()) {
 			transactionDao.changeStateTransaction(transaction.getIdTransaction());
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<TargetAccount> getListTargetByAccountOwnerId(String id) {
+		return targetAccountDao.getListTargetByAccountOwnerId(id);
 	}
 
 }

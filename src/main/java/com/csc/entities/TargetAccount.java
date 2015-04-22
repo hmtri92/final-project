@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,8 +19,9 @@ public class TargetAccount implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	@Column(name = "idtagrget")
-	private String idTarget;
+	private long idTarget;
 	
 	@Column (name = "name")
 	private String name;
@@ -36,7 +39,7 @@ public class TargetAccount implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public TargetAccount(String idTarget, String name, Account accountOwner,
+	public TargetAccount(long idTarget, String name, Account accountOwner,
 			Account accountTarget) {
 		super();
 		this.idTarget = idTarget;
@@ -45,11 +48,11 @@ public class TargetAccount implements Serializable {
 		this.accountTarget = accountTarget;
 	}
 
-	public String getIdTarget() {
+	public long getIdTarget() {
 		return idTarget;
 	}
 
-	public void setIdTarget(String idTarget) {
+	public void setIdTarget(long idTarget) {
 		this.idTarget = idTarget;
 	}
 
