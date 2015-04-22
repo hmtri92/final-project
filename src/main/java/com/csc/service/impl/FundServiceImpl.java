@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.csc.dao.FundDAO;
 import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
+import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
 import com.csc.entities.Transaction;
 import com.csc.service.FundService;
@@ -70,9 +71,9 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	@Transactional
-	public boolean verifyTransaction(long idTransaction) {
+	public StateResult verifyTransaction(long idTransaction) {
 		Transaction transaction = transactionDao.getTransaction(idTransaction);
-		boolean result = false;
+		StateResult result = new StateResult();
 		
 		if (transaction.getTypeTransaction() == Transaction.ADD_FUND)
 		{
@@ -85,7 +86,7 @@ public class FundServiceImpl implements FundService {
 			result = fundDao.withdraw(transaction.getSendAccount().getId(), transaction.getAmount());
 		}
 		
-		if (result) {
+		if (result.getsState()) {
 			transactionDao.changeStateTransaction(transaction.getIdTransaction());
 		}
 		

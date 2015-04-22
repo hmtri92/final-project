@@ -34,19 +34,24 @@
 		       	url : "verifyTransaction",
 		       	data : {"idTransaction" : id},
 		       	success : function (result){
-			       	if (!result.localeCompare("success")) {
+			       	if (result.state == true) {
 				       	$('#'+ id + ' button').removeClass("btn-primary");
 				       	$('#'+ id + ' button').addClass("btn-success");
-				       	$(this).attr('disabled','disabled');
+				       	$('#'+ id + ' button').attr('disabled','disabled');
 			       	} else {
 			       		$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-danger");				       	
+				       	$('#'+ id + ' button').addClass("btn-danger");
+				       	
+				       	$("#bodyMessage").html(result.message);
+						$("#message").modal('show');
 			       	}
 		       	},
 		        error : function() {
 		        	$('#'+ id + ' button').removeClass("btn-primary");
 			       	$('#'+ id + ' button').addClass("btn-danger");
-		        	alert("Error while request..");
+			       	
+			       	$("#bodyMessage").html("Error while request..");
+					$("#message").modal('show');
 		        }
 	        });
 		});
@@ -85,8 +90,8 @@
 									<td>
 									    <c:choose>
 									        <c:when test="${transaction.typeTransaction == 1}">Add</c:when>
-									        <c:when test="${transaction.typeTransaction == 2}">Transfer</c:when>
-									        <c:when test="${transaction.typeTransaction == 3}">Withdraw</c:when>
+									        <c:when test="${transaction.typeTransaction == 2}">Withdraw</c:when>
+									        <c:when test="${transaction.typeTransaction == 3}">Transfer</c:when>
 									        <c:otherwise>undefined</c:otherwise>
 									    </c:choose>
 									</td>
@@ -109,6 +114,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>

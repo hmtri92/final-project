@@ -129,10 +129,8 @@ function transferByUser() {
 		success : function (result) {
 			$("#bodyMessage").html(result);
 			$("#message").modal('show');
-			console.log(result);
 		},
 		error : function(result){
-			console.log(result);
 			$("#bodyMessage").html("Error");
 			$("#message").modal('show');
 		}

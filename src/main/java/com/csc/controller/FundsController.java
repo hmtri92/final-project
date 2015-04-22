@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.csc.entities.Account;
 import com.csc.entities.TargetAccount;
 import com.csc.entities.User;
+import com.csc.service.AccountService;
 import com.csc.service.FundService;
 import com.csc.service.UserService;
 
@@ -31,6 +32,9 @@ public class FundsController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	AccountService accountService;
 	
 	@RequestMapping (value = "/support/viewAddFunds", method = RequestMethod.GET)
 	public String goViewAddFund() {
@@ -106,16 +110,16 @@ public class FundsController {
 	public String transferByUser (@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = userService.getUserByID(id);
+		Account account = accountService.getAccountById(id);
 		
-		if (user != null) {
+		if (account == null) {
 			return "Error";
 		}
 		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.transfer(user.getId(), targetAccount, amount);
+		boolean result = fundService.transfer(id, targetAccount, amount);
 		
 		if (result) {
 			return "success";
@@ -128,16 +132,16 @@ public class FundsController {
 	public String transferTargetID(@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		User user = userService.getUserByID(id);
+		Account account = accountService.getAccountById(id);
 		
-		if (user != null) {
+		if (account == null) {
 			return "Error";
 		}
 		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.transferTargetID(user.getId(), targetAccount, amount);
+		boolean result = fundService.transferTargetID(id, targetAccount, amount);
 		
 		if (result) {
 			return "success";

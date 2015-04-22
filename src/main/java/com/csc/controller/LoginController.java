@@ -11,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,7 +22,7 @@ import com.csc.service.UserService;
 
 
 @Controller
-@SessionAttributes({"username", "role", "id" })
+@SessionAttributes({"username", "role", "id", "availableAmount" })
 public class LoginController {
 	
 	@Autowired
@@ -85,8 +84,13 @@ public class LoginController {
 			
 		} else if (authorities.toString().contains("CUSTOMER")) {
 			model.addAttribute("role", "customer");
-			BigDecimal availableAmount = accountService.getAccountById(id).getAvailableAmount();
-			model.addAttribute("availableAmount", availableAmount.toString());
+			
+			try {
+				BigDecimal availableAmount = accountService.getAccountById(id).getAvailableAmount();
+				model.addAttribute("availableAmount", availableAmount.toString());
+			} catch (Exception e) {
+				model.addAttribute("availableAmount", "0");
+			}
 			
 		} else if (authorities.toString().contains("REPORT_SUPPORT")) {
 			model.addAttribute("role", "report_support");
@@ -97,10 +101,7 @@ public class LoginController {
 		
 			
 		model.addAttribute("user", userEntity);
-		
-		
-		
-		url = "home";
+		url = "forward:/userhome";
 
 		return url;
 	}
@@ -113,7 +114,6 @@ public class LoginController {
 	@RequestMapping(value = "/userhome", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView goHome() {
 		ModelAndView model = new ModelAndView("home");	
-		
 		
 		return model;
 	}

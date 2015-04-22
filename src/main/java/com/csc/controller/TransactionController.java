@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.csc.entities.StateResult;
 import com.csc.entities.Transaction;
 import com.csc.service.FundService;
 
@@ -37,14 +38,11 @@ public class TransactionController {
 	
 	@RequestMapping (value = "/admin/verifyTransaction", method = RequestMethod.POST)
 	@ResponseBody
-	public String doVerifyTransaction(HttpServletRequest request, HttpServletResponse response) {
+	public StateResult doVerifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("idTransaction");
 		long idTransaction = Long.parseLong(id);
-		boolean result = fundService.verifyTransaction(idTransaction);
-		if (result == true) {
-			return "success";
-		} else {
-			return "fail";
-		}
+		
+		StateResult result = fundService.verifyTransaction(idTransaction);
+		return result;
 	}
 }
