@@ -51,4 +51,61 @@ public class TargetAccountDAOImpl implements ITargetAccountDAO {
 		return result;
 	}
 
+	@Override
+	public StateResult modifyTarget(String id, String idAccountTarget,
+			String name) {
+		StateResult result = new StateResult();
+		try {
+			long idTarget = Long.parseLong(id);
+			String sql = "UPDATE TargetAccount t SET t.accountTarget = :accountTarget, t.name = :name"
+					+ " WHERE t.idtagrget = :idtagrget";
+			Query query = em.createNativeQuery(sql);
+			query.setParameter("accountTarget", idAccountTarget);
+			query.setParameter("name", name);
+			query.setParameter("idtagrget", idTarget);
+			query.executeUpdate();
+			
+			result.setState(true);
+			result.setMessage("Success");
+		} catch (Exception e) {
+			result.setState(false);
+			result.setMessage("Fail");
+		}
+		return result;
+	}
+
+	@Override
+	public StateResult deleteTarget(String id) {
+		StateResult result = new StateResult();
+		try {
+			long idTarget = Long.parseLong(id);
+			String sql = "DELETE FROM TargetAccount t WHERE t.idtagrget = :idtagrget";
+			Query query = em.createQuery(sql);
+			query.setParameter("idtagrget", idTarget);
+			query.executeUpdate();
+			
+			result.setState(true);
+			result.setMessage("Success");
+		} catch (Exception e) {
+			result.setState(false);
+			result.setMessage("Fail");
+		}
+		return result;
+	}
+
+	@Override
+	public TargetAccount getTargetAccountByOwnerAndTarget(String idOwner,
+			String idTarget) {
+		String sql = "SELECT t FROM TargetAccount t "
+				+ "WHERE t.accountOwner.id = :accountOwner AND t.accountTarget.id = :accountTarget";
+		TypedQuery<TargetAccount> query = em.createQuery(sql, TargetAccount.class);
+		query.setParameter("accountOwner", idOwner);
+		query.setParameter("accountTarget", idTarget);
+		
+		TargetAccount targetAccount = query.getSingleResult();
+		return targetAccount;
+	}
+	
+	
+
 }

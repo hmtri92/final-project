@@ -186,5 +186,49 @@ function addTargetAccount() {
 	});
 }
 
+function modifyTargetAccount() {
+	$.ajax ({
+		type : "POST",
+		url : "modifyTargetAccount",
+		data : {"idTarget" : $("#md_Id").val(),
+			"idAccountTarget" : $("#md_accountId").val(),
+			"name" : $("#md_name").val()},
+		success : function (result) {
+			$("#bodyMessage").html(result.message);
+			$("#message").modal('show');
+			
+			if (result.state == true) {
+				$("#modifyTargetAccount").modal('hide');
+			}
+		},
+		error : function () {
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
+		}
+	});
+}
+
+function deleteTargetAccount() {
+	$.ajax ({
+		type : "POST",
+		url : "deleteTargetAccount",
+		data : {"idTarget" : $("#md_Id").val()},
+		success : function (result) {
+			$("#bodyMessage").html(result.message);
+			$("#message").modal('show');
+			
+			if (result.state == true) {
+				$("#deleteTargetAccount").modal('hide');
+			}
+		},
+		error : function () {
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
+			$("#deleteTargetAccount").modal('hide');
+		}
+	});
+}
+
+
 
 

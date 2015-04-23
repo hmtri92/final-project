@@ -109,4 +109,17 @@ public class FundServiceImpl implements FundService {
 		return targetAccountDao.addTargetAccount(idAccountOwner, idAccountTarget, name);
 	}
 
+	@Override
+	@Transactional
+	public StateResult modifyTarget(String id, String idAccountTarget,
+			String name) {
+		return targetAccountDao.modifyTarget(id, idAccountTarget, name);
+	}
+
+	@Override
+	@Transactional
+	public StateResult deleteTarget(String id) {
+		return targetAccountDao.deleteTarget(id);
+	}
+
 }

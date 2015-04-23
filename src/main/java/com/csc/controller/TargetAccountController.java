@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,6 +50,21 @@ public class TargetAccountController {
 		result = fundService.addTargetAccount(id, idaccountTarget, name);
 		
 		return result;
+	}
+	
+	@RequestMapping (value = "/user/modifyTargetAccount", method = RequestMethod.POST)
+	@ResponseBody
+	public StateResult modifyTargetAccount(@RequestParam( value = "idTarget") String id,
+			@RequestParam( value = "idAccountTarget") String idAccountTarget, @RequestParam( value = "name") String name,
+			HttpServletRequest request, HttpServletResponse response) {
+		return fundService.modifyTarget(id, idAccountTarget, name);
+	}
+	
+	@RequestMapping (value = "/user/deleteTargetAccount", method = RequestMethod.POST)
+	@ResponseBody
+	public StateResult deleteTargetAccount(@RequestParam( value = "idTarget") String id,
+			HttpServletRequest request, HttpServletResponse response) {
+		return fundService.deleteTarget(id);
 	}
 
 }
