@@ -2,6 +2,7 @@ package com.csc.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class BalanceAmount implements Serializable {
 	
 	@NotEmpty
 	@Column (name = "period")
-	private int period;
+	private Date period;
 	
 	@NotEmpty
 	@ManyToOne
@@ -43,7 +44,7 @@ public class BalanceAmount implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BalanceAmount(String idBalanceAmount, BigDecimal balance, int period,
+	public BalanceAmount(String idBalanceAmount, BigDecimal balance, Date period,
 			Account account) {
 		super();
 		this.idBalanceAmount = idBalanceAmount;
@@ -68,11 +69,11 @@ public class BalanceAmount implements Serializable {
 		this.balance = balance;
 	}
 
-	public int getPeriod() {
+	public Date getPeriod() {
 		return period;
 	}
 
-	public void setPeriod(int period) {
+	public void setPeriod(Date period) {
 		this.period = period;
 	}
 

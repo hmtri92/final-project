@@ -25,4 +25,6 @@ public interface AccountDAO {
 		public boolean checkLoginid(String LoginId);
 		public boolean addUser(User user, int idRole, int idType);
 
+		public List<Account> getStateActive();
+
 }

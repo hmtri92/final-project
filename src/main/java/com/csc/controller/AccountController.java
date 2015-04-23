@@ -1,8 +1,9 @@
 package com.csc.controller;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
+
 import java.util.List;
+
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ import com.csc.entities.User;
 import com.csc.service.AccountService;
 
 @Controller
-@SessionAttributes({ "support", "role", "id" })
+@SessionAttributes({ "username", "role", "id" })
 public class AccountController {
 	@Autowired
 	AccountService accountService;
@@ -35,12 +36,12 @@ public class AccountController {
 
 	}
 
-	@RequestMapping(value = "/createAccount", method = RequestMethod.GET)
+	@RequestMapping(value = "/support/createAccount", method = RequestMethod.GET)
 	public String goViewAddFund2() {
 		return "support/addAccount";
 	}
 
-	@RequestMapping(value = "/docreateAccount", method = RequestMethod.POST)
+	@RequestMapping(value = "/support/docreateAccount", method = RequestMethod.POST)
 	public String addAccount(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
@@ -106,30 +107,30 @@ public class AccountController {
 		}
 
 	}
-	@RequestMapping (value = "/support/searchaccount", method = RequestMethod.GET)
-	public String searchAccount(HttpServletRequest request, Model model){
-		
+
+	@RequestMapping(value = "/support/searchaccount", method = RequestMethod.GET)
+	public String searchAccount(HttpServletRequest request, Model model) {
+
 		List<String> listKey = accountService.getRecomendedKey(1);
-		
+
 		for (int i = 0; i < listKey.size(); i++) {
-			listKey.set(i, "\'" + listKey.get(i) +"\'");
+			listKey.set(i, "\'" + listKey.get(i) + "\'");
 		}
-		List<Account> listAccount = new ArrayList<Account>();	
-		
-		model.addAttribute("listAccount", listAccount);		
-		model.addAttribute("listKey", listKey);		
-				
+		List<Account> listAccount = new ArrayList<Account>();
+
+		model.addAttribute("listAccount", listAccount);
+		model.addAttribute("listKey", listKey);
+
 		return "support/searchaccount";
 	}
-	
-	
-	@RequestMapping (value = "/support/getRecomendKey", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/support/getRecomendKey", method = RequestMethod.POST)
 	@ResponseBody
-	public List<String> getRecommendKey(HttpServletRequest request, HttpServletResponse response) {
+	public List<String> getRecommendKey(HttpServletRequest request,
+			HttpServletResponse response) {
 		String type = request.getParameter("type");
-		
-		System.err.println(type);
-		
 		return accountService.getRecomendedKey(Integer.parseInt(type));
 	}
+	
+	
 }

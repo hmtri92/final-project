@@ -19,114 +19,113 @@ import com.csc.entities.TypeAccount;
 import com.csc.service.AccountService;
 import com.csc.service.TypeService;
 
-
-
 @Controller
-@SessionAttributes({"username", "role" })
+@SessionAttributes({ "username", "role", "id" })
 public class UpdateStateController {
 	@Autowired
 	AccountService accountService;
 
-/*	@RequestMapping(value = "/updateState", method = RequestMethod.GET )
-	public String goViewupdateState(Model model) {
-		List<Account> listAccounts = null;
-		 listAccounts=accountService.getStateNew();
-		model.addAttribute("listAccount", listAccounts);
-		return "support/updateState";
-	}*/
-	@RequestMapping (value = "/updateState", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView updateState(HttpServletRequest request, HttpServletResponse response) {
+	/*
+	 * @RequestMapping(value = "/updateState", method = RequestMethod.GET )
+	 * public String goViewupdateState(Model model) { List<Account> listAccounts
+	 * = null; listAccounts=accountService.getStateNew();
+	 * model.addAttribute("listAccount", listAccounts); return
+	 * "support/updateState"; }
+	 */
+	@RequestMapping(value = "/admin/updateState", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public ModelAndView updateState(HttpServletRequest request,
+			HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("admin/updateState");
-		
+
 		List<Account> account = null;
 		account = accountService.getStateNew();
 		model.addObject("listAccount", account);
-		
+
 		return model;
-		
+
 	}
-	@RequestMapping(value = "/doupdateState", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/doupdateState", method = { RequestMethod.GET,
+			RequestMethod.POST })
 	public String addAccount(HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("accountNumber");
 		int state = 2;
-		Account existedAccount = accountService.getAccountById(accountNumber);	
-		
-		if (existedAccount==null) {
-			model.addAttribute("message", "This account is not valid");
-			
+		Account existedAccount = accountService.getAccountById(accountNumber);
 
-			
+		if (existedAccount == null) {
+			model.addAttribute("message", "This account is not valid");
+
 		} else {
 			accountService.updateStateAccountById(accountNumber, state);
 			model.addAttribute("message", "This account have been  modified");
-			
 
 		}
-		return "forward:/updateState";
+		return "forward:updateState";
 	}
-	@RequestMapping(value = "/checkAccount", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/admin/checkAccount", method = RequestMethod.POST)
 	public String checkAccount(HttpServletRequest request,
-			HttpServletResponse response ,Model model) {{
-		String accountNumber1 = request.getParameter("accountNumber1");
+			HttpServletResponse response, Model model) {
+		{
+			String accountNumber1 = request.getParameter("accountNumber1");
 
-		Account account;
-		account = accountService.getAccountById(accountNumber1);
-		Account existedAccount = accountService.getAccountById(accountNumber1);	
-		
-		if (existedAccount==null) {
-			model.addAttribute("message1", "This account is not valid");
-			return "admin/updateState";
+			Account account;
+			account = accountService.getAccountById(accountNumber1);
+			Account existedAccount = accountService
+					.getAccountById(accountNumber1);
 
-			
-		} else {
-			model.addAttribute("message1", "This account is  valid");
-			return "admin/updateState";
+			if (existedAccount == null) {
+				model.addAttribute("message1", "This account is not valid");
+				return "admin/updateState";
 
-		}
+			} else {
+				model.addAttribute("message1", "This account is  valid");
+				return "admin/updateState";
 
-	
-	}}
-/*	@RequestMapping(value = "/doupdateState1", method = RequestMethod.POST)
-	public String addAccount1(HttpServletRequest request,
-			HttpServletResponse response,Model model) {
-
-		String accountNumber = request.getParameter("accountNumber");
-		Account existedAccount = accountService.getAccountById(accountNumber);	
-		if (existedAccount==null) {
-			model.addAttribute("message", "This account is not valid");
-			return "support/updateState";
-
-			
-		} else {
-			accountService.updateStateAccountById(accountNumber, 2);
-			model.addAttribute("message", "This account have been  modified");
-			return "support/updateState";
+			}
 
 		}
-	}*/
-	
-	@RequestMapping(value = "/doupdateStateDis", method = RequestMethod.POST)
-	public String veryfiState (HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+	}
+
+	/*
+	 * @RequestMapping(value = "/doupdateState1", method = RequestMethod.POST)
+	 * public String addAccount1(HttpServletRequest request, HttpServletResponse
+	 * response,Model model) {
+	 * 
+	 * String accountNumber = request.getParameter("accountNumber"); Account
+	 * existedAccount = accountService.getAccountById(accountNumber); if
+	 * (existedAccount==null) { model.addAttribute("message",
+	 * "This account is not valid"); return "support/updateState";
+	 * 
+	 * 
+	 * } else { accountService.updateStateAccountById(accountNumber, 2);
+	 * model.addAttribute("message", "This account have been  modified"); return
+	 * "support/updateState";
+	 * 
+	 * } }
+	 */
+
+	@RequestMapping(value = "/admin/doupdateStateDis", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public String veryfiState(HttpServletRequest request,
+			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("accountNumber");
 		int state = 2;
-		Account existedAccount = accountService.getAccountById(accountNumber);	
-		
-		if (existedAccount==null) {
-			model.addAttribute("message", "This account is not valid");
-			
+		Account existedAccount = accountService.getAccountById(accountNumber);
 
-			
+		if (existedAccount == null) {
+			model.addAttribute("message", "This account is not valid");
+
 		} else {
 			accountService.updateStateAccountById(accountNumber, state);
 			model.addAttribute("message", "This account have been  modified");
-			
 
 		}
 		return "forward:/updateState";
 	}
-	
+
 }

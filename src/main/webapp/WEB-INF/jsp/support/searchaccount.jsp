@@ -47,7 +47,6 @@
 				url : "getRecomendKey",
 				data : {"type" : mySelect.value},					
 					success : function (result) {
-						alert(result);
 						$( "#keyInput" ).autocomplete({
 						      source: null
 						    });

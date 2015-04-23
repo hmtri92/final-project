@@ -1,9 +1,15 @@
 package com.csc.service.impl;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.csc.dao.AuthenticationDAO;
 import com.csc.dao.BalanceDAO;
@@ -16,6 +22,7 @@ import com.csc.service.UserService;
 import com.csc.ultil.PasswordUtils;
 
 @Service
+@SessionAttributes({ "customer", "role", "id" })
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
@@ -26,6 +33,8 @@ public class UserServiceImpl implements UserService{
 	TransactionDAO transactionDAO;
 	@Autowired
 	BalanceDAO balanceDAO;
+	
+	
 
 	@Override
 	public User getUserInfo(String userId) {
@@ -122,6 +131,49 @@ public class UserServiceImpl implements UserService{
 		List<BalanceAmount> result = null;
 		
 		result = balanceDAO.getBalanceLogByUserId(accountNumber);
+		
+		return result;
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public List<Transaction> getTransactionByDateRange(String userID,
+			String stringDateFrom, String stringDateTo, int state) {
+		// TODO Auto-generated method stub
+		
+		Date dateFrom = toDate(stringDateFrom);
+		Date dateTo = toDate(stringDateTo);		
+		
+		dateTo.setDate(dateTo.getDate() + 1);		
+		
+		return transactionDAO.getTransactionByDateRange(userID, dateFrom, dateTo, state);
+		
+	}
+
+	@Override
+	public List<BalanceAmount> getBalanceByDateRange(String userID,
+			String stringDateFrom, String stringDateTo) {
+		// TODO Auto-generated method stub
+		
+		
+		Date dateFrom = toDate(stringDateFrom);
+		Date dateTo = toDate(stringDateTo);		
+		
+		dateTo.setDate(dateTo.getDate() + 1);	
+		
+		return balanceDAO.getBalanceByDateRange(userID, dateFrom, dateTo);
+	}
+	
+	private Date toDate(String stringDate){
+		DateFormat format = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH);
+		Date result = null;
+		
+		try {
+			result = format.parse(stringDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return result;
 	}

@@ -15,16 +15,54 @@
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/jquery.dataTables.css'/>">
-<link rel="stylesheet" href="css/jquery.dataTables.css">
+<link rel="stylesheet" href="<c:url value='/css/jquery-ui.css'/>">
+
 
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery.dataTables.js'/>"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#mytable").dataTable();
-	});
+$(document).ready(function() {
+	$("#mytable").dataTable();
+	$( "#datepickerFrom" ).datepicker();
+	$( "#datepickerTo" ).datepicker();
+	var dt = new Date();		
+	var time = (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();		
+	$( "#datepickerFrom" ).val(time);
+	$( "#datepickerTo" ).val( time);		
+});
+
+function changeDateRange(myDatePicker){
+	var dateFrom = new Date($("#datepickerFrom").val());
+	var dateTo = new Date($("#datepickerTo").val());
+	
+	if (dateFrom > dateTo) {
+		if(myDatePicker.id == "datepickerFrom"){
+			$("#datepickerTo").val($("#datepickerFrom").val());				
+		}else{
+			$("#datepickerFrom").val($("#datepickerTo").val());
+		}			
+	}
+}
+
+function showResult(){
+	$.ajax ({
+		type : "POST",
+		url : "getBalanceLog",
+		data : {
+			"dateFrom": $("#datepickerFrom").val(),
+			"dateTo" : $("#datepickerTo").val()},					
+			success : function (result) {
+				$("#tablesection").html(result);
+				$("#mytable").dataTable();
+			},
+			error : function() {
+				alert("Error while processing request..");
+			}
+	});	
+}
 </script>
 
 </head>
@@ -33,8 +71,7 @@
 	<%@ include file="../models/navbarCustomer.jsp"%>
 
 	<div class="page-content">
-		<div class="container">
-			<div class="Metronic-alerts alert fade in alert-success" id="message"><i class="fa fa-cogs"></i>${RESULT}</div>
+		<div class="container">			
 			<div class="portlet light">
 				<div class="row">
 					<div class="col">
@@ -44,24 +81,79 @@
 									<i class="fa fa-cogs"></i>Account Balance History - Account Number '${accountNumber}'</div>
 							</div>
 							<div class="panel-body">
-								<table id="mytable">
-								<thead>
-									<tr>
-										<th><center>ID</center></th>
-										<th><center>Period</center></th>
-										<th><center>Balance</center></th>	
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="balanceInfo" items="${listBalance}">
-										<tr>
-											<td><center>${balanceInfo.idBalanceAmount}</center></td>
-											<td><center>${balanceInfo.period}</center></td>
-											<td><center>${balanceInfo.balance}</center></td>										
+								<div class="row">
+									<div class="col-md-2">
+										<div class="form-group">
+											<label class="control-label"><strong>Date Range</strong></label>											
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-1">
+										<div class="form-group">
+																		
+										</div>
+									</div>
+									<div class="col-md-1">
+										<div class="form-group">
+											<label class="control-label">From</label>											
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<input type="text" id="datepickerFrom" readonly="readonly" onchange="changeDateRange(this)">											
+										</div>
+									</div>
+									<div class="col-md-1">
+										<div class="form-group">
+											<label class="control-label">To</label>											
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<input type="text" id="datepickerTo" readonly="readonly" onchange="changeDateRange(this)">												
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2">
+										<div class="form-group">
+																		
+										</div>
+									</div>
+									<div class="col-md-2">
+										<button id="submit" type="button" class="btn blue" onclick="showResult()">
+												<i class="fa fa-check"></i>Show Result
+											</button>	
+									</div>
+								</div>
+								<br/>
+								<div class="row" id="tablesection">
+									<div class="col-md-12">
+										<div class="Metronic-alerts alert fade in alert-success" id="message"><i class="fa fa-cogs"></i>${RESULT}</div>
+									</div>							
+							
+									<div class="col-md-12">
+										<table id="mytable">
+										<thead>
+											<tr>
+												<th><center>ID</center></th>
+												<th><center>Period</center></th>
+												<th><center>Balance</center></th>	
 											</tr>
-									</c:forEach>
-								</tbody>
-							</table>
+										</thead>
+										<tbody>
+											<c:forEach var="balanceInfo" items="${listBalance}">
+												<tr>
+													<td><center>${balanceInfo.idBalanceAmount}</center></td>
+													<td><center>${balanceInfo.period}</center></td>
+													<td><center>${balanceInfo.balance}</center></td>										
+													</tr>
+											</c:forEach>
+										</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -18,21 +18,22 @@ import com.csc.service.AccountService;
 public class ModifiAccountController {
 	@Autowired
 	AccountService accountService;
-	@RequestMapping(value = "/modifyAccount", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/support/modifyAccount", method = RequestMethod.GET)
 	public String goViewAddFund2() {
-	return "support/modifyAccount";
+		return "support/modifyAccount";
 	}
 
-	@RequestMapping(value = "/domodifyAccount", method = RequestMethod.POST)
+	@RequestMapping(value = "/support/domodifyAccount", method = RequestMethod.POST)
 	public String addAccount(HttpServletRequest request,
-			HttpServletResponse response,Model model) {
+			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("id");
-//		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request
-//				.getParameter("availableAmount")));
-//		Sua cho nay
+		// BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request
+		// .getParameter("availableAmount")));
+		// Sua cho nay
 		BigDecimal amount = BigDecimal.valueOf(0);
-		
+
 		String idCardNumber = request.getParameter("idCardNumber");
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
@@ -50,46 +51,46 @@ public class ModifiAccountController {
 		String typeAccount1 = request.getParameter("typeAccount");
 		int typeAccount = Integer.parseInt(typeAccount1);
 
-		Account existedAccount = accountService.getAccountById(accountNumber);	
-		
-//		if (existedAccount == null) {
-//			model.addAttribute("message", "This  Account is not vaid!");
-//			return "support/modifyAccount";
-//
-//			
-//		} else {
-			accountService.updateAccount(accountNumber, state, role, firstName, 
-					lastName, midName, typeAccount, email1, email2, address1, 
-					address2, phoneNum1, phoneNum2, idCardNumber);
-			
-			model.addAttribute("message", "Modify Account Success!");
-			return "support/modifyAccount";
+		Account existedAccount = accountService.getAccountById(accountNumber);
 
-//		}
+		// if (existedAccount == null) {
+		// model.addAttribute("message", "This  Account is not vaid!");
+		// return "support/modifyAccount";
+		//
+		//
+		// } else {
+		accountService.updateAccount(accountNumber, state, role, firstName,
+				lastName, midName, typeAccount, email1, email2, address1,
+				address2, phoneNum1, phoneNum2, idCardNumber);
+
+		model.addAttribute("message", "Modify Account Success!");
+		return "support/modifyAccount";
+
+		// }
 	}
-	@RequestMapping(value = "/checkAccount1", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/support/checkAccount1", method = RequestMethod.POST)
 	public String checkAccount(HttpServletRequest request,
-			HttpServletResponse response ,Model model) {{
-		String accountNumber1 = request.getParameter("accountNumber1");
+			HttpServletResponse response, Model model) {
+		{
+			String accountNumber1 = request.getParameter("accountNumber1");
 
-		Account account;
-		account = accountService.getAccountById(accountNumber1);
-		Account existedAccount = accountService.getAccountById(accountNumber1);	
-		
-		if (existedAccount==null) {
-			model.addAttribute("message1", "This account is not valid");
-			return "support/modifyAccount";
+			Account account;
+			account = accountService.getAccountById(accountNumber1);
+			Account existedAccount = accountService
+					.getAccountById(accountNumber1);
 
+			if (existedAccount == null) {
+				model.addAttribute("message1", "This account is not valid");
+				return "support/modifyAccount";
 
-			
-		} else {
-			model.addAttribute("message1", "This account is  valid");
-			model.addAttribute("accountExit", existedAccount);
-			return "support/modifyAccount";
+			} else {
+				model.addAttribute("message1", "This account is  valid");
+				model.addAttribute("accountExit", existedAccount);
+				return "support/modifyAccount";
 
+			}
 
 		}
-
-	
-	}}
+	}
 }

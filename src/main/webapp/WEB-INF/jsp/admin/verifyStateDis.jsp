@@ -51,7 +51,7 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Verify-State
+							<i class="fa fa-gift"></i>Verify-State:DISABLE->REMOVABLE
 						</div>
 					</div>
 					<div class="portlet-body form">

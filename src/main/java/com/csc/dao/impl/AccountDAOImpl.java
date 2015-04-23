@@ -98,6 +98,17 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		return listState;		
 	}
+	@Override
+	@Transactional
+	public List<Account> getStateActive() {
+		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("state", State.ACTIVE);
+		
+		List<Account> listState = query.getResultList();
+		
+		return listState;		
+	}
 
 	@Override
 	@Transactional
@@ -142,6 +153,7 @@ public class AccountDAOImpl implements AccountDAO {
 			return false;
 		}
 	}
+
 	
 	@Override
 	public List<String> getRecomendedKeyList(int searchType) {
@@ -188,5 +200,6 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		return listRecomend;
 	}
+
 }
 

@@ -22,4 +22,6 @@ public interface AccountService {
 
 
 	public List<String> getRecomendedKey(int searchType);
+	public List<Account> getStateActive();
+
 }

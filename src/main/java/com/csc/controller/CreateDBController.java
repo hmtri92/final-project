@@ -13,19 +13,19 @@ public class CreateDBController {
 
 	@Autowired
 	CreateDatabase db;
-	
+
 	private static final Logger logger = Logger.getLogger("CreateDBController");
-	
-	@RequestMapping( value = "/createDB", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/createDB", method = RequestMethod.GET)
 	public String createDB() {
 		logger.info("create database");
-		
+
 		db.createRole();
 		db.createState();
-		db.createTypeAccount();		
+		db.createTypeAccount();
 		db.createAccount();
 		db.createUser();
-		
+
 		return "forward:login";
 	}
 }

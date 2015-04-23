@@ -17,10 +17,6 @@
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/validationEngine.jquery.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/template.css'/>">
-
-
 
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
@@ -55,7 +51,7 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Verify-State:NEW->ACTIVE
+							<i class="fa fa-gift"></i>Verify-State:DISABLE->ACTIVE
 						</div>
 					</div>
 					<div class="portlet-body form">
@@ -77,7 +73,7 @@
 									<td>${listAccount.state.name}</td>
 									<td>
 										
-									<form id="update" class="horizontal-form" action="doupdateState"
+									<form id="update" class="horizontal-form" action="doVerifyStateDis-Active"
 						method="POST">
 						<input
 											type="text" name="accountNumber" id="accountNumber"

@@ -26,4 +26,10 @@ public interface UserService {
 
 	public List<BalanceAmount> getBalanceLogByUserId(String accounNumber);
 
+	public List<Transaction> getTransactionByDateRange(String userID,
+			String stringDateFrom, String stringDateTo, int state);
+
+	public List<BalanceAmount> getBalanceByDateRange(String userID,
+			String stringDateFrom, String stringDateTo);
+
 }

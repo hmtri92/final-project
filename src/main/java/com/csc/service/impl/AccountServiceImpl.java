@@ -70,15 +70,18 @@ public class AccountServiceImpl implements AccountService {
 	            return -1;
 	        }
 	    }
+
 	@Override
 	public List<String> getRecomendedKey(int searchType) {
 		// TODO Auto-generated method stub
 		return accountDao.getRecomendedKeyList(searchType);
 	}
 
+
 	@Override
 	public boolean addUser(User user, int idRole, int idType) {
 		Boolean result = accountDao.addUser(user, idRole, idType);
+
 
 		if (result) {
 			return true;
@@ -97,4 +100,11 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountDao.checkLoginid(LoginId);
 	}
+
+	@Override
+	public List<Account> getStateActive() {
+		// TODO Auto-generated method stub
+		return accountDao.getStateActive();
+	}
+
 }

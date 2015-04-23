@@ -1,6 +1,5 @@
 package com.csc.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.BalanceAmount;
 import com.csc.entities.Transaction;
@@ -21,6 +22,7 @@ import com.csc.entities.User;
 import com.csc.service.UserService;
 
 @Controller
+@SessionAttributes({ "username", "role", "id" })
 public class UserController {
 	@Autowired
 	UserService userService;
@@ -90,10 +92,13 @@ public class UserController {
 			model.addAttribute("listTransaction", listTransaction);
 			model.addAttribute("RESULT", listTransaction.size() + " result(s) found");
 		}
+		
 				
 		return "users/viewlog";
 		
 	}
+	
+	
 	
 	@RequestMapping (value = "/user/viewbalance", method = RequestMethod.GET)
 	public String viewbalancelog(HttpServletRequest request, Model model){
@@ -118,6 +123,65 @@ public class UserController {
 		return "users/viewbalance";
 		
 	}
+	
+
+	@RequestMapping (value = "/user/getTransactionLog", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getTransactionLog(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		
+		String userID = (String) session.getAttribute("id");
+		
+		List<Transaction> listTransaction = null;
+		
+		String stringDateFrom = request.getParameter("dateFrom");
+		String stringDateTo = request.getParameter("dateTo");
+				
+		listTransaction = userService.getTransactionByDateRange(userID, stringDateFrom, stringDateTo, 2);	
+		
+			
+		ModelAndView modelnview = new ModelAndView("/models/transactiontable");
+		
+		if (listTransaction == null) {
+			modelnview.addObject("listTransaction", new ArrayList<Transaction>());
+			modelnview.addObject("RESULT", "No result found");
+		}else{
+			modelnview.addObject("listTransaction", listTransaction);
+			modelnview.addObject("RESULT", listTransaction.size() + " result(s) found");
+		}
+		
+		return modelnview;
+	}
+	
+	@RequestMapping (value = "/user/getBalanceLog", method=RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getBalanceLog(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		
+		String userID = (String) session.getAttribute("id");
+		
+		List<BalanceAmount> listBalance = null;
+		
+		String stringDateFrom = request.getParameter("dateFrom");
+		String stringDateTo = request.getParameter("dateTo");
+		
+		listBalance = userService.getBalanceByDateRange(userID, stringDateFrom, stringDateTo);	
+		
+		
+		ModelAndView modelnview = new ModelAndView("/models/balancetable");
+		
+		if (listBalance == null) {
+			modelnview.addObject("listBalance", new ArrayList<BalanceAmount>());
+			modelnview.addObject("RESULT", "No result found");
+		}else{
+			modelnview.addObject("listBalance", listBalance);
+			modelnview.addObject("RESULT", listBalance.size() + " result(s) found");
+		}
+		
+		return modelnview;
+	}
+	
+	
 	
 }
 

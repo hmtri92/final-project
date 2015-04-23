@@ -17,32 +17,31 @@ import com.csc.entities.Account;
 import com.csc.service.AccountService;
 
 @Controller
-@SessionAttributes({ "username", "role" })
-public class verifiStateDisController {
+@SessionAttributes({ "username", "role", "id" })
+public class verifyActive_DisableController {
 	@Autowired
 	AccountService accountService;
 
-	@RequestMapping(value = "/admin/verifyStateDis", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/support/verifyActive-Dis", method = {
+			RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView updateVerifyState(HttpServletRequest request,
 			HttpServletResponse response) {
-		ModelAndView model = new ModelAndView("admin/verifyStateDis");
+		ModelAndView model = new ModelAndView("support/verifiActive-Dis");
 
 		List<Account> account = null;
-		account = accountService.getStateDis();
+		account = accountService.getStateActive();
 		model.addObject("listAccount", account);
 
 		return model;
 
 	}
 
-	@RequestMapping(value = "/admin/doVerifyStateDis", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "support/doVerifyStateActive", method = RequestMethod.POST)
 	public String addAccount(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("accountNumber");
-		int state = 4;
+		int state = 3;
 		Account existedAccount = accountService.getAccountById(accountNumber);
 
 		if (existedAccount == null) {
@@ -53,6 +52,7 @@ public class verifiStateDisController {
 			model.addAttribute("message", "This account have been  modified");
 
 		}
-		return "forward:verifyStateDis";
+		return "forward:verifyActive-Dis";
 	}
+
 }

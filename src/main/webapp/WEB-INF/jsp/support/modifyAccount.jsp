@@ -8,31 +8,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/bootstrap-theme.css">
-<link rel="stylesheet" href="css/myStyle.css">
-<link rel="stylesheet" href="css/logo-nav.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/plugins.css">
-<link rel="stylesheet" href="css/screen.css">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/myStyle.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/logo-nav.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/components.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
+<link rel="stylesheet"
+	href="http://jqueryvalidation.org/files/demo/site-demos.css">
 
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/myScript.js"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css"
-	type="text/css" />
-<link rel="stylesheet" href="css/template.css" type="text/css" />
-<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-		<link rel="stylesheet" href="css/template.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
-		<script src="js/jquery.validationEngine-en.js" type="text/javascript"></script>
-		<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<script>
-	jQuery(document).ready(function() {
-		// binds form submission and fields to the validation engine
-		jQuery("#modifyAccount").validationEngine();
-	});
-</script>
+
+<script type="text/javascript"
+	src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
+
 </head>
 <body style="padding-top: 100px !important">
 	<%@ include file="../models/navbar.jsp"%>
@@ -40,14 +31,12 @@
 	<div class="page-content">
 		<div class="container">
 
-
-
 			<!-- <div class="portlet light"> -->
 			<div class="tab-pane" id="tab_1">
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Modify Account
+							<i class="fa fa-gift"></i>Modify-Account
 						</div>
 					</div>
 					<div class="portlet-body form">
@@ -71,63 +60,146 @@
 								<center><button id="Checkaccount" type="submit" class="btn blue" onclick="">
 									<i class="fa fa-check"></i> Check Account
 								</button></center>
+								<center>
+								<font color="red">${message1 }</font>
+							</center>
 							</div>
 
 							
 							</div>
 					
 						</form>
-						<form id="modifyAccount" class="horizontal-form"
+
+						<form class="horizontal-form" id="modify"
 							action="domodifyAccount" method="POST">
 							<div class="form-body">
-							<font color="red">${message1 } </font>					
+
 								<h3 class="form-section">Account Info</h3>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Account Number</label> <input
+												type="text" name="id" id="id" class="form-control" value="${ accountExit.id}"/>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">ID-CardNumber</label> <input
+												type="text" name="idCardNumber" id="idCardNumber"
+												class="form-control" value="${ accountExit.idCardNumber}"/>
+										</div>
+									</div>
+								
+								</div>
 
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">IdAccount:</label> <input
-											type="text" name="id" id="id"
-											class=" validate[required,length[12,12]]"
-											placeholder="12 Number" value="${ accountExit.id}" />
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Firstname</label> <input
+												type="text" name="firstName" id="firstName"
+												class="form-control" value="${ accountExit.firstName}"/>
+										</div>
 									</div>
-									<div class="form-group">
-										<label class="control-label">ID-Card : </label> <input
-											type="text" name="idCardNumber" id="idCardNumber"
-											class=" validate[required,length[9,9]]"
-											 value="${ accountExit.idCardNumber}"  >
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Midname</label> <input
+												type="text" name="midName" id="midName" class="form-control" value="${ accountExit.lastName}"/>
+										</div>
 									</div>
+									<!--/span-->
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Lastname</label> <input
+												type="text" name="lastName" id="lastName"
+												class="form-control" value="${ accountExit.midName}"/>
+										</div>
+									</div>
+									<!--/span-->
 								</div>
-								<!--/span-->
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">TypeAccount :</label> <select
-											name="typeAccount" id="typeAccount"
-											class="validate[required]" id="typeAccount">
-											<option value="${ accountExit.typeAccount.idType}">${ accountExit.typeAccount.type}</option>
-											<option value="1">DEPOSIT</option>
-											<option value="2">SAVING</option>
-											<option value="3">OTHER</option>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Address 1</label> <input
+												type="text" name="address1" id="address1"
+												class="form-control" value="${ accountExit.address1}"/>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Address 2</label> <input
+												type="text" name="address2" id="address2"
+												class="form-control" value="${ accountExit.address2}"/>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Email 1</label> <input
+												type="text" name="email1" id="email1" class="form-control" value="${ accountExit.email1}"/>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Email 2</label> <input
+												type="text" name="email2" id="email2" class="form-control" value="${ accountExit.email2}"/>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Phone Number 1</label> <input
+												type="text" name="phoneNum1" id="phoneNum1"
+												class="form-control" value="${ accountExit.phoneNum1}"/>
+										</div>
+									</div>
+									<!--/span-->
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="control-label">Phone Number 2</label> <input
+												type="text" name="phoneNum2" id="phoneNum2"
+												class="form-control" value="${ accountExit.phoneNum2}"/>
+										</div>
+									</div>
+									<!--/span-->
+								</div>
 
-										</select>
+
+								<h3 class="form-section">Bank-Info</h3>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">TypeAccount :</label> <select
+												name="typeAccount" id="typeAccount" id="typeAccount">
+												<option value="${ accountExit.typeAccount.idType}">${ accountExit.typeAccount.type}</option>
+												<option value="1">DEPOSIT</option>
+												<option value="2">SAVING</option>
+												<option value="3">OTHER</option>
+
+											</select>
+										</div>
 									</div>
-								</div>
-								<!--/span-->
-								<!--/span-->
-								<div class="col-md-6">
-									<div class="form-group">
-										<label class="control-label">Role :</label> <select
-											name="role" id="role" class="validate[required]" id="role" >
-											<option value="${ accountExit.role.idRole}">${ accountExit.role.nameRole}</option>
-											<option value="1">Customer</option>
-											<option value="2">Admin</option>
-											<option value="3">ACCOUNT_SUPPORT</option>
-											<option value="4">CUSTOMER_SUPPORT</option>
-											<option value="5">ACCOUNT_SUPPORT</option>
-										</select>
+									<!--/span-->
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label">Role :</label> <select
+												name="role" id="role" class="validate[required]" id="role">
+												<option value="${ accountExit.role.idRole}">${ accountExit.role.nameRole}</option>
+												<option value="1">Customer</option>
+												<option value="2">Admin</option>
+												<option value="3">ACCOUNT_SUPPORT</option>
+												<option value="4">CUSTOMER_SUPPORT</option>
+												<option value="5">ACCOUNT_SUPPORT</option>
+											</select>
+										</div>
 									</div>
-								</div>
-									<div class="form-group">
+									<div class="col-md-4">
+										<div class="form-group">
 										<label class="control-label"> State :</label> <select
 											name="state" id="state" class="validate[required]" id="state">
 											<option value="${ accountExit.state.idState}">${ accountExit.state.name}</option>
@@ -138,117 +210,90 @@
 											<option value="5">ACCOUNT_SUPPORT</option>
 										</select>
 									</div>
+									</div>
 
 
-
-
-							
-							<h3 class="form-section">Customer Info</h3>
-					
-							
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">FirstName :</label> <input
-										type="text" name="firstName" id="firstName"
-										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										value="${ accountExit.firstName}" />
-								</div>
-								<div class="form-group">
-									<label class="control-label">LastName :</label> <input
-										type="text" name="lastName" id="lastName"
-										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										placeholder="Only input letter" value="${ accountExit.lastName}"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label">Mid-Name :</label> <input
-										type="text" name="midName" id="midName"
-										class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input"
-										placeholder="Only input letter" value="${ accountExit.midName}"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label">Address-1 : </label> <input
-										type="text" name="address1" id="address1"
-										class="validate[required] text-input"
-										placeholder="input Address" value="${ accountExit.address1}"/>
-								</div>
-								<div class="form-group">
-									<label class="control-label">Address-2 :</label> <input
-										type="text" name="address2" id="address2"
-										class="validate[required] text-input"
-										placeholder="input Address" value="${ accountExit.address2}"/>
+									<!--/span-->
 								</div>
 							</div>
-							<!--/span-->
-							<!--/span-->
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">PhoneNum1 : </label> <input
-										type="text" name="phoneNum1" id="phoneNum1"
-										class="validate[required,custom[telephone]] text-input"
-										type="text" placeholder="only input number" value="${ accountExit.phoneNum1}"/>
-								</div>
-							</div>
-							<!--/span-->
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">PhoneNum2 :</label> <input
-										type="text" name="phoneNum2" id="phoneNum2"
-										class="validate[required,custom[telephone]] text-input"
-										type="text" placeholder="only input number" value="${ accountExit.phoneNum2}"/>
-								</div>
-							</div>
-
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label"> Email1 : </label> <input
-										type="text" name="email1" id="email1"
-										class="validate[groupRequired[payments],custom[email]] text-input"
-										placeholder="abc@gmail.com" value="${ accountExit.email1}"/>
-								</div>
-							</div>
-							<!--/span-->
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label"> Email2 : </label> <input
-										type="text" name="email2" id="email2"
-										class="validate[groupRequired[payments],custom[email]] text-input"
-										placeholder="abc@gmail.com" value="${ accountExit.email2}"/>
-								</div>
-							</div>
-							<!--/span-->
-							<!--/span-->
-							<div class="col-md-6"></div>
-							<!--/span-->
 							<div class="form-actions right">
-
 								<center>
-									<button id="submit" type="submit" class="submit"
-										value="Update Account">
-										<i class="fa fa-check"></i> Update Account
-									</button>
-								</center>
-
-							</div>
-						</form>
-						<div class="form-actions right">
-
-							<center>
 								<font color="red">${message }</font>
 							</center>
-
-						</div>
+								<button type="button" class="btn default" onclick="goHome();">Cancel</button>
+								<button id="submit" type="submit" class="btn blue">
+									<i class="fa fa-check"></i> Add
+								</button>
+								<center>
+							
+							</div>
+						</form>
+						<!-- END FORM-->
 					</div>
 				</div>
 			</div>
 			<!-- </div> -->
 		</div>
 	</div>
-	
 
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
+
+	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script
+		src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+	<script
+		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#modify").validate({
+				rules : {
+					email1 : {
+						required : true,
+						email : true
+					},
+					email2 : {
+
+						email : true
+					},
+					phoneNum1 : {
+						required : true,
+						number : true
+					},
+					phoneNum2 : {
+						number : true
+					},
+					address1:"required",
+					 id: {
+					      required: true,
+					      maxlength: 12,
+					      minlength: 12
+					    },
+					    idCardNumber: {
+						      required: true,
+						      maxlength: 9,
+						      minlength: 9
+						    },
+						    loginId: {
+							      required: true,
+							      maxlength: 12,
+							      minlength: 6
+							    },
+							    firstName:"required",
+							    lastName:"required",
+							    midName:"required",
+							    typeAccount:"required",
+							    role:"required",
+							    state:"required",
+							    
+						    
+					
+					
+				}
+			});
+		});
+	</script>
 </body>
 </html>
