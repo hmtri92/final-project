@@ -16,9 +16,14 @@
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 
+<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
+
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
 </head>
 <body style="padding-top: 100px !important">
@@ -38,7 +43,7 @@
 						<div class="portlet-body form">
 							<!-- BEGIN FORM-->
 		
-							<form class="horizontal-form">
+							<form id="frm-AddFund" class="horizontal-form">
 								<div class="form-body">
 									
 									<h3 class="form-section">Account Info</h3>
@@ -165,5 +170,23 @@
 
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#frm-AddFund").validate({
+				rules : {
+					accountNumber : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					},
+					amount : {
+						number : true
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>
