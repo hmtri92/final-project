@@ -16,9 +16,14 @@
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 
+
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
+
+<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
 </head>
 <body style="padding-top: 90px !important">
@@ -36,98 +41,100 @@
 								</div>
 							</div>
 							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Account Number</label>
-											<input type="text" name="accountNumber"
-												id="accountNumber" class="form-control" />
+								<form id="sendAccount">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Account Number</label>
+												<input type="text" name="accountNumber"
+													id="accountNumber" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<br>
+												<button style="margin-top: 10px" onclick="checkAccount();" 
+													class="btn btn-primary" type="button">
+													<span class="glyphicon glyphicon-refresh"></span>
+												</button>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<br>
-											<button style="margin-top: 10px" onclick="checkAccount();" 
-												class="btn btn-primary" type="button">
-												<span class="glyphicon glyphicon-refresh"></span>
-											</button>
+									
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Amount</label>
+												<input type="text" name="amount"
+													id="amount" class="form-control" />
+											</div>
 										</div>
 									</div>
-								</div>
-								
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Amount</label>
-											<input type="text" name="amount"
-												id="amount" class="form-control" />
+			
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Firstname</label>
+												<input type="text" name="firstname" id="firstname"
+													class="form-control" disabled="disabled"/>
+											</div>
 										</div>
-									</div>
-								</div>
-		
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Firstname</label>
-											<input type="text" name="firstname" id="firstname"
-												class="form-control" disabled="disabled"/>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Midname</label>
+												<input type="text" name="midname" id="midname"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Midname</label>
-											<input type="text" name="midname" id="midname"
-												class="form-control" disabled="disabled" />
+										<!--/span-->
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Lastname</label>
+												<input type="text" name="lastname" id="lastname"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Lastname</label>
-											<input type="text" name="lastname" id="lastname"
-												class="form-control" disabled="disabled" />
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Address 1</label>
+												<textarea rows="2" name="address1" id="address1"
+													class="form-control" disabled="disabled" >
+												</textarea>
+											</div>
 										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Address 1</label>
-											<textarea rows="2" name="address1" id="address1"
-												class="form-control" disabled="disabled" >
-											</textarea>
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Address 2</label>
+												<textarea rows="2" name="address2" id="address2"
+													class="form-control" disabled="disabled" >
+												</textarea>
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Address 2</label>
-											<textarea rows="2" name="address2" id="address2"
-												class="form-control" disabled="disabled" >
-											</textarea>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Phone Number 1</label>
+												<input type="text" name="phoneNum1" id="phoneNum1"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Phone Number 1</label>
-											<input type="text" name="phoneNum1" id="phoneNum1"
-												class="form-control" disabled="disabled" />
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Phone Number 2</label>
+												<input type="text" name="phoneNum2" id="phoneNum2"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Phone Number 2</label>
-											<input type="text" name="phoneNum2" id="phoneNum2"
-												class="form-control" disabled="disabled" />
-										</div>
-									</div>
-									<!--/span-->
-								</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -140,88 +147,90 @@
 								</div>
 							</div>
 							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Account Number</label>
-											<input type="text" name="targetaccountNumber"
-												id="targetaccountNumber" class="form-control" />
+								<form id="targetAccount">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Account Number</label>
+												<input type="text" name="targetaccountNumber"
+													id="targetaccountNumber" class="form-control" />
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<br>
+												<button style="margin-top: 10px" onclick="checkTargetAccount();" 
+													class="btn btn-primary" type="button">
+													<span class="glyphicon glyphicon-refresh"></span>
+												</button>
+											</div>
 										</div>
 									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-											<br>
-											<button style="margin-top: 10px" onclick="checkTargetAccount();" 
-												class="btn btn-primary" type="button">
-												<span class="glyphicon glyphicon-refresh"></span>
-											</button>
+			
+									<div class="row">
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Firstname</label>
+												<input type="text" name="targetfirstname" id="targetfirstname"
+													class="form-control" disabled="disabled"/>
+											</div>
 										</div>
-									</div>
-								</div>
-		
-								<div class="row">
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Firstname</label>
-											<input type="text" name="targetfirstname" id="targetfirstname"
-												class="form-control" disabled="disabled"/>
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Midname</label>
+												<input type="text" name="targetmidname" id="targetmidname"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Midname</label>
-											<input type="text" name="targetmidname" id="targetmidname"
-												class="form-control" disabled="disabled" />
+										<!--/span-->
+										<div class="col-md-4">
+											<div class="form-group">
+												<label class="control-label">Lastname</label>
+												<input type="text" name="targetlastname" id="targetlastname"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-4">
-										<div class="form-group">
-											<label class="control-label">Lastname</label>
-											<input type="text" name="targetlastname" id="targetlastname"
-												class="form-control" disabled="disabled" />
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Address 1</label>
+												<textarea rows="2" name="targetaddress1" id="targetaddress1"
+													class="form-control" disabled="disabled" >
+												</textarea>
+											</div>
 										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Address 1</label>
-											<textarea rows="2" name="targetaddress1" id="targetaddress1"
-												class="form-control" disabled="disabled" >
-											</textarea>
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Address 2</label>
+												<textarea rows="2" name="targetaddress2" id="targetaddress2"
+													class="form-control" disabled="disabled" >
+												</textarea>
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Address 2</label>
-											<textarea rows="2" name="targetaddress2" id="targetaddress2"
-												class="form-control" disabled="disabled" >
-											</textarea>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Phone Number 1</label>
+												<input type="text" name="targetphoneNum1" id="targetphoneNum1"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
-									</div>
-									<!--/span-->
-								</div>
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Phone Number 1</label>
-											<input type="text" name="targetphoneNum1" id="targetphoneNum1"
-												class="form-control" disabled="disabled" />
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Phone Number 2</label>
+												<input type="text" name="targetphoneNum2" id="targetphoneNum2"
+													class="form-control" disabled="disabled" />
+											</div>
 										</div>
+										<!--/span-->
 									</div>
-									<!--/span-->
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="control-label">Phone Number 2</label>
-											<input type="text" name="targetphoneNum2" id="targetphoneNum2"
-												class="form-control" disabled="disabled" />
-										</div>
-									</div>
-									<!--/span-->
-								</div>
+								</form>
 							</div>
 						</div>
 						<div style="float: right">
@@ -241,5 +250,33 @@
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#sendAccount").validate({
+				rules : {
+					accountNumber : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					},
+					amount : {
+						number : true
+					}
+				}
+			});
+			$("#targetAccount").validate({
+				rules : {
+					targetaccountNumber : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>
