@@ -20,5 +20,6 @@ public interface FundService {
 	List<Transaction> getNewTransaction();
 	StateResult verifyTransaction(long idTransaction);
 	List<TargetAccount> getListTargetByAccountOwnerId(String id);
+	StateResult addTargetAccount(String idAccountOwner, String idAccountTarget, String name);
 }
 

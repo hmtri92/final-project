@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/font-awesome.css'/>">
 
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
@@ -24,16 +25,22 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	    var TransactionTable = $('#mytable').dataTable({
-	    });
+		 var targetAccountTable = $('#mytable').dataTable({
+		    });
+    });
+	
 </script>
 </head>
 <body style="padding-top: 100px !important">
-	<%@ include file="../models/navbarAdmin.jsp"%>
-	
+	<%@ include file="../models/navbarCustomer.jsp"%>
+		
 	<div class="page-content">
 		<div class="container">
 			<div class="portlet light">
+				<!-- Button add targetAccount -->
+				<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addTargetAccount" style="margin-bottom: 10px;">
+					<span class="glyphicon glyphicon-plus"></span> Add
+				</a>
 				<table id="mytable" class="table table-striped table-bordered" cellspacing="0" width="100%"
 						data-click-to-select="true" data-single-select="true" data-pagination="true" data-search="true">
 					<thead>
@@ -52,17 +59,19 @@
 								<td>${target.name }</td>
 								<td>${target.accountTarget.id }</td>												
 								<td>
-									<p data-placement="top" data-toggle="tooltip" title="Verify">
-										<button class="btn btn-primary btn-xs click_verify" action="">
-											Edit
+									<p data-placement="top" data-toggle="tooltip" title="Edit">
+										<button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" >
+											<span class="glyphicon glyphicon-pencil">
+											</span>
 										</button>
 									</p>
 								</td>												
 								<td>
-									<p data-placement="top" data-toggle="tooltip" title="Verify">
-										<button class="btn btn-danger btn-xs click_verify" action="">
-											Delete
-										</button>
+									<p data-placement="top" data-toggle="tooltip" title="Delete">
+										<button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" >
+											<span class="glyphicon glyphicon-trash">
+											</span>
+										</button>	
 									</p>
 								</td>												
 							</tr>
@@ -72,6 +81,44 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal add targetAccount-->
+	<div class="modal fade" id="addTargetAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Add new targetAccount</h4>
+	      </div>
+	      <form id="frmAddtarget">
+		      <div id="bodyMessage" class="modal-body">
+		      	<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group">
+							<label class="control-label">AccountID</label>
+							<input type="text" name="accountId"
+								id="accountId" class="form-control" />
+						</div>
+					</div>
+				</div>
+		      	<div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="form-group">
+							<label class="control-label">Name</label>
+							<input type="text" name="name"
+								id="name" class="form-control" />
+						</div>
+					</div>
+				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary" onclick="addTargetAccount();">Add</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+  </div>
 	
 	<!-- Message -->
 	<%@ include file="../models/message.jsp"%>

@@ -20,10 +20,16 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="<c:url value='/user/viewTransferByUser'/>" >Transfer Money</a></li>
-				<li><a href="<c:url value='/user/viewTransferTarget'/>" >Transfer Money In Target</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Transfer <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="<c:url value='/user/viewTransferByUser'/>" >Transfer</a></li>
+						<li><a href="<c:url value='/user/viewTransferTarget'/>" >Transfer Money In Target</a></li>
+					</ul>
+				</li>
 				<li><a href="<c:url value='/user/viewlog'/>" >Transaction Log</a></li>
 				<li><a href="<c:url value='/user/viewbalance'/>" >Balance Info</a></li>
+				<li><a href="<c:url value='/user/viewTargetAccount'/>" >Target Account</a></li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">

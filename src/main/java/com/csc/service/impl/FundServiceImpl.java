@@ -102,4 +102,11 @@ public class FundServiceImpl implements FundService {
 		return targetAccountDao.getListTargetByAccountOwnerId(id);
 	}
 
+	@Override
+	@Transactional
+	public StateResult addTargetAccount(String idAccountOwner,
+			String idAccountTarget, String name) {
+		return targetAccountDao.addTargetAccount(idAccountOwner, idAccountTarget, name);
+	}
+
 }

@@ -170,5 +170,21 @@ function withdraw() {
 	});
 }
 
+function addTargetAccount() {
+	$.ajax ({
+		type : "POST",
+		url : "addTargetAccount",
+		data : $("#frmAddtarget").serialize(),
+		success : function (result) {
+			$("#bodyMessage").html(result.message);
+			$("#message").modal('show');
+		},
+		error : function () {
+			$("#bodyMessage").html("Error");
+			$("#message").modal('show');
+		}
+	});
+}
+
 
 
