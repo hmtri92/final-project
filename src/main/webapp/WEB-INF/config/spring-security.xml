@@ -57,7 +57,7 @@
 			<password-encoder ref="encoder" />
 		</authentication-provider>
 	</authentication-manager>
-
+	
 	<!-- Encode Password -->
 	<beans:bean id="encoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">

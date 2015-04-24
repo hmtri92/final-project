@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="portlet light">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-10 col-md-offset-1">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<div class="caption">
@@ -41,36 +41,36 @@
 								</div>
 							</div>
 							<div class="panel-body">
-								<form id="sendAccount">
+								<form id="frm-AddFund">
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
 												<label class="control-label">Account Number</label>
 												<input type="text" name="accountNumber"
 													id="accountNumber" class="form-control" />
+												<span class="input-group-addon" id="basic-addon2">
+													<button onclick="checkAccount();" 
+														class="btn btn-primary" type="button" >
+														<span class="glyphicon glyphicon-refresh"></span>
+													</button>
+												</span>
 											</div>
 										</div>
-										<div class="col-md-6">
-											<div class="form-group">
-												<br>
-												<button style="margin-top: 10px" onclick="checkAccount();" 
-													class="btn btn-primary" type="button">
+												<button style="margin-top: 10px; float: right;" onclick="checkAccount();" 
+													class="btn btn-primary" type="button" >
 													<span class="glyphicon glyphicon-refresh"></span>
 												</button>
+										<div class="col-md-6">
+											<div class="form-group">
+												<div class="form-group">
+												<label class="control-label">Amount</label>
+												<input type="text" name="amount"
+													id="amount" class="form-control" value = "0" />
+											</div>
 											</div>
 										</div>
 									</div>
 									
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">Amount</label>
-												<input type="text" name="amount"
-													id="amount" class="form-control" />
-											</div>
-										</div>
-									</div>
-			
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group">
@@ -138,8 +138,9 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="col-md-6">
+				</div>
+				<div class="row">	
+					<div class="col-md-10 col-md-offset-1">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<div class="caption">
@@ -253,7 +254,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#sendAccount").validate({
+			$("#frm-AddFund").validate({
 				rules : {
 					accountNumber : {
 						required : true,

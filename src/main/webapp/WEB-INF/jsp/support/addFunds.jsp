@@ -135,7 +135,7 @@
 											<div class="form-group">
 												<label class="control-label">Available Amount (number)</label>
 												<input type="text" name="amount" id="amount"
-													class="form-control" />
+													class="form-control" value="0" />
 											</div>
 										</div>
 										<!--/span-->
@@ -182,6 +182,7 @@
 				      	minlength: 12
 					},
 					amount : {
+						required: true,
 						number : true
 					}
 				}

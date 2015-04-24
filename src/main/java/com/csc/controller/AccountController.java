@@ -1,8 +1,6 @@
 package com.csc.controller;
 import java.math.BigDecimal;
-
 import java.util.List;
-
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.csc.entities.Account;
 import com.csc.entities.User;
 import com.csc.service.AccountService;
+import com.csc.ultil.PasswordUtils;
 
 @Controller
 @SessionAttributes({ "username", "role", "id" })
@@ -65,8 +64,16 @@ public class AccountController {
 		int role = Integer.parseInt(rol);
 		String typeAccount1 = request.getParameter("typeAccount");
 		int typeAccount = Integer.parseInt(typeAccount1);
-		int password = accountService.random(100000, 999999);
-		String pass = Integer.toString(password);
+		String password = "12345";
+		try {
+			password = PasswordUtils.generateRandomString(6);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String passwordEncode = PasswordUtils.encodePassword(password);
+		
 		User user = new User();
 		user.setId(accountNumber);
 		user.setAvailableAmount(amount);
@@ -80,7 +87,7 @@ public class AccountController {
 		user.setEmail2(email2);
 		user.setPhoneNum1(phoneNum1);
 		user.setPhoneNum2(phoneNum2);
-		user.setPassword(pass);
+		user.setPassword(passwordEncode);
 		user.setLoginID(loginId);
 
 		Account existedAccount = accountService.getAccountById(accountNumber);
@@ -92,6 +99,8 @@ public class AccountController {
 				// accountService.addUser(accountNumber, state, role,
 				// idCardNumber, pass, loginId);
 				model.addAttribute("message", "Create Account Success!");
+				
+				user.setPassword(password);
 				model.addAttribute("User", user);
 				return "support/addAccount";
 

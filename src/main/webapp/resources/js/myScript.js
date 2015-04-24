@@ -38,26 +38,31 @@ function checkMyRegister() {
 
 
 function checkAccount() {
-	$.ajax({
-		type : "POST",
-		url : "getAccountById",
-		datatype:"json",
-		data : {"accountNumber" : $("#accountNumber").val()},
-		success : function(result) {
-			console.log(result);
-			$("#firstname").val(result.firstName);
-			$("#midname").val(result.midName);
-			$("#lastname").val(result.lastName);
-			$("#address1").val(result.address1);
-			$("#address2").val(result.address2);
-			$("#phoneNum1").val(result.phoneNum1);
-			$("#phoneNum2").val(result.phoneNum2);
-		},
-		error : function(result){
-			console.log(result);
-			alert("Error while request..");
-		}
-	});
+	var validateResult = $("#frm-AddFund").valid();
+	
+	if (validateResult ==  true ) {
+		$.ajax({
+			type : "POST",
+			url : "getAccountById",
+			datatype:"json",
+			data : {"accountNumber" : $("#accountNumber").val()},
+			success : function(result) {
+				console.log(result);
+				$("#firstname").val(result.firstName);
+				$("#midname").val(result.midName);
+				$("#lastname").val(result.lastName);
+				$("#address1").val(result.address1);
+				$("#address2").val(result.address2);
+				$("#phoneNum1").val(result.phoneNum1);
+				$("#phoneNum2").val(result.phoneNum2);
+			},
+			error : function(result){
+				console.log(result);
+				alert("Error while request..");
+			}
+		});
+	}
+	
 }
 
 function checkTargetAccount() {
@@ -86,23 +91,32 @@ function goHome() {
 
 
 function addFund() {
-	$.ajax ({
-		type : "POST",
-		url : "addFund",
-		data : {"accountNumber" : $("#accountNumber").val(),
-			"amount" : $("#amount").val()},
-		success : function(result) {
-			$("#bodyMessage").html(result);
-			$("#message").modal('show');
-		},
-		error : function(){
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	var validateResult = $("#frm-AddFund").valid();
+	
+	
+	if (validateResult == true) {
+		$.ajax ({
+			type : "POST",
+			url : "addFund",
+			data : {"accountNumber" : $("#accountNumber").val(),
+				"amount" : $("#amount").val()},
+				success : function(result) {
+					$("#bodyMessage").html(result);
+					$("#message").modal('show');
+				},
+				error : function(){
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
+	
 }
 
 function tranferBySupport() {
+	var validateResult = $("#frm-AddFund").valid();
+	
+	
 	$.ajax ({
 		type : "POST",
 		url : "transferBySupport",

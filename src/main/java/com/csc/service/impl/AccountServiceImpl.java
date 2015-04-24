@@ -82,11 +82,7 @@ public class AccountServiceImpl implements AccountService {
 	public boolean addUser(User user, int idRole, int idType) {
 		Boolean result = accountDao.addUser(user, idRole, idType);
 
-
-		if (result) {
-			return true;
-		}
-		return false;
+		return result;
 	}
 
 	@Override

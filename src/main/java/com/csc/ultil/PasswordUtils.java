@@ -7,8 +7,6 @@ import java.io.IOException;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import freemarker.core.ReturnInstruction.Return;
-
 public class PasswordUtils {
 
 	public static String generateRandomString(int length) throws Exception {
