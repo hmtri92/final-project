@@ -66,7 +66,7 @@ public class FundsController {
 	
 	@RequestMapping (value = "/support/viewTransferBySupport", method = RequestMethod.GET)
 	public String goViewTranferBySupport() {
-		return "support/transfer";
+		return "support/transferNew";
 	}
 	
 	

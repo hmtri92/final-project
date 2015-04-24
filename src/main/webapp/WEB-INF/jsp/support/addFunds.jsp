@@ -37,7 +37,7 @@
 					<div class="portlet box blue">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-gift"></i>Add Funds
+								<i class="fa fa-gift"></i>ADD FUNDS
 							</div>
 						</div>
 						<div class="portlet-body form">
@@ -45,27 +45,40 @@
 		
 							<form id="frm-AddFund" class="horizontal-form">
 								<div class="form-body">
-									
-									<h3 class="form-section">Account Info</h3>
+									<h3 class="form-section">Available Amount Info</h3>
 									<div class="row">
-										<div class="col-md-6">
+										<div class="col-lg-6">
 											<div class="form-group">
 												<label class="control-label">Account Number</label>
-												<input type="text" name="accountNumber"
-													id="accountNumber" class="form-control" />
+												<div class="row">
+													<div class="col-md-10" style="padding-right: 0;">
+											      		<input type="text" name="accountNumber" maxlength="12"
+																id="accountNumber" class="form-control" placeholder="Id Account">
+													</div>
+													<div class="col-md-2" style="padding-left: 0">
+												        <button style="padding-top: 9px; padding-bottom: 8px;" onclick="checkAccount();"
+													         class="btn btn-primary" type="button">
+												        	<span class="glyphicon glyphicon-refresh"></span>
+												        </button>
+													</div>
+												</div>
 											</div>
-										</div>
+									  	</div>
+										
 										<div class="col-md-6">
 											<div class="form-group">
-												<br>
-												<button style="margin-top: 10px" onclick="checkAccount();" 
-													class="btn btn-primary" type="button">
-													<span class="glyphicon glyphicon-refresh"></span>
-												</button>
+												<div class="form-group">
+												<label class="control-label">Amount</label>
+												<input type="text" name="amount"
+													id="amount" class="form-control" value = "0" />
+											</div>
 											</div>
 										</div>
 									</div>
+									
+									
 		
+									<h3 class="form-section">Account Info</h3>
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group">
@@ -123,28 +136,6 @@
 												<label class="control-label">Phone Number 2</label>
 												<input type="text" name="phoneNum2" id="phoneNum2"
 													class="form-control" disabled="disabled" />
-											</div>
-										</div>
-										<!--/span-->
-									</div>
-									
-									
-									<h3 class="form-section">Available Amount Info</h3>
-									<div class="row">
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">Available Amount (number)</label>
-												<input type="text" name="amount" id="amount"
-													class="form-control" value="0" />
-											</div>
-										</div>
-										<!--/span-->
-										<div class="col-md-6">
-											<div class="form-group">
-												<label class="control-label">Available Amount (alphabet)</label>
-												<textarea rows="4" cols="50" name="amountAlPha" id="amountAlPha"
-													class="form-control" >
-												</textarea>
 											</div>
 										</div>
 										<!--/span-->

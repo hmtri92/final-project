@@ -36,6 +36,9 @@ function checkMyRegister() {
 	
 }
 
+function isRealValue(obj){
+	 return obj && obj !== "null" && obj !== "undefined";
+}
 
 function checkAccount() {
 	var validateResult = $("#frm-AddFund").valid();
@@ -47,6 +50,10 @@ function checkAccount() {
 			datatype:"json",
 			data : {"accountNumber" : $("#accountNumber").val()},
 			success : function(result) {
+				if (!isRealValue(result)) {
+					$("#bodyMessage").html("Account not found!");
+					$("#message").modal('show');
+				}
 				console.log(result);
 				$("#firstname").val(result.firstName);
 				$("#midname").val(result.midName);
@@ -66,23 +73,32 @@ function checkAccount() {
 }
 
 function checkTargetAccount() {
-	$.ajax({
-		type : "POST",
-		url : "getAccountById",
-		data : {"accountNumber" : $("#targetaccountNumber").val()},
-		success : function(result) {
-			$("#targetfirstname").val(result.firstName);
-			$("#targetmidname").val(result.midName);
-			$("#targetlastname").val(result.lastName);
-			$("#targetaddress1").val(result.address1);
-			$("#targetaddress2").val(result.address2);
-			$("#targetphoneNum1").val(result.phoneNum1);
-			$("#targetphoneNum2").val(result.phoneNum2);
-		},
-		error : function(){
-			alert("Error while request..");
-		}
-	});
+	var validateResult = $("#targetAccount").valid();
+	
+	if (validateResult ==  true) {
+		$.ajax({
+			type : "POST",
+			url : "getAccountById",
+			data : {"accountNumber" : $("#targetaccountNumber").val()},
+			success : function(result) {
+				if (!isRealValue(result)) {
+					$("#bodyMessage").html("Account not found!");
+					$("#message").modal('show');
+				}
+				
+				$("#targetfirstname").val(result.firstName);
+				$("#targetmidname").val(result.midName);
+				$("#targetlastname").val(result.lastName);
+				$("#targetaddress1").val(result.address1);
+				$("#targetaddress2").val(result.address2);
+				$("#targetphoneNum1").val(result.phoneNum1);
+				$("#targetphoneNum2").val(result.phoneNum2);
+			},
+			error : function(){
+				alert("Error while request..");
+			}
+		});
+	}
 }
 
 function goHome() {
@@ -92,7 +108,6 @@ function goHome() {
 
 function addFund() {
 	var validateResult = $("#frm-AddFund").valid();
-	
 	
 	if (validateResult == true) {
 		$.ajax ({
@@ -168,20 +183,23 @@ function transferTargetID() {
 }
 
 function withdraw() {
-	$.ajax ({
-		type : "POST",
-		url : "withdraw",
-		data : {"accountNumber" : $("#accountNumber").val(),
-			"amount" : $("#amount").val()},
-		success : function(result) {
-			$("#bodyMessage").html(result.message);
-			$("#message").modal('show');
-		},
-		error : function(){
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	var validateResult = $("#frm-AddFund").valid();
+	if (validateResult == true) {
+		$.ajax ({
+			type : "POST",
+			url : "withdraw",
+			data : {"accountNumber" : $("#accountNumber").val(),
+				"amount" : $("#amount").val()},
+				success : function(result) {
+					$("#bodyMessage").html(result.message);
+					$("#message").modal('show');
+				},
+				error : function(){
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
 }
 
 function addTargetAccount() {

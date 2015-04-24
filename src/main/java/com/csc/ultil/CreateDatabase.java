@@ -113,7 +113,7 @@ public class CreateDatabase {
 		State state = em.find(State.class, State.ACTIVE);
 		
 		User minhtri = new User();
-		minhtri.setId("01234567892");
+		minhtri.setId("012345678903");
 		minhtri.setLoginID("admin");
 		minhtri.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		minhtri.setIdCardNumber("272015010"); 
@@ -134,7 +134,7 @@ public class CreateDatabase {
 		State state2 = em.find(State.class, State.ACTIVE);
 		
 		User phuc = new User();
-		phuc.setId("01234567891");
+		phuc.setId("012345678902");
 		phuc.setIdCardNumber("272015010"); 
 		phuc.setFirstName("Tri");
 		phuc.setMidName("Minh");
@@ -155,7 +155,7 @@ public class CreateDatabase {
 		State state3 = em.find(State.class, State.ACTIVE);
 		
 		User quocanh = new User();
-		quocanh.setId("01234567890");
+		quocanh.setId("012345678901");
 		quocanh.setLoginID("customer");
 		quocanh.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
 		quocanh.setIdCardNumber("272015010"); 
@@ -185,7 +185,7 @@ public class CreateDatabase {
 		TypeAccount type = em.find(TypeAccount.class, TypeAccount.OTHER);
 		
 		Account minhtri = new Account();
-		minhtri.setId("1234567890");
+		minhtri.setId("123456789001");
 		minhtri.setIdCardNumber("272015010"); 
 		minhtri.setFirstName("Huynh");
 		minhtri.setMidName("Minh");
@@ -201,7 +201,7 @@ public class CreateDatabase {
 		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		Account pug = new Account();
-		pug.setId("123456789013");
+		pug.setId("123456789002");
 		pug.setIdCardNumber("272015010"); 
 		pug.setFirstName("Tran");
 		pug.setMidName("Quoc");
