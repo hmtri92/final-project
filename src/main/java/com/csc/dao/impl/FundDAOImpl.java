@@ -32,8 +32,11 @@ public class FundDAOImpl implements FundDAO {
 		StateResult state = new StateResult();
 		try {
 			Account account = em.find(Account.class, id);
-			
-			account.setAvailableAmount(account.getAvailableAmount().add(amount));
+			try {
+				account.setAvailableAmount(account.getAvailableAmount().add(amount));
+			} catch (NullPointerException e) {
+				account.setAvailableAmount(amount);
+			}
 			
 			state.setState(true);
 			return state;
@@ -82,8 +85,12 @@ public class FundDAOImpl implements FundDAO {
 	private StateResult checkAndTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
 		StateResult state = new StateResult();
 		
+		BigDecimal money = new BigDecimal(0);
+		try {
+			money = sendAccount.getAvailableAmount().subtract(amount);
+		} catch (NullPointerException e) {
+		}
 		// if availableAmount - sendAmount < 50000 return false;
-		BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
 		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
 			state.setState(false);
 			state.setMessage("The amount in the account is not enough to transfer");
@@ -99,8 +106,11 @@ public class FundDAOImpl implements FundDAO {
 		
 		// transfer money
 		sendAccount.setAvailableAmount(money);
-		
-		money = targetAccount.getAvailableAmount().add(amount);
+		try {
+			money = targetAccount.getAvailableAmount().add(amount);
+		} catch (NullPointerException e) {
+			money = amount;
+		}
 		targetAccount.setAvailableAmount(money);
 			
 		state.setState(true);

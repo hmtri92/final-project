@@ -14,7 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table (name = "typeAccount")
+@Table (name = "typeAccounts")
 public class TypeAccount implements Serializable {
 
 	/**

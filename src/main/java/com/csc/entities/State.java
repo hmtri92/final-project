@@ -14,7 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table (name = "state")
+@Table (name = "states")
 public class State implements Serializable {
 	
 	/**
@@ -50,7 +50,7 @@ public class State implements Serializable {
 	
 	@OneToMany (mappedBy = "state")
 	@JsonIgnore
-	private List<Transaction> transactions;
+	private List<TransactionHistory> transactions;
 
 
 	public State() {
@@ -60,7 +60,7 @@ public class State implements Serializable {
 
 
 	public State(int idState, String name, List<Account> accounts,
-			List<Transaction> transactions) {
+			List<TransactionHistory> transactions) {
 		super();
 		this.idState = idState;
 		this.name = name;
@@ -68,11 +68,11 @@ public class State implements Serializable {
 		this.transactions = transactions;
 	}
 
-	public List<Transaction> getTransactions() {
+	public List<TransactionHistory> getTransactions() {
 		return transactions;
 	}
 
-	public void setTransactions(List<Transaction> transactions) {
+	public void setTransactions(List<TransactionHistory> transactions) {
 		this.transactions = transactions;
 	}
 

@@ -182,7 +182,8 @@
 				rules : {
 					amount : {
 						required: true,
-						number : true
+						number : true,
+						min : 1
 					}
 				}
 			});

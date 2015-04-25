@@ -14,7 +14,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table (name = "role")
+@Table (name = "roles")
 public class Role implements Serializable {
 
 	/**

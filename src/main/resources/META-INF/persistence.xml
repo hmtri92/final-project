@@ -6,12 +6,11 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>com.csc.entities.User</class>
 		<class>com.csc.entities.Role</class>
-		<class>com.csc.entities.Transaction</class>
+		<class>com.csc.entities.TransactionHistory</class>
 		<class>com.csc.entities.Account</class>
 		<class>com.csc.entities.TypeAccount</class>
 		<class>com.csc.entities.State</class>
 		<class>com.csc.entities.BalanceAmount</class>
-		<class>com.csc.entities.PersonInfo</class>
 		<class>com.csc.entities.TargetAccount</class>
 		<properties>
 			<property name="hibernate.connection.charSet" value="UTF-8" />

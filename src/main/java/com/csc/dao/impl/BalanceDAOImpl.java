@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.csc.dao.BalanceDAO;
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 
 @Repository
 public class BalanceDAOImpl implements BalanceDAO {

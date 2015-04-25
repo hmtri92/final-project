@@ -10,11 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table (name = "balanceAmount")
+@Table (name = "balanceAmounts")
 public class BalanceAmount implements Serializable {
 
 	/**
@@ -30,6 +31,7 @@ public class BalanceAmount implements Serializable {
 	@Column (name = "balance")
 	private BigDecimal balance;
 	
+	@Size(min = 1, message="Period must be at least 1 number!")
 	@NotEmpty
 	@Column (name = "period")
 	private Date period;

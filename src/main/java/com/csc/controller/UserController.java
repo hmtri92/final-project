@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 import com.csc.service.UserService;
 
@@ -79,14 +79,14 @@ public class UserController {
 		
 		String userID = (String) session.getAttribute("id");
 		
-		List<Transaction> listTransaction = null;
+		List<TransactionHistory> listTransaction = null;
 		
 		
 		listTransaction = userService.getTransactionByUserId(userID, 2);
 		
 		model.addAttribute("userId", userID);
 		if (listTransaction == null) {
-			model.addAttribute("listTransaction", new ArrayList<Transaction>());
+			model.addAttribute("listTransaction", new ArrayList<TransactionHistory>());
 			model.addAttribute("RESULT", "No result found");
 		}else{
 			model.addAttribute("listTransaction", listTransaction);
@@ -132,7 +132,7 @@ public class UserController {
 		
 		String userID = (String) session.getAttribute("id");
 		
-		List<Transaction> listTransaction = null;
+		List<TransactionHistory> listTransaction = null;
 		
 		String stringDateFrom = request.getParameter("dateFrom");
 		String stringDateTo = request.getParameter("dateTo");
@@ -143,7 +143,7 @@ public class UserController {
 		ModelAndView modelnview = new ModelAndView("/models/transactiontable");
 		
 		if (listTransaction == null) {
-			modelnview.addObject("listTransaction", new ArrayList<Transaction>());
+			modelnview.addObject("listTransaction", new ArrayList<TransactionHistory>());
 			modelnview.addObject("RESULT", "No result found");
 		}else{
 			modelnview.addObject("listTransaction", listTransaction);

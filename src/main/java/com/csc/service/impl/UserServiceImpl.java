@@ -16,7 +16,7 @@ import com.csc.dao.BalanceDAO;
 import com.csc.dao.TransactionDAO;
 import com.csc.dao.UserDAO;
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 import com.csc.service.UserService;
 import com.csc.ultil.PasswordUtils;
@@ -116,9 +116,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<Transaction> getTransactionByUserId(String id, int state) {
+	public List<TransactionHistory> getTransactionByUserId(String id, int state) {
 		// TODO Auto-generated method stub
-		List<Transaction> result = null;
+		List<TransactionHistory> result = null;
 		
 		result = transactionDAO.getTransactionByUserId(id, state);
 		
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService{
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public List<Transaction> getTransactionByDateRange(String userID,
+	public List<TransactionHistory> getTransactionByDateRange(String userID,
 			String stringDateFrom, String stringDateTo, int state) {
 		// TODO Auto-generated method stub
 		

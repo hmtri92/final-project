@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 import com.csc.entities.TypeAccount;
 import com.csc.service.AccountService;
 import com.csc.service.TypeService;

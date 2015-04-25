@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "user")
+@Table (name = "users")
 public class User extends Account {
 
     
@@ -37,8 +37,8 @@ public class User extends Account {
 	public User(String idCardNumber, BigDecimal availableAmount,
 			TypeAccount typeAccount, State state,
 			List<BalanceAmount> balanceAmounts,
-			List<Transaction> sendTracsactions,
-			List<Transaction> receiveTracsactions) {
+			List<TransactionHistory> sendTracsactions,
+			List<TransactionHistory> receiveTracsactions) {
 		super(idCardNumber, availableAmount, typeAccount, state, balanceAmounts,
 				sendTracsactions, receiveTracsactions);
 		// TODO Auto-generated constructor stub
@@ -51,8 +51,8 @@ public class User extends Account {
 			String idCardNumber, BigDecimal availableAmount,
 			TypeAccount typeAccount, State state,
 			List<BalanceAmount> balanceAmounts,
-			List<Transaction> sendTracsactions,
-			List<Transaction> receiveTracsactions,
+			List<TransactionHistory> sendTracsactions,
+			List<TransactionHistory> receiveTracsactions,
 			List<TargetAccount> targetAccounts,
 			List<TargetAccount> targetOfAccounts) {
 		super(idCustomer, firstName, lastName, midName, phoneNum1, phoneNum2, address1,

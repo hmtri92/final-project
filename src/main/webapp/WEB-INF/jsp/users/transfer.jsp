@@ -85,6 +85,7 @@
 				      	minlength: 12
 					},
 					amount : {
+						required: true,
 						number : true,
 						min : 1
 					}

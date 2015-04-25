@@ -13,9 +13,10 @@ import com.csc.dao.FundDAO;
 import com.csc.dao.ITargetAccountDAO;
 import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
+import com.csc.entities.State;
 import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 import com.csc.service.FundService;
 
 @Service
@@ -82,20 +83,20 @@ public class FundServiceImpl implements FundService {
 
 	@Override
 	@Transactional
-	public List<Transaction> getNewTransaction() {
+	public List<TransactionHistory> getNewTransaction() {
 		return transactionDao.getNewTransaction();
 	}
 
 	@Override
 	@Transactional
 	public StateResult verifyTransaction(long idTransaction) {
-		Transaction transaction = transactionDao.getTransaction(idTransaction);
+		TransactionHistory transaction = transactionDao.getTransaction(idTransaction);
 		StateResult result = new StateResult();
 		
-		if (transaction.getTypeTransaction() == Transaction.ADD_FUND)
+		if (transaction.getTypeTransaction() == TransactionHistory.ADD_FUND)
 		{
 			result = fundDao.addFund(transaction.getSendAccount().getId(), transaction.getAmount());
-		} else if (transaction.getTypeTransaction() == Transaction.TRANSFER) {
+		} else if (transaction.getTypeTransaction() == TransactionHistory.TRANSFER) {
 			
 			result = fundDao.transfer(transaction.getSendAccount().getId(), 
 					transaction.getReceiveAccount().getId(), transaction.getAmount());
@@ -104,7 +105,7 @@ public class FundServiceImpl implements FundService {
 		}
 		
 		if (result.getState()) {
-			transactionDao.changeStateTransaction(transaction.getIdTransaction());
+			return transactionDao.changeStateTransaction(transaction.getIdTransaction(), State.ACTIVE);
 		}
 		
 		return result;
@@ -135,7 +136,7 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult modifyTarget(String id, String idAccountTarget,
 			String name) {
-StateResult result = new StateResult();
+		StateResult result = new StateResult();
 		
 		Account account = accountDao.getAccountById(idAccountTarget);
 		if (account == null) {
@@ -151,6 +152,12 @@ StateResult result = new StateResult();
 	@Transactional
 	public StateResult deleteTarget(String id) {
 		return targetAccountDao.deleteTarget(id);
+	}
+
+	@Override
+	@Transactional
+	public StateResult ignoreTransaction(long idTransaction) {
+		return transactionDao.changeStateTransaction(idTransaction, State.DISABLE);
 	}
 
 }

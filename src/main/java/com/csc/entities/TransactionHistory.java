@@ -18,8 +18,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 @Entity
-@Table(name = "logTransaction")
-public class Transaction implements Serializable {
+@Table(name = "TransactionsHistorys")
+public class TransactionHistory implements Serializable {
 	
 	/**
 	 * 
@@ -67,12 +67,12 @@ public class Transaction implements Serializable {
 	@JoinColumn (name = "receiveAccount")
 	private Account receiveAccount;
 
-	public Transaction() {
+	public TransactionHistory() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transaction(long idTransaction, Date date, BigDecimal amount,
+	public TransactionHistory(long idTransaction, Date date, BigDecimal amount,
 			State state, String content, int typeTransaction,
 			Account sendAccount, Account receiveAccount) {
 		super();

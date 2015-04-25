@@ -129,6 +129,7 @@ public class CreateDatabase {
 		minhtri.setRole(roleAdmin);
 		minhtri.setState(state);
 		minhtri.setRole(roleAdmin);
+		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		Role roleSupport = em.find(Role.class, Role.ACCOUNT_SUPPORT);
 		State state2 = em.find(State.class, State.ACTIVE);
@@ -149,7 +150,7 @@ public class CreateDatabase {
 		phuc.setState(state2);
 		phuc.setLoginID("support");
 		phuc.setPassword("$2a$10$4HKVeFVczIQOoRMQ7tCb0OIob6GE7RgmcIqh1VKmuRFJApnmnampi");
-		
+		phuc.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		Role roleCustomer = em.find(Role.class, Role.CUSTOMER);
 		State state3 = em.find(State.class, State.ACTIVE);
@@ -170,6 +171,7 @@ public class CreateDatabase {
 		quocanh.setPhoneNum2("09090909");
 		quocanh.setRole(roleCustomer);
 		quocanh.setState(state3);
+		quocanh.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		try {
 			em.persist(minhtri);

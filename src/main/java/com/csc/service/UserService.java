@@ -3,7 +3,7 @@ package com.csc.service;
 import java.util.List;
 
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.Transaction;
+import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 
 public interface UserService {
@@ -22,11 +22,11 @@ public interface UserService {
 	
 	User getUserByID(String id);
 
-	public List<Transaction> getTransactionByUserId(String Id, int state);
+	public List<TransactionHistory> getTransactionByUserId(String Id, int state);
 
 	public List<BalanceAmount> getBalanceLogByUserId(String accounNumber);
 
-	public List<Transaction> getTransactionByDateRange(String userID,
+	public List<TransactionHistory> getTransactionByDateRange(String userID,
 			String stringDateFrom, String stringDateTo, int state);
 
 	public List<BalanceAmount> getBalanceByDateRange(String userID,

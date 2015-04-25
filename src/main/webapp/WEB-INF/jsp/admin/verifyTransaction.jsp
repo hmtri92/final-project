@@ -35,20 +35,48 @@
 		       	data : {"idTransaction" : id},
 		       	success : function (result){
 			       	if (result.state == true) {
-				       	$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-success");
+				       	$('#'+ id + ' .click_verify').removeClass("btn-primary");
+				       	$('#'+ id + ' .click_verify').addClass("btn-success");
 				       	$('#'+ id + ' button').attr('disabled','disabled');
 			       	} else {
-			       		$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-danger");
+			       		$('#'+ id + ' .click_verify').removeClass("btn-primary");
+				       	$('#'+ id + ' .click_verify').addClass("btn-danger");
 				       	
 				       	$("#bodyMessage").html(result.message);
 						$("#message").modal('show');
 			       	}
 		       	},
 		        error : function() {
-		        	$('#'+ id + ' button').removeClass("btn-primary");
-			       	$('#'+ id + ' button').addClass("btn-danger");
+		        	$('#'+ id + ' .click_verify').removeClass("btn-primary");
+			       	$('#'+ id + ' .click_verify').addClass("btn-danger");
+			       	
+			       	$("#bodyMessage").html("Error while request..");
+					$("#message").modal('show');
+		        }
+	        });
+		});
+		$('.click_ignore').click(function (){
+			var id = $(this).parent().parent().parent().attr('id');
+			$.ajax({
+		        type : "POST",
+		       	url : "ignoreTransaction",
+		       	data : {"idTransaction" : id},
+		       	success : function (result){
+			       	if (result.state == true) {
+				       	$('#'+ id + ' .click_ignore').removeClass("btn-primary");
+				       	$('#'+ id + ' .click_ignore').addClass("btn-success");
+				       	$('#'+ id + ' button').attr('disabled','disabled');
+			       	} else {
+			       		$('#'+ id + ' .click_ignore').removeClass("btn-primary");
+				       	$('#'+ id + ' .click_ignore').addClass("btn-danger");
+				       	
+				       	$("#bodyMessage").html(result.message);
+						$("#message").modal('show');
+			       	}
+		       	},
+		        error : function() {
+		        	$('#'+ id + ' .click_ignore').removeClass("btn-primary");
+			       	$('#'+ id + ' .click_ignore').addClass("btn-danger");
 			       	
 			       	$("#bodyMessage").html("Error while request..");
 					$("#message").modal('show');
@@ -80,6 +108,7 @@
 				                <th >Amount</th>
 				                <th >Content</th>
 				                <th >Verify</th>
+				                <th >Ignore</th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -103,6 +132,13 @@
 										<p data-placement="top" data-toggle="tooltip" title="Verify">
 											<button class="btn btn-primary btn-xs click_verify" action="">
 												Verify
+											</button>
+										</p>
+									</td>												
+									<td>
+										<p data-placement="top" data-toggle="tooltip" title="Verify">
+											<button class="btn btn-primary btn-xs click_ignore" action="">
+												Ignore
 											</button>
 										</p>
 									</td>												
