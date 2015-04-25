@@ -183,7 +183,7 @@
 							<div class="form-actions right">
 								<center>
 									<font color="red">${message }</font> User: <font color="red">${User.loginID }</font>
-									Password: <font color="red">${User.password }</font>
+									Password: <font color="red">${pass1 }</font>
 
 								</center>
 								<button type="button" class="btn default" onclick="goHome();">Cancel</button>

@@ -41,7 +41,7 @@ function isRealValue(obj){
 }
 
 function checkAccount() {
-	var validateResult = $("#frm-AddFund").valid();
+	var validateResult = $("#frm-Account").valid();
 	
 	if (validateResult ==  true ) {
 		$.ajax({
@@ -73,7 +73,7 @@ function checkAccount() {
 }
 
 function checkTargetAccount() {
-	var validateResult = $("#targetAccount").valid();
+	var validateResult = $("#frm-targetAccount").valid();
 	
 	if (validateResult ==  true) {
 		$.ajax({
@@ -107,7 +107,8 @@ function goHome() {
 
 
 function addFund() {
-	var validateResult = $("#frm-AddFund").valid();
+	var validateResult = $("#frm-Account").valid();
+	validateResult = $("#frm-amount").valid() && validateResult;
 	
 	if (validateResult == true) {
 		$.ajax ({
@@ -130,60 +131,74 @@ function addFund() {
 
 function tranferBySupport() {
 	var validateResult = $("#frm-AddFund").valid();
+	validateResult = $("#frm-targetAccount").valid() && validateResult;
+	validateResult = $("#frm-amount").valid() && validateResult;
 	
-	
-	$.ajax ({
-		type : "POST",
-		url : "transferBySupport",
-		data : {"sendAccount" : $("#accountNumber").val(),
-			"targetAccount" : $("#targetaccountNumber").val(),
-			"amount" : $("#amount").val()},
-		success : function (result) {
-			$("#bodyMessage").html(result.message);
-			$("#message").modal('show');
-		},
-		error : function(){
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	if (validateResult == true) {
+		$.ajax ({
+			type : "POST",
+			url : "transferBySupport",
+			data : {"sendAccount" : $("#accountNumber").val(),
+				"targetAccount" : $("#targetaccountNumber").val(),
+				"amount" : $("#amount").val()},
+				success : function (result) {
+					$("#bodyMessage").html(result.message);
+					$("#message").modal('show');
+				},
+				error : function(){
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
 }
 
 function transferByUser() {
-	$.ajax ({
-		type : "POST",
-		url : "transferByUser",
-		data : {"targetAccount" : $("#targetAccount").val(),
-			"amount" : $("#amount").val()},
-		success : function (result) {
-			$("#bodyMessage").html(result.message);
-			$("#message").modal('show');
-		},
-		error : function(result){
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	var validateResult = $("#frm-transfer").valid();
+	
+	if (validateResult ==  true) {
+		$.ajax ({
+			type : "POST",
+			url : "transferByUser",
+			data : {"targetAccount" : $("#targetAccount").val(),
+				"amount" : $("#amount").val()},
+				success : function (result) {
+					$("#bodyMessage").html(result.message);
+					$("#message").modal('show');
+				},
+				error : function(result){
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
+	
 }
 function transferTargetID() {
-	$.ajax ({
-		type : "POST",
-		url : "transferTargetID",
-		data : {"targetAccount" : $("#targetAccount").val(),
-			"amount" : $("#amount").val()},
-			success : function (result) {
-				$("#bodyMessage").html(result.message);
-				$("#message").modal('show');
-			},
-			error : function(){
-				$("#bodyMessage").html("Error");
-				$("#message").modal('show');
-			}
-	});
+	var validateResult = $("#frm-transfer").valid();
+	
+	if (validateResult ==  true) {
+		$.ajax ({
+			type : "POST",
+			url : "transferTargetID",
+			data : {"targetAccount" : $("#targetAccount").val(),
+				"amount" : $("#amount").val()},
+				success : function (result) {
+					$("#bodyMessage").html(result.message);
+					$("#message").modal('show');
+				},
+				error : function(){
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
 }
 
 function withdraw() {
 	var validateResult = $("#frm-AddFund").valid();
+	validateResult = $("#frm-amount").valid() && validateResult;
+	
 	if (validateResult == true) {
 		$.ajax ({
 			type : "POST",
@@ -203,41 +218,49 @@ function withdraw() {
 }
 
 function addTargetAccount() {
-	$.ajax ({
-		type : "POST",
-		url : "addTargetAccount",
-		data : $("#frmAddtarget").serialize(),
-		success : function (result) {
-			$("#bodyMessage").html(result.message);
-			$("#message").modal('show');
-		},
-		error : function () {
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	var validateResult = $("#frm-Addtarget").valid();
+	
+	if (validateResult == true) {
+		$.ajax ({
+			type : "POST",
+			url : "addTargetAccount",
+			data : $("#frmAddtarget").serialize(),
+			success : function (result) {
+				$("#bodyMessage").html(result.message);
+				$("#message").modal('show');
+			},
+			error : function () {
+				$("#bodyMessage").html("Error");
+				$("#message").modal('show');
+			}
+		});
+	}
 }
 
 function modifyTargetAccount() {
-	$.ajax ({
-		type : "POST",
-		url : "modifyTargetAccount",
-		data : {"idTarget" : $("#md_Id").val(),
-			"idAccountTarget" : $("#md_accountId").val(),
-			"name" : $("#md_name").val()},
-		success : function (result) {
-			$("#bodyMessage").html(result.message);
-			$("#message").modal('show');
-			
-			if (result.state == true) {
-				$("#modifyTargetAccount").modal('hide');
-			}
-		},
-		error : function () {
-			$("#bodyMessage").html("Error");
-			$("#message").modal('show');
-		}
-	});
+	var validateResult = $("#frm-modify").valid();
+	
+	if (validateResult) {
+		$.ajax ({
+			type : "POST",
+			url : "modifyTargetAccount",
+			data : {"idTarget" : $("#md_Id").val(),
+				"idAccountTarget" : $("#md_accountId").val(),
+				"name" : $("#md_name").val()},
+				success : function (result) {
+					$("#bodyMessage").html(result.message);
+					$("#message").modal('show');
+					
+					if (result.state == true) {
+						$("#modifyTargetAccount").modal('hide');
+					}
+				},
+				error : function () {
+					$("#bodyMessage").html("Error");
+					$("#message").modal('show');
+				}
+		});
+	}
 }
 
 function deleteTargetAccount() {

@@ -19,6 +19,11 @@
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
+<!-- Validate -->
+<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
 </head>
 <body style="padding-top: 100px !important">
 	<%@ include file="../models/navbarCustomer.jsp"%>
@@ -26,37 +31,39 @@
 	<div class="page-content">
 		<div class="container">
 			<div class="portlet light">
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<h3 class="form-section" style="color: rgb(210, 105, 30);">Transfer money</h3>
-						<div class="form-group">
-							<label class="control-label">Account Number</label>
-							<input type="text" name="targetAccount"
-								id="targetAccount" class="form-control" />
+				<form id = "frm-transfer">
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3">
+							<h3 class="form-section" style="color: rgb(210, 105, 30);">Transfer money</h3>
+							<div class="form-group">
+								<label class="control-label">Account Number</label>
+								<input type="text" name="targetAccount"
+									id="targetAccount" class="form-control" maxlength="12"/>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-md-6 col-md-offset-3">
-						<div class="form-group">
-							<label class="control-label">Amount</label>
-							<input type="text" name="amount"
-								id="amount" class="form-control" />
+					
+					<div class="row">
+						<div class="col-md-6 col-md-offset-3">
+							<div class="form-group">
+								<label class="control-label">Amount</label>
+								<input type="text" name="amount"
+									id="amount" class="form-control" value="0"/>
+							</div>
 						</div>
 					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col-md-3 col-md-offset-6">
-						<div style="float: right">
-							<button type="button" class="btn default" onclick="goHome();">Cancel</button>
-							<button id="submit" type="button" class="btn blue" onclick="transferByUser();">
-								<i class="fa fa-check"></i> Send
-							</button>
+					
+					<div class="row">
+						<div class="col-md-3 col-md-offset-6">
+							<div style="float: right">
+								<button type="button" class="btn default" onclick="goHome();">Cancel</button>
+								<button id="submit" type="button" class="btn blue" onclick="transferByUser();">
+									<i class="fa fa-check"></i> Send
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -66,5 +73,25 @@
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#frm-transfer").validate({
+				rules : {
+					targetAccount : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					},
+					amount : {
+						number : true,
+						min : 1
+					}
+				}
+			});
+		});
+	</script>
+	
 </body>
 </html>

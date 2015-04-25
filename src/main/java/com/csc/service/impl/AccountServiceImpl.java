@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.csc.dao.AccountDAO;
+import com.csc.dao.TransactionDAO;
 import com.csc.entities.Account;
 import com.csc.entities.User;
 import com.csc.service.AccountService;
@@ -101,6 +102,51 @@ public class AccountServiceImpl implements AccountService {
 	public List<Account> getStateActive() {
 		// TODO Auto-generated method stub
 		return accountDao.getStateActive();
+	}
+
+	@Override
+	public List<Account> searchAccount(String key, int typeSearch) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		switch (typeSearch) {
+		case 1:
+			result = accountDao.searchAccountByAccountNumber(key);
+			break;
+		case 2:
+			result = accountDao.searchAccountByIdCardNumber(key);
+			break;
+		case 3:
+			result = accountDao.searchAccountByOwnerName(key);
+			break;
+		case 4:
+			result = accountDao.searchAccountByType(key);
+			break;
+		case 5:
+			result = accountDao.searchAccountByState(key);
+			break;
+		case 6:
+			result = accountDao.searchAccountByPhone(key);
+			break;
+		case 7:
+			result = accountDao.searchAccountByAddress(key);
+			break;
+		case 8:
+			result = accountDao.searchAccountByEmail(key);
+			break;
+
+		default:
+			break;
+		}
+		
+		return result;
+	}
+
+
+	@Override
+	public List<Account> getStateRemvo() {
+		// TODO Auto-generated method stub
+		return accountDao.getStateRemvo();
 	}
 
 }

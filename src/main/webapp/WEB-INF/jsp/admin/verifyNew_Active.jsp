@@ -31,7 +31,7 @@
 			var id = $(this).parent().parent().parent().attr('id');
 			$.ajax({
 		        type : "POST",
-		       	url : "doVerifyStateDis",
+		       	url : "doVerifySateNew",
 		       	data : {"id" : id},
 		       	success : function (result){
 			       	if (result.state == true) {
@@ -42,7 +42,7 @@
 			       		$('#'+ id + ' button').removeClass("btn-primary");
 				       	$('#'+ id + ' button').addClass("btn-danger");
 				       	
-				       	$("#bodyMessage").html(("Verify State:Disable -> Removable Success!");
+				       	$("#bodyMessage").html(("Verify State:New -> Active Success!");
 						$("#message").modal('show');
 			       	}
 		       	},

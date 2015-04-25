@@ -32,20 +32,24 @@
 		    });
 	});
 	
+	var typeSearch = "1";
+	var keyword = "";
 	
-	
-	function changeType(mySelect){
+	function changeSearchType(mySelect){
 		$(".hiddable").css("display","none");
-		if (mySelect.value == 5) {
+		typeSearch = mySelect.value;
+		if (typeSearch == 5) {
 			$("#stateInput").css("display","block");
-		} else if(mySelect.value == 4) {
+			$('#stateInput option[value = "1"]').click();
+		} else if(typeSearch == 4) {
 			$("#typeInput").css("display","block");
+			$('#typeInput option[value = "1"]').click();
 		} else{
 			$("#textInput").css("display","block");
 			$.ajax ({
 				type : "POST",
 				url : "getRecomendKey",
-				data : {"type" : mySelect.value},					
+				data : {"type" : typeSearch},					
 					success : function (result) {
 						$( "#keyInput" ).autocomplete({
 						      source: null
@@ -59,12 +63,42 @@
 					}
 			});	
 		}
-			
-
-		
-		
-		
 	}
+	
+	
+	function changeValue(mySelect){
+
+		keyword = mySelect.value;
+	}
+	
+	
+	function showResult(){
+		
+		if ($("#searchType").val() != 4 && $("#searchType").val() != 5) {
+			keyword = $("#keyInput").val();
+		}
+		
+		alert(keyword);
+		
+		$.ajax ({
+			type : "POST",
+			url : "searchaccount",
+			data : {"type" : typeSearch,
+				"keyword" : keyword},					
+				success : function (result) {		
+					$("#tablesection").html(result);
+					$("#mytable").dataTable();
+				},
+				error : function() {
+					alert("Error while processing request..");
+				}
+		});	 
+	}
+	
+function test(){
+	alert("asdasdasd");
+	
+}
 </script>
 
 </head>
@@ -74,13 +108,13 @@
 
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert fade in alert-success" id="message"><i class="fa fa-cogs"></i>${RESULT}</div>
+			
 			<div class="portlet light">
 				<div class="row">
 					<div class="col">
 						<div class="panel panel-primary">						
 							<div class="panel-heading">
-								<div class="caption">
+								<div class="caption" onmouseup="test()">
 									<i class="fa fa-cogs"></i>Exchange History
 								</div>
 							</div>
@@ -89,7 +123,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="control-label">Search Type</label>
-											<select id="searchType" name="searchType" onchange="changeType(this)"
+											<select id="searchType" name="searchType" onchange="changeSearchType(this)"
 														class="form-control">
 													<option value="1">Account Number</option>
 													<option value="2">ID Card Number</option>
@@ -113,16 +147,16 @@
 									</div>									
 								</div>
 								<div class="row">
-									<div class="col-md-4 hiddable"  id="stateInput" style="display:none");>
+									<div class="col-md-4 hiddable"  id="stateInput" style="display:none">
 										<div class="form-group">
 											<label class="control-label">Account State</label>
 											<select id="stateAccount" name="stateAccount"
 														class="form-control">
-													<option value="1">NEW</option>
-													<option value="2">ACTIVE</option>
-													<option value="3">DISABLE</option>
-													<option value="4">REMOVABLE</option>
-													<option value="5">REMOVED</option>																											
+													<option value="1" onclick="changeValue(this)">NEW</option>
+													<option value="2" onclick="changeValue(this)">ACTIVE</option>
+													<option value="3" onclick="changeValue(this)">DISABLE</option>
+													<option value="4" onclick="changeValue(this)">REMOVABLE</option>
+													<option value="5" onclick="changeValue(this)">REMOVED</option>																											
 											</select>
 										</div>
 									</div>									
@@ -131,11 +165,11 @@
 									<div class="col-md-4 hiddable"  id="typeInput"  style="display:none">
 										<div class="form-group">
 											<label class="control-label">Account Type</label>
-											<select id="typeAccount" name="typeAccount"
+											<select id="typeAccount" name="typeAccount" onchange=""
 														class="form-control">
-													<option value="1">DEPOSIT</option>
-													<option value="2">SAVING</option>
-													<option value="3">OTHER</option>														
+													<option value="1" onclick="changeValue(this)">DEPOSIT</option>
+													<option value="2" onclick="changeValue(this)">SAVING</option>
+													<option value="3" onclick="changeValue(this)">OTHER</option>														
 											</select>
 										</div>
 									</div>									
@@ -143,14 +177,15 @@
 								<div class="row">
 									<div class="col-md-4" >
 										<div class="form-group" style="float:right" >
-											<button id="buttonSubmitEdit" type="button" 
-										class="btn blue" onclick="">Search</button>
+											<button id="buttonSubmit" type="button" 
+										class="btn blue" onclick="showResult()">Search</button>
 										</div>
 									</div>									
 								</div>
 								
 							
-								<div class="row">
+								<div class="row" id="tablesection">
+																
 									<div class="col-md-12">
 									<table id="mytable">
 										<thead>

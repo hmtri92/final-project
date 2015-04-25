@@ -18,6 +18,7 @@ public interface AccountDAO {
 			String email2, String address1, String address2,
 			String phoneNumber1, String phoneNumber2, String idcardNumber);
 
+	public List<Account> getStateRemvo();
 	public List<Account> getStateNew();
 	public List<Account> getStateDis();
 	public List<String> getRecomendedKeyList(int searchType);
@@ -26,5 +27,21 @@ public interface AccountDAO {
 		public boolean addUser(User user, int idRole, int idType);
 
 		public List<Account> getStateActive();
+
+		List<Account> searchAccountByAccountNumber(String key);
+
+		List<Account> searchAccountByIdCardNumber(String key);
+
+		List<Account> searchAccountByOwnerName(String key);
+
+		List<Account> searchAccountByType(String key);
+
+		List<Account> searchAccountByState(String key);
+
+		List<Account> searchAccountByPhone(String key);
+
+		List<Account> searchAccountByAddress(String key);
+
+		List<Account> searchAccountByEmail(String key);
 
 }

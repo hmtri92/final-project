@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -14,24 +14,28 @@
 <link rel="stylesheet" href="<c:url value='/css/components.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/css/dataTables.bootstrap.css'/>">
 
-<script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/js/jquery.dataTables.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	    var TransactionTable = $('#mytable').dataTable({
+	    var RemoveableTable = $('#mytable').dataTable({
 	    });
 
 		$('.click_verify').click(function (){
 			var id = $(this).parent().parent().parent().attr('id');
 			$.ajax({
 		        type : "POST",
-		       	url : "doVerifyStateDis",
+		       	url : "doVerifiStateRemove",
 		       	data : {"id" : id},
 		       	success : function (result){
 			       	if (result.state == true) {
@@ -42,7 +46,7 @@
 			       		$('#'+ id + ' button').removeClass("btn-primary");
 				       	$('#'+ id + ' button').addClass("btn-danger");
 				       	
-				       	$("#bodyMessage").html(("Verify State:Disable -> Removable Success!");
+				       	$("#bodyMessage").html("Verify State:Removable -> Removed Success!");
 						$("#message").modal('show');
 			       	}
 		       	},
@@ -62,33 +66,34 @@
 
 </head>
 <body style="padding-top: 100px !important">
-	<%@ include file="../models/navbarAdmin.jsp"%>
-	
+	<%@ include file="../models/navbar.jsp"%>
+
 	<div class="page-content">
 		<div class="container">
 			<div class="portlet light">
-				<div >
-					<table id="mytable" class="table table-striped table-bordered" cellspacing="0" width="100%"
-						data-click-to-select="true" data-single-select="true" data-pagination="true" data-search="true">
+				<div>
+					<table id="mytable" class="table table-striped table-bordered"
+						cellspacing="0" width="100%" data-click-to-select="true"
+						data-single-select="true" data-pagination="true"
+						data-search="true">
 						<thead>
-				            <tr>
-				                <th >ID</th>
-				                <th >State</th>
-				                <th >Verify</th>
-				            </tr>
-				        </thead>
-				        <tbody>
-							<c:forEach var="listStateNew" items="${listStateNew}">
-								<tr id = "${listStateNew.id}">
-									<td>${listStateNew.id}</td>
-									<td>${listStateNew.state.name}</td>
+							<tr>
+								<th>ID</th>
+								<th>State</th>
+								<th>Verify</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="listState" items="${listAccount}">
+								<tr id="${listState.id}">
+									<td>${listState.id}</td>
+									<td>${listState.state.name}</td>
 									<td>
 										<p data-placement="top" data-toggle="tooltip" title="Verify">
 											<button class="btn btn-primary btn-xs click_verify" action="">
-												Verify
-											</button>
+												Verify</button>
 										</p>
-									</td>												
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -97,10 +102,10 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Message -->
 	<%@ include file="../models/message.jsp"%>
-	
+
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
 </body>

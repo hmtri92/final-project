@@ -51,17 +51,22 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 		Account sendAccount = em.find(Account.class, sendAccount_ID);
 		
 		// if availableAmount - sendAmount < 50000 return false;
-		BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
-		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-			state.setState(false);
+		try {
+			BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
+			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+				state.setState(false);
+				state.setMessage("The amount in the account is not enough to transfer");
+				return state;
+			}
+			
+			// Check state sendAccount
+			if (sendAccount.getState().getIdState() != State.ACTIVE) {
+				state.setState(false);
+				state.setMessage("Account is not ACTIVE");
+				return state;
+			}
+		} catch (NullPointerException e) {
 			state.setMessage("The amount in the account is not enough to transfer");
-			return state;
-		}
-		
-		// Check state sendAccount
-		if (sendAccount.getState().getIdState() != State.ACTIVE) {
-			state.setState(false);
-			state.setMessage("Account is not ACTIVE");
 			return state;
 		}
 		
@@ -73,10 +78,32 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 	@Override
 	public StateResult transferTransactionTargetID(String sendAccount_ID,
 			String targetAccount_ID, BigDecimal amount) {
+		StateResult state = new StateResult();
+		
 		Account sendAccount = em.find(Account.class, sendAccount_ID);
 		
-		int idtarget = Integer.parseInt(targetAccount_ID);
+		long idtarget = Long.parseLong(targetAccount_ID);
 		TargetAccount target = em.find(TargetAccount.class, idtarget);
+		
+		// if availableAmount - sendAmount < 50000 return false;
+		try {
+			BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
+			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+				state.setState(false);
+				state.setMessage("The amount in the account is not enough to transfer");
+				return state;
+			}
+			
+			// Check state sendAccount
+			if (sendAccount.getState().getIdState() != State.ACTIVE) {
+				state.setState(false);
+				state.setMessage("Account is not ACTIVE");
+				return state;
+			}
+		} catch (NullPointerException e) {
+			state.setMessage("The amount in the account is not enough to transfer");
+			return state;
+		}
 		Account targetAccount = target.getAccountTarget();
 		
 		return saveTransfer(sendAccount, targetAccount, amount);	

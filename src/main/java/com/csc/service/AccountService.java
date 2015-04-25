@@ -23,5 +23,8 @@ public interface AccountService {
 
 	public List<String> getRecomendedKey(int searchType);
 	public List<Account> getStateActive();
+	public List<Account> getStateRemvo();
+
+	public List<Account> searchAccount(String key, int typeSearch);
 
 }

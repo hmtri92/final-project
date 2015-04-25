@@ -37,36 +37,40 @@
 						<i class="glyphicon glyphicon-cog"></i> TRANSFER
 					</div>
 				</div>
-				<form id="frm-AddFund">
+				<div id="frm-AddFund">
 					<div class="form-body">
 					<h3 class="frm-section">Send Account</h3>
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="form-group">
-								<label class="control-label">Account Number</label>
-								<div class="row">
-									<div class="col-md-10" style="padding-right: 0;">
-							      		<input type="text" name="accountNumber" maxlength="12"
-												id="accountNumber" class="form-control" placeholder="Id Account">
-									</div>
-									<div class="col-md-2" style="padding-left: 0">
-								        <button style="padding-top: 9px; padding-bottom: 8px;" onclick="checkAccount();"
-									         class="btn btn-primary" type="button">
-								        	<span class="glyphicon glyphicon-refresh"></span>
-								        </button>
+							<form class="frm-Account">
+								<div class="form-group">
+									<label class="control-label">Account Number</label>
+									<div class="row">
+										<div class="col-md-10" style="padding-right: 0;">
+								      		<input type="text" name="accountNumber" maxlength="12"
+													id="accountNumber" class="form-control" placeholder="Id Account">
+										</div>
+										<div class="col-md-2" style="padding-left: 0">
+									        <button style="padding-top: 9px; padding-bottom: 8px;" onclick="checkAccount();"
+										         class="btn btn-primary" type="button">
+									        	<span class="glyphicon glyphicon-refresh"></span>
+									        </button>
+										</div>
 									</div>
 								</div>
-							</div>
+							</form>
 					  	</div>
 						
 						<div class="col-md-6">
-							<div class="form-group">
+							<form id="frm-amount">
 								<div class="form-group">
-								<label class="control-label">Amount</label>
-								<input type="text" name="amount"
-									id="amount" class="form-control" value = "0" />
-							</div>
-							</div>
+									<div class="form-group">
+										<label class="control-label">Amount</label>
+										<input type="text" name="amount"
+											id="amount" class="form-control" value = "0" />
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 					
@@ -134,8 +138,8 @@
 						<!--/span-->
 					</div>
 					</div>
-				</form>
-				<form id="targetAccount">
+				</div>
+				<form id="frm-targetAccount">
 					<div class="form-body">
 					<h3 class="frm-section">Target Account</h3>
 					<div class="row">
@@ -242,27 +246,31 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#frm-AddFund").validate({
-				rules : {
-					accountNumber : {
-						required : true,
-						number : true,
-						maxlength: 12,
-				      	minlength: 12
-					},
-					amount : {
-						number : true,
-						min : 1
-					}
-				}
-			});
-			$("#targetAccount").validate({
+			$("#frm-targetAccount").validate({
 				rules : {
 					targetaccountNumber : {
 						required : true,
 						number : true,
 						maxlength: 12,
 				      	minlength: 12
+					}
+				}
+			});
+			$("#frm-Account").validate({
+				rules : {
+					accountNumber : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					}
+				}
+			});
+			$("#frm-amount").validate({
+				rules : {
+					amount : {
+						required: true,
+						number : true
 					}
 				}
 			});

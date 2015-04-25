@@ -103,15 +103,6 @@ public class FundsController {
 	@ResponseBody
 	public StateResult transferByUser (@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		StateResult result = new StateResult();
-		Account account = accountService.getAccountById(id);
-		
-		if (account == null) {
-			result.setState(false);
-			result.setMessage("Account not fund!");
-			return result;
-		}
-		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
@@ -122,15 +113,6 @@ public class FundsController {
 	@ResponseBody
 	public StateResult transferTargetID(@ModelAttribute( value = "id") String id,
 			HttpServletRequest request, HttpServletResponse response) {
-		StateResult result = new StateResult();
-		Account account = accountService.getAccountById(id);
-		
-		if (account == null) {
-			result.setState(false);
-			result.setMessage("Account not fund!");
-			return result;
-		}
-		
 		String targetAccount = request.getParameter("targetAccount");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		

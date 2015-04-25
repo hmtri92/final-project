@@ -1,7 +1,5 @@
-	<%
-		String username = (String)request.getSession().getAttribute("username");
-	%>
-
+	<!-- Support -->
+	
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top narbar-img"
 	role="navigation">
@@ -21,8 +19,30 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="#">Creare Account</a></li>
+				<li><a href="<c:url value='/support/createAccount'/>">Creare Account</a></li>
+				<li><a href="<c:url value='/support/modifyAccount'/>">Modify Account</a></li>
 				<li><a href="<c:url value='/support/searchaccount'/>">Search Account</a></li>
+				<li class="dropdown">
+		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		          	State <span class="caret"></span></a>
+		          <ul class="dropdown-menu" role="menu">
+		            <li style="padding-bottom: 10px">
+		            	<a href="<c:url value='/support/change_State_Dis-Active'/>">
+		            		<i class="glyphicon glyphicon-credit-card"></i>  Disable -> Active
+	            		</a>
+            		</li>
+            		<li style="padding-bottom: 10px">
+		            	<a  href="<c:url value='/support/change_State_Active-Dis'/>" >
+		            		<i class="glyphicon glyphicon-credit-card"></i>  Active -> Disable
+	            		</a>
+            		</li>
+            		<li style="padding-bottom: 10px">
+		            	<a  href="<c:url value='/support/change_State_removeable-Removed'/>">
+		            		<i class="glyphicon glyphicon-credit-card"></i>  Removeable -> Removed
+	            		</a>
+            		</li>            		
+		          </ul>
+		        </li>
 				<li class="dropdown">
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 		          	Funds <span class="caret"></span></a>

@@ -1,8 +1,4 @@
 
-<%
-	String username = (String)request.getSession().getAttribute("username");
-%>
-
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top narbar-img"
 	role="navigation">
@@ -23,6 +19,14 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
 				<li><a href="<c:url value='/admin/viewVerifyTransaction'/>" >Transaction</a></li>
+				<li class="dropdown">
+					<a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		          	  Account <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="<c:url value='/admin/viewVerifyStateNew'/>" >State new -> active</a></li>
+						<li><a href="<c:url value='/admin/viewVerifyStateDis-Removable'/>" >State disable -> removeable</a></li>
+					</ul>
+				</li>
 			</ul>
 			<!-- Dropdow menu -->
 			<ul class="nav navbar-nav navbar-right">

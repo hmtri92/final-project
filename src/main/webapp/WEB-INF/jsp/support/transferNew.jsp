@@ -42,8 +42,8 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-								<form id="frm-AddFund">
-									<div class="row">
+								<div class="row">
+									<form id="frm-Account">
 										<div class="col-lg-12">
 											<div class="form-group">
 												<label class="control-label">Send Number</label>
@@ -61,8 +61,10 @@
 												</div>
 											</div>
 									  	</div>
-									</div>
-									<div class="row">
+									</form>
+								</div>
+								<div class="row">
+									<form id="frm-targetAccount">
 										<div class="col-md-12">
 											<div class="form-group">
 												<label class="control-label">Target Number</label>
@@ -81,8 +83,10 @@
 												</div>
 											</div>
 										</div>
-									</div>
-									<div class="row">
+									</form>
+								</div>
+								<div class="row">
+									<form id="frm-amount">
 										<div class="col-md-12">
 											<div class="form-group">
 												<div class="form-group">
@@ -92,16 +96,16 @@
 											</div>
 											</div>
 										</div>
+									</form>
+								</div>
+								<div class="row">
+									<div class="col-md-6" style="float: right;">
+										<button type="button" class="btn default" onclick="goHome();">Cancel</button>
+										<button id="submit" type="button" class="btn blue" onclick="tranferBySupport();">
+											<i class="fa fa-check"></i> Send
+										</button>
 									</div>
-									<div class="row">
-										<div class="col-md-6" style="float: right;">
-											<button type="button" class="btn default" onclick="goHome();">Cancel</button>
-											<button id="submit" type="button" class="btn blue" onclick="tranferBySupport();">
-												<i class="fa fa-check"></i> Send
-											</button>
-										</div>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -278,27 +282,31 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$("#frm-AddFund").validate({
-				rules : {
-					accountNumber : {
-						required : true,
-						number : true,
-						maxlength: 12,
-				      	minlength: 12
-					},
-					amount : {
-						number : true,
-						min : 1
-					}
-				}
-			});
-			$("#targetAccount").validate({
+			$("#frm-targetAccount").validate({
 				rules : {
 					targetaccountNumber : {
 						required : true,
 						number : true,
 						maxlength: 12,
 				      	minlength: 12
+					}
+				}
+			});
+			$("#frm-Account").validate({
+				rules : {
+					accountNumber : {
+						required : true,
+						number : true,
+						maxlength: 12,
+				      	minlength: 12
+					}
+				}
+			});
+			$("#frm-amount").validate({
+				rules : {
+					amount : {
+						required: true,
+						number : true
 					}
 				}
 			});

@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-
 
 <link rel="stylesheet" href="<c:url value='/css/bootstrap.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/bootstrap-theme.css'/>">
@@ -16,30 +15,14 @@
 <link rel="stylesheet" href="<c:url value='/css/components.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/plugins.css'/>">
 <link rel="stylesheet" href="<c:url value='/css/screen.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/dataTables.bootstrap.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/validationEngine.jquery.css'/>">
-<link rel="stylesheet" href="<c:url value='/css/template.css'/>">
+<link rel="stylesheet"
+	href="http://jqueryvalidation.org/files/demo/site-demos.css">
 
 
-
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script type="text/javascript" src="js/myScript.js"></script>
-<link rel="stylesheet" href="css/validationEngine.jquery.css"
-	type="text/css" media="screen" title="no title" charset="utf-8" />
-<link rel="stylesheet" href="css/template.css" type="text/css"
-	media="screen" title="no title" charset="utf-8" />
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"
-	type="text/javascript"></script>
-<script src="js/jquery.validationEngine-en.js" type="text/javascript"></script>
-<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
-<script>
-	jQuery(document).ready(function() {
-		// binds form submission and fields to the validation engine
-		jQuery("#update").validationEngine();
-	});
-</script>
+<script type="text/javascript"
+	src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 </head>
 <body style="padding-top: 100px !important">
@@ -47,19 +30,18 @@
 
 	<div class="page-content">
 		<div class="container">
-			<div class="Metronic-alerts alert alert-danger fade in" id="message">
 
-			</div>
 			<!-- <div class="portlet light"> -->
 			<div class="tab-pane" id="tab_1">
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Verify-State:NEW->ACTIVE
+							<i class="fa fa-gift"></i>Verify New->Active
 						</div>
 					</div>
 					<div class="portlet-body form">
 						<!-- BEGIN FORM-->
+
 						<div >
 					<table id="mytable" class="table table-striped table-bordered" cellspacing="0" width="100%"
 						data-click-to-select="true" data-single-select="true" data-pagination="true" data-search="true">
@@ -99,16 +81,71 @@
 					<center>
 						<font color="red">${message }</font>
 					</center>
-					
-					<!-- END FORM-->
+						<!-- END FORM-->
+					</div>
 				</div>
 			</div>
+			<!-- </div> -->
 		</div>
-		<!-- </div> -->
-	</div>
 	</div>
 
+	<!-- Message -->
+	<%@ include file="../models/message.jsp"%>
+
 	<!-- start footer -->
-	<%@ include file="../models/footer.jsp"%>
+	<%-- <%@ include file="../models/footer.jsp"%>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script
+		src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+	<script
+		src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#createAccount").validate({
+				rules : {
+					email1 : {
+						required : true,
+						email : true
+					},
+					email2 : {
+
+						email : true
+					},
+					phoneNum1 : {
+						required : true,
+						number : true
+					},
+					phoneNum2 : {
+						number : true
+					},
+					address1:"required",
+					 id: {
+					      required: true,
+					      maxlength: 12,
+					      minlength: 12
+					    },
+					    idCardNumber: {
+						      required: true,
+						      maxlength: 9,
+						      minlength: 9
+						    },
+						    loginId: {
+							      required: true,
+							      maxlength: 12,
+							      minlength: 6
+							    },
+							    firstName:"required",
+							    lastName:"required",
+							    midName:"required",
+							    typeAccount:"required",
+							    role:"required",
+							    
+						    
+					
+					
+				}
+			});
+		});
+	</script> --%>
 </body>
 </html>

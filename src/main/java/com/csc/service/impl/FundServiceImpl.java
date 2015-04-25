@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.csc.dao.AccountDAO;
 import com.csc.dao.FundDAO;
 import com.csc.dao.ITargetAccountDAO;
 import com.csc.dao.TransactionHistoryDAO;
@@ -29,6 +30,9 @@ public class FundServiceImpl implements FundService {
 	@Autowired
 	ITargetAccountDAO targetAccountDao;
 	
+	@Autowired
+	AccountDAO accountDao;
+	
 	@Override
 	@Transactional
 	public boolean addFund(String id, BigDecimal amount) {
@@ -45,6 +49,14 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
+		StateResult result = new StateResult();
+		Account account = accountDao.getAccountById(targetAccount_ID);
+				
+		if (account == null) {
+			result.setState(false);
+			result.setMessage("Account not fund!");
+			return result;
+		}
 		return transactionDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
 	}
 
@@ -58,6 +70,7 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
+		StateResult result = new StateResult();
 		return transactionDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
 	}
 
@@ -106,6 +119,15 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult addTargetAccount(String idAccountOwner,
 			String idAccountTarget, String name) {
+		StateResult result = new StateResult();
+		
+		Account account = accountDao.getAccountById(idAccountTarget);
+		if (account == null) {
+			result.setState(false);
+			result.setMessage("Account not fund!");
+			return result;
+		}
+		
 		return targetAccountDao.addTargetAccount(idAccountOwner, idAccountTarget, name);
 	}
 
@@ -113,6 +135,15 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult modifyTarget(String id, String idAccountTarget,
 			String name) {
+StateResult result = new StateResult();
+		
+		Account account = accountDao.getAccountById(idAccountTarget);
+		if (account == null) {
+			result.setState(false);
+			result.setMessage("Account not fund!");
+			return result;
+		}
+		
 		return targetAccountDao.modifyTarget(id, idAccountTarget, name);
 	}
 

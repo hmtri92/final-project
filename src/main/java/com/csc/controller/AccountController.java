@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
+import com.csc.entities.BalanceAmount;
 import com.csc.entities.User;
 import com.csc.service.AccountService;
 import com.csc.ultil.PasswordUtils;
@@ -64,7 +65,8 @@ public class AccountController {
 		int role = Integer.parseInt(rol);
 		String typeAccount1 = request.getParameter("typeAccount");
 		int typeAccount = Integer.parseInt(typeAccount1);
-		String password = "12345";
+		
+		String password = "123456";
 		try {
 			password = PasswordUtils.generateRandomString(6);
 		} catch (Exception e) {
@@ -73,7 +75,6 @@ public class AccountController {
 		}
 		
 		String passwordEncode = PasswordUtils.encodePassword(password);
-		
 		User user = new User();
 		user.setId(accountNumber);
 		user.setAvailableAmount(amount);
@@ -97,11 +98,12 @@ public class AccountController {
 			if (!result) {
 				accountService.addUser(user, role, typeAccount);
 				// accountService.addUser(accountNumber, state, role,
-				// idCardNumber, pass, loginId);
+				// idCardNumber, pass2, loginId);
 				model.addAttribute("message", "Create Account Success!");
 				
 				user.setPassword(password);
 				model.addAttribute("User", user);
+				model.addAttribute("pass1", password);
 				return "support/addAccount";
 
 			} else {
@@ -141,5 +143,30 @@ public class AccountController {
 		return accountService.getRecomendedKey(Integer.parseInt(type));
 	}
 	
+	@RequestMapping(value = "/support/searchaccount", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView getAccountResult(HttpServletRequest request,
+			HttpServletResponse response) {
+		
+		List<Account> listAccount = null;
+		
+		int typeSearch = Integer.parseInt(request.getParameter("type"));
+		String key = request.getParameter("keyword");
+		
+		listAccount = accountService.searchAccount(key, typeSearch);
+		
+		ModelAndView modelnview = new ModelAndView("/models/accounttable");
+		
+		if (listAccount == null) {
+			modelnview.addObject("listAccount", new ArrayList<BalanceAmount>());
+			modelnview.addObject("RESULT", "No result found");
+		}else{
+			modelnview.addObject("listAccount", listAccount);
+			modelnview.addObject("RESULT", listAccount.size() + " result(s) found");
+		}
+		
+		return modelnview;		
+		
+	}
 	
 }

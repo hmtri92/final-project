@@ -1,6 +1,4 @@
-<%
-	String username = (String)request.getSession().getAttribute("username");
-%>
+<!-- CUSTOMER -->
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top narbar-img"
 	role="navigation">

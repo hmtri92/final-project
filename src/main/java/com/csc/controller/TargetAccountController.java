@@ -45,11 +45,9 @@ public class TargetAccountController {
 	public StateResult addTargetAccount(@ModelAttribute( value = "id") String id,
 			@RequestParam( value = "accountId") String idaccountTarget, @RequestParam( value = "name") String name,
 			HttpServletRequest request, HttpServletResponse response) {
-		StateResult result = new StateResult();
 		
-		result = fundService.addTargetAccount(id, idaccountTarget, name);
+		return fundService.addTargetAccount(id, idaccountTarget, name);
 		
-		return result;
 	}
 	
 	@RequestMapping (value = "/user/modifyTargetAccount", method = RequestMethod.POST)

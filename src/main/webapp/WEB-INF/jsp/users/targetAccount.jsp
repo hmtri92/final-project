@@ -23,6 +23,11 @@
 <script type="text/javascript" src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
+<!-- Validate -->
+<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		 var targetAccountTable = $('#mytable').dataTable({
@@ -111,14 +116,14 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">Add new targetAccount</h4>
 	      </div>
-	      <form id="frmAddtarget">
+	      <form id="frm-Addtarget">
 		      <div class="modal-body">
 		      	<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group">
 							<label class="control-label">AccountID</label>
 							<input type="text" name="accountId"
-								id="accountId" class="form-control" />
+								id="accountId" class="form-control" maxlength="12"/>
 						</div>
 					</div>
 				</div>
@@ -141,7 +146,7 @@
 	  </div>
   </div>
   
-  <!-- Modal add Modify-->
+  <!-- Modal Modify-->
 	<div class="modal fade" id="modifyTargetAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -149,13 +154,13 @@
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title" id="myModalLabel">Modify targetAccount</h4>
 	      </div>
-	      <form id="frmAddtarget">
+	      <form id="frm-modify">
 		      <div class="modal-body">
 		      	<div class="row">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="form-group">
 							<label class="control-label">ID</label>
-							<input type="text" name="md_accountId"
+							<input type="text" name="md_Id"
 								id="md_Id" class="form-control" disabled="disabled"/>
 						</div>
 					</div>
@@ -165,7 +170,7 @@
 						<div class="form-group">
 							<label class="control-label">AccountID</label>
 							<input type="text" name="md_accountId"
-								id="md_accountId" class="form-control" />
+								id="md_accountId" class="form-control" maxlength="12"/>
 						</div>
 					</div>
 				</div>
@@ -216,5 +221,32 @@
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#frm-Addtarget").validate({
+				rules : {
+					accountId : {
+						required : true,
+						number : true,
+					},
+					name : {
+						required : true
+					}
+				}
+			});
+			$("#frm-modify").validate({
+				rules : {
+					md_Id : {
+						required : true,
+						number : true
+					},
+					md_name : {
+						required : true
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>

@@ -19,6 +19,11 @@
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
+<!-- Validate -->
+<link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+<script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+<script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
 </head>
 <body style="padding-top: 100px !important">
 	<%@ include file="../models/navbarCustomer.jsp"%>
@@ -26,13 +31,14 @@
 	<div class="page-content">
 		<div class="container">
 			<div class="portlet light">
+			<form id="frm-transfer">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
-					<h3 class="form-section" style="color: rgb(210, 105, 30);">Transfer money</h3>
+						<h3 class="form-section" style="color: rgb(210, 105, 30);">Transfer money</h3>
 						<div class="form-group">
-							<label class="control-label">Account Number</label>
+							<label class="control-label">Account Number</label><br>
 							<select id="targetAccount" name="targetAccount" class="form-control input-medium">
-								<option value="-1">--Choose Target Account--</option>
+								<option value="">--Choose Target Account--</option>
 								<c:forEach var="item" items="${targetAccounts}">
 									<option value="${item.idTarget}">${item.name}</option>
 								</c:forEach>
@@ -46,7 +52,7 @@
 						<div class="form-group">
 							<label class="control-label">Amount</label>
 							<input type="text" name="amount"
-								id="amount" class="form-control" />
+								id="amount" class="form-control" value="0" />
 						</div>
 					</div>
 				</div>
@@ -61,6 +67,7 @@
 						</div>
 					</div>
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>
@@ -70,5 +77,23 @@
 	
 	<!-- start footer -->
 	<%@ include file="../models/footer.jsp"%>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#frm-transfer").validate({
+				rules : {
+					targetAccount : {
+						required : true,
+					},
+					amount : {
+						required : true,
+						number : true,
+						min : 1
+					}
+				}
+			});
+		});
+	</script>
+	
 </body>
 </html>

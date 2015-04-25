@@ -201,5 +201,148 @@ public class AccountDAOImpl implements AccountDAO {
 		return listRecomend;
 	}
 
+	@Override
+	public List<Account> searchAccountByAccountNumber(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByIdCardNumber(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.idCardNumber LIKE :key1 OR a.idCardNumber LIKE :key2 OR a.idCardNumber LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByOwnerName(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a "
+				+ "WHERE CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName) LIKE :key1 "
+				+ "OR CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName) LIKE :key2 "
+				+ "OR CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName) LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByType(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByState(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByPhone(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByAddress(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	public List<Account> searchAccountByEmail(String key) {
+		// TODO Auto-generated method stub
+		List<Account> result = null;
+		
+		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("key1", key  + "%");
+		query.setParameter("key2", "%" +  key);
+		query.setParameter("key3", "%" + key + "%");
+				
+		result = query.getResultList();		
+		
+		return result;
+	}
+
+	@Override
+	@Transactional
+	public List<Account> getStateRemvo() {
+		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
+		TypedQuery<Account> query = em.createQuery(sql, Account.class);
+		query.setParameter("state", State.REMOVEABLE);
+		
+		List<Account> listState = query.getResultList();
+		
+		return listState;
+	}
+
 }
 
