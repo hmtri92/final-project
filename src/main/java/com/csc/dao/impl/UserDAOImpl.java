@@ -4,6 +4,7 @@ package com.csc.dao.impl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,12 @@ public class UserDAOImpl implements UserDAO{
 		return em.find(User.class, id);
 	}
 
-	
-	
+	@Override
+	@Transactional
+	public User getUserByLoginID(String loginId) {
+		String sql = "SELECT u FROM User u WHERE u.loginID = :loginId";
+		TypedQuery<User> query = em.createQuery(sql, User.class);
+		query.setParameter("loginId", loginId);
+		return query.getSingleResult();
+	}
 }

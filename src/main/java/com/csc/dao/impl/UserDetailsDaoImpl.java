@@ -5,10 +5,13 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
 
+import com.csc.dao.UserDAO;
 import com.csc.dao.UserDetailsDAO;
 import com.csc.entities.User;
 
+@Repository
 public class UserDetailsDaoImpl extends JdbcDaoSupport implements UserDetailsDAO {
 	
 	private static final String SQL_USERS_UPDATE_LOCKED = "UPDATE USERS SET accountNonLocked = ? WHERE username = ?";
@@ -24,6 +27,9 @@ public class UserDetailsDaoImpl extends JdbcDaoSupport implements UserDetailsDAO
 	@Autowired
 	private DataSource dataSource;
 	
+	@Autowired
+	UserDAO userDao;
+	
 	@PostConstruct
 	private void initialize() {
 		setDataSource(dataSource);
@@ -31,7 +37,7 @@ public class UserDetailsDaoImpl extends JdbcDaoSupport implements UserDetailsDAO
 	
 	@Override
 	public void updateFailAttempts(String username) {
-		// TODO Auto-generated method stub
+//		User user = 
 
 	}
 

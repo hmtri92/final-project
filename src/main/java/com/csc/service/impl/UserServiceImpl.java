@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.csc.dao.AuthenticationDAO;
 import com.csc.dao.BalanceDAO;
 import com.csc.dao.TransactionDAO;
 import com.csc.dao.UserDAO;
@@ -26,15 +25,16 @@ import com.csc.ultil.PasswordUtils;
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
-	UserDAO userDAO;	
+	UserDAO userDAO;
+	
 	@Autowired
-	AuthenticationDAO authenticationDao;
+	UserDAO userDao;
+	
 	@Autowired
 	TransactionDAO transactionDAO;
+	
 	@Autowired
 	BalanceDAO balanceDAO;
-	
-	
 
 	@Override
 	public User getUserInfo(String userId) {
@@ -50,9 +50,6 @@ public class UserServiceImpl implements UserService{
 			String newPassword) {
 		// TODO Auto-generated method stub
 		User user = userDAO.getUserByID(id);
-		
-		
-		
 		
 		if (!PasswordUtils.matchPassword(oldPassword, user.getPassword())) {		
 			return "FAIL: The current password is incorrect!";
@@ -107,7 +104,7 @@ public class UserServiceImpl implements UserService{
 	 */
 	@Override
 	public User getUserByLoginId(String loginId) {
-		return authenticationDao.getUserByLoginID(loginId);
+		return userDao.getUserByLoginID(loginId);
 	}
 
 	@Override

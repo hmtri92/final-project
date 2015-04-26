@@ -105,10 +105,6 @@ public class LoginController {
 		return url;
 	}
 
-	@RequestMapping(value = "/403", method = { RequestMethod.GET, RequestMethod.POST })
-	public String error403() {
-		return "403";
-	}
 	@RequestMapping(value = "/404", method = { RequestMethod.GET, RequestMethod.POST })
 	public String error404() {
 		return "404";
@@ -125,8 +121,9 @@ public class LoginController {
 		return model;
 	}
 	
+	@RequestMapping (value = "/loginAlready", method = { RequestMethod.GET, RequestMethod.POST})
 	public String loginFail(HttpServletRequest request, Model model) {
-		return null;
+		return "500";
 	}
 
 }

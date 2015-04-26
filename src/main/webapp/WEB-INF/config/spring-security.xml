@@ -24,6 +24,8 @@
 		<intercept-url pattern="/loginfail" access="permitAll" />
 		<intercept-url pattern="/resources" access="permitAll" />
 		<intercept-url pattern="/createDB" access="permitAll" />
+		<intercept-url pattern="/500" access="permitAll" />
+		<intercept-url pattern="/404" access="permitAll" />
  
  		<!-- ROLE_ADMIN -->
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
@@ -51,8 +53,9 @@
  
 		<logout logout-success-url="/login?logout"  />
 		
-		<session-management invalid-session-url="/login?fail">
-		    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		<!-- one session per user -->
+		<session-management>
+		    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
 		</session-management>
 	</http>
  

@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.csc.dao.AuthenticationDAO;
+import com.csc.dao.UserDAO;
 import com.csc.entities.Role;
 import com.csc.entities.State;
 import com.csc.entities.User;
@@ -21,7 +21,7 @@ import com.csc.entities.User;
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	AuthenticationDAO authenticationDao;
+	UserDAO userDao;
 	
 	private static final Logger logger = Logger.getLogger("MyUserDetailsService");
 	
@@ -30,7 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
 			throws UsernameNotFoundException {
 		logger.info("Login id: " + loginId);
 		
-		User user = authenticationDao.getUserByLoginID(loginId) ;
+		User user = userDao.getUserByLoginID(loginId) ;
 		
 		boolean enabled = (user.getState().getIdState() == State.ACTIVE);
 		boolean accountNonExpired = true;
