@@ -39,7 +39,7 @@
 			access="hasAnyRole('ROLE_ADMIN', 'ACCOUNT_SUPPORT', 'CUSTOMER')" />
  
 		<!-- access denied page -->
-		<access-denied-handler error-page="/403" />
+		<access-denied-handler error-page="/404" />
 		
 		<form-login 
 			login-page="/login" 
@@ -50,6 +50,10 @@
 			authentication-failure-url="/login?fail" />
  
 		<logout logout-success-url="/login?logout"  />
+		
+		<session-management invalid-session-url="/login?fail">
+		    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+		</session-management>
 	</http>
  
 	<authentication-manager>
@@ -63,5 +67,4 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 		<beans:constructor-arg name="strength" value="11" />
 	</beans:bean>
- 
 </beans:beans>

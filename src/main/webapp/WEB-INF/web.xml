@@ -17,6 +17,10 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/spring-context.xml</param-value>
 		</init-param>
+		<init-param>
+		    <param-name>throwExceptionIfNoHandlerFound</param-name>
+		    <param-value>true</param-value>
+		</init-param>
         <load-on-startup>1</load-on-startup>
    </servlet>
     
@@ -66,5 +70,15 @@
 	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
+	
+	<!-- Error page -->
+	<error-page>
+	    <error-code>404</error-code>
+	    <location>/404</location>
+	</error-page>
+	<error-page>
+	    <error-code>500</error-code>
+	    <location>/500</location>
+	</error-page>
   
 </web-app>

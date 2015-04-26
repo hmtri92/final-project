@@ -105,18 +105,28 @@ public class LoginController {
 		return url;
 	}
 
-	@RequestMapping(value = "/403", method = { RequestMethod.GET,
-			RequestMethod.POST })
-	public String error() {
+	@RequestMapping(value = "/403", method = { RequestMethod.GET, RequestMethod.POST })
+	public String error403() {
 		return "403";
 	}
+	@RequestMapping(value = "/404", method = { RequestMethod.GET, RequestMethod.POST })
+	public String error404() {
+		return "404";
+	}
+	@RequestMapping(value = "/500", method = { RequestMethod.GET, RequestMethod.POST })
+	public String error500() {
+		return "500";
+	}
 
-	@RequestMapping(value = "/userhome", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/userhome", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView goHome() {
 		ModelAndView model = new ModelAndView("home");
 
 		return model;
+	}
+	
+	public String loginFail(HttpServletRequest request, Model model) {
+		return null;
 	}
 
 }
