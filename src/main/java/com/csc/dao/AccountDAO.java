@@ -3,7 +3,6 @@ package com.csc.dao;
 import java.util.List;
 
 import com.csc.entities.Account;
-import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 
 public interface AccountDAO {

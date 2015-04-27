@@ -24,9 +24,7 @@
 <body style="padding-top: 100px !important">
 
 	<div class="page-content" style="min-height:100%;position:relative;">
-		<%
-			String role = (String)request.getSession().getAttribute("role");
-		%>
+		
 		<c:choose>
 			<c:when test="${role == 'admin'}">
 				<%@ include file="models/navbarAdmin.jsp"%>
@@ -42,151 +40,43 @@
 		<div class="container">
 			<div class="portlet light">
 				<div class="row">
-					<div class="col-md-12">
-						<h3 class="form-section" style="color: rgb(210, 105, 30);">Account Info</h3>
-					</div>
-				</div>
-				
-				<div class="row">
 					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Login Id</label>
-							<input type="text" name="loginId"
-								id="loginId" class="form-control" disabled="disabled"
-								value="${user.loginID}"/>
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								User profile
+							</div>
+							<div class="panel-body">
+								<dl class="dl-horizontal">
+									<dt>User Name</dt>
+									<dd>${user.loginID}</dd>
+									<dt>ID Card Number</dt>
+									<dd>${user.idCardNumber}</dd>
+									<c:if test="${role == 'customer'}">
+										<dt>Balance amount</dt>
+										<dd>${user.availableAmount}</dd>
+									</c:if>
+									<dt>Full name</dt>
+									<dd>${user.firstName} ${user.midName} ${user.lastName}</dd>
+									<dt>Address 1</dt>
+									<dd>${user.address1}</dd>
+									<dt>Address 2</dt>
+									<dd>${user.address2}</dd>
+									<dt>Phone Number 1</dt>
+									<dd>${user.phoneNum1}</dd>
+									<dt>Email 1</dt>
+									<dd>${user.phoneNum2}</dd>
+									<dt>Phone Number 2</dt>
+									<dd>${user.email1}</dd>
+									<dt>Email 2</dt>
+									<dd>${user.email2}</dd>
+								</dl>
+							</div>
 						</div>
 					</div>
-					<div class="col-md-6 ">
-						<div class="form-group">
-							<label class="control-label">ID Card Number</label>
-							<input type="text" name="idCard"
-								id="idCard" class="form-control" disabled="disabled"
-								value="${user.idCardNumber}"/>
-						</div>
-					</div>						
-				</div>
-				
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Account Number</label>
-							<input type="text" name="accountNumber"
-								id="accountNumber" class="form-control" disabled="disabled"
-								value="${user.id}"/>
-						</div>
-					</div>	
-					<c:choose>					
-						<c:when test="${role == 'customer'}">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Balance Amount</label>
-									<input type="text" name="balanceAmount"
-										id="balanceAmount" class="form-control" disabled="disabled"
-										value="${user.availableAmount}"/>
-								</div>
-							</div>		
-						</c:when>
-					</c:choose>
-									
-				</div>
-				
-				<div class="row">
-					<div class="col-md-12 ">
-						<h3 class="form-section" style="color: rgb(210, 105, 30);">Personal Information</h3>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="control-label">First Name </label>
-							<input type="text" name="firstName" id="firstName"
-								class="form-control editable" disabled="disabled"
-								value="${user.firstName}"/>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="control-label">Mid Name</label>
-							<input type="text" name="midName" id="midName"
-								class="form-control editable" disabled="disabled" 
-								value="${user.midName}"/>
-						</div>
-					</div>
-					<!--/span-->
-					<div class="col-md-4">
-						<div class="form-group">
-							<label class="control-label">Last Name </label>
-							<input type="text" name="lastName" id="lastName"
-								class="form-control editable" disabled="disabled" 
-								value="${user.lastName}"/>
-						</div>
-					</div>
-					<!--/span-->
-				</div>
-				<div class="row">
-					<div class="col-md-6 ">
-						<div class="form-group">
-							<label class="control-label">Address 1 </label>
-							<textarea rows="2" name="address1" id="address1"
-								class="form-control" disabled="disabled" >${user.address1}</textarea>
-						</div>
-					</div>
-					<!--/span-->
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Address 2</label>
-							<textarea rows="2" name="address2" id="address2"
-								class="form-control editable" disabled="disabled" >${user.address2}</textarea>
-						</div>
-					</div>
-					<!--/span-->
-				</div>
-				<div class="row">
-					<div class="col-md-6 ">
-						<div class="form-group">
-							<label class="control-label">Phone Number 1 </label>
-							<input type="text" name="phoneNum1" id="phoneNum1"
-								class="form-control" disabled="disabled" 
-								value="${user.phoneNum1}"/>
-						</div>
-					</div>
-					<!--/span-->
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Phone Number 2</label>
-							<input type="text" name="phoneNum2" id="phoneNum2"
-								class="form-control editable" disabled="disabled" 
-								value="${user.phoneNum2}"/>
-						</div>
-					</div>
-					<!--/span-->
-				</div>
-				<div class="row">
-					<div class="col-md-6 ">
-						<div class="form-group">
-							<label class="control-label">Email 1 </label>
-							<input type="text" name="email1" id="email1"
-								class="form-control" disabled="disabled" 
-								value="${user.email1}"/>
-						</div>
-					</div>
-					<!--/span-->
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label">Email 2</label>
-							<input type="text" name="email2" id="email2"
-								class="form-control editable" disabled="disabled" 
-								value="${user.email2}"/>
-						</div>
-					</div>
-					<!--/span-->
 				</div>
 			</div>
 		</div>
 		<%@ include file="models/footer.jsp"%>
 	</div>
-				
-	<!-- start footer -->
-	
 </body>
 </html>

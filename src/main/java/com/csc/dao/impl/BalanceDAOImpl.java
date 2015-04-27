@@ -3,7 +3,6 @@ package com.csc.dao.impl;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.csc.dao.BalanceDAO;
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.TransactionHistory;
 
 @Repository
 public class BalanceDAOImpl implements BalanceDAO {

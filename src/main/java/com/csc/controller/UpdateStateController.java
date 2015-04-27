@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
-import com.csc.entities.TransactionHistory;
-import com.csc.entities.TypeAccount;
 import com.csc.service.AccountService;
-import com.csc.service.TypeService;
 
 @Controller
 @SessionAttributes({ "username", "role", "id" })
@@ -72,8 +69,6 @@ public class UpdateStateController {
 		{
 			String accountNumber1 = request.getParameter("accountNumber1");
 
-			Account account;
-			account = accountService.getAccountById(accountNumber1);
 			Account existedAccount = accountService
 					.getAccountById(accountNumber1);
 

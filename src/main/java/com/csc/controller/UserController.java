@@ -102,10 +102,6 @@ public class UserController {
 	
 	@RequestMapping (value = "/user/viewbalance", method = RequestMethod.GET)
 	public String viewbalancelog(HttpServletRequest request, Model model){
-		HttpSession session = request.getSession();
-		
-	
-		
 		List<BalanceAmount> listBalance = null;
 		
 		listBalance = userService.getBalanceLogByUserId("123456789012");
@@ -180,8 +176,5 @@ public class UserController {
 		
 		return modelnview;
 	}
-	
-	
-	
 }
 

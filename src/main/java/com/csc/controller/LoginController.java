@@ -2,7 +2,6 @@ package com.csc.controller;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,7 +21,7 @@ import com.csc.service.AccountService;
 import com.csc.service.UserService;
 
 @Controller
-@SessionAttributes({ "username", "role", "id", "availableAmount", "countLogin" })
+@SessionAttributes({ "username", "role", "id", "countLogin", "user" })
 public class LoginController {
 
 	@Autowired
@@ -34,30 +32,12 @@ public class LoginController {
 	
 	private Logger logger = Logger.getLogger(LoginController.class);
 
-	@RequestMapping(value = "/login", method = { RequestMethod.GET,
-			RequestMethod.POST })
+	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String doLogin() {
 		return "login_soft";
 	}
 
-	@RequestMapping(value = "/admin/admin", method = RequestMethod.GET)
-	public ModelAndView adminPage() {
-
-		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Spring Security Hello World");
-		model.addObject("message", "This is protected page!");
-		model.setViewName("admin/admin");
-
-		return model;
-
-	}
-
-	@RequestMapping(value = "/logoutsuccess", method = RequestMethod.GET)
-	public String goLogoutSuccess(Model model) {
-		logger.info("Logout Success!");
-		return "login";
-	}
-
+	// 
 	@RequestMapping(value = "/home")
 	public String goHome(HttpServletRequest request, Model model) {
 		logger.info("Go Home!");
@@ -117,16 +97,8 @@ public class LoginController {
 		return url;
 	}
 
-	@RequestMapping(value = "/404", method = { RequestMethod.GET, RequestMethod.POST })
-	public String error404() {
-		return "404";
-	}
-	@RequestMapping(value = "/500", method = { RequestMethod.GET, RequestMethod.POST })
-	public String error500() {
-		return "500";
-	}
-
-	@RequestMapping(value = "/userhome", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = {"/userhome","user/userHome","admin/userhome","support/userhome"}, 
+			method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView goHome() {
 		ModelAndView model = new ModelAndView("home");
 
@@ -136,7 +108,6 @@ public class LoginController {
 	@RequestMapping (value = "/loginfail", method = { RequestMethod.GET, RequestMethod.POST})
 	public String loginFail(HttpServletRequest request, Model model) {
 
-//		lock session
 		int countLogin = 0;
 		try {
 			countLogin = (int) request.getSession().getAttribute("countLogin");
@@ -145,21 +116,6 @@ public class LoginController {
 			countLogin = 1;
 		}
 		model.addAttribute("countLogin", countLogin);
-		
-//		try {
-//			String id = (String) request.getSession().getAttribute("id");
-//			if (id != null) {
-//				User userEntity = userService.getUserByID(id);
-//				
-//				// Set attempts
-//				int attempts = userEntity.getAttempts();
-//				userEntity.setAttempts(attempts++);
-//				userEntity.setLastModified(new Date());
-//				userService.editUserprofile(userEntity);
-//			}
-//			
-//		} catch (NullPointerException e) {
-//		}
 		
 		return "login_soft";
 	}

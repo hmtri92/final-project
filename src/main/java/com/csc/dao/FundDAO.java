@@ -6,7 +6,6 @@ import java.util.List;
 import com.csc.entities.Account;
 import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
-import com.csc.entities.TransactionHistory;
 
 public interface FundDAO {
 	StateResult addFund(String id, BigDecimal amount);

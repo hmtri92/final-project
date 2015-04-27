@@ -16,9 +16,10 @@
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
 
 </head>
-<body style="background: url(<c:url value='images/404.jpg' />);
-	background-repeat:no-repeat;
-    background-position: center center;">
-    
+<body >
+	<div>
+	    <img alt="full screen background image" src="<c:url value='/images/404.jpg' />" 
+		id="full-screen-background-image-404">
+	</div>
 </body>
 </html>

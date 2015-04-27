@@ -1,7 +1,5 @@
 package com.csc.controller;
 
-import java.math.BigDecimal;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,10 +27,6 @@ public class ModifiAccountController {
 			HttpServletResponse response, Model model) {
 
 		String accountNumber = request.getParameter("id");
-		// BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request
-		// .getParameter("availableAmount")));
-		// Sua cho nay
-		BigDecimal amount = BigDecimal.valueOf(0);
 
 		String idCardNumber = request.getParameter("idCardNumber");
 		String firstName = request.getParameter("firstName");
@@ -51,14 +45,6 @@ public class ModifiAccountController {
 		String typeAccount1 = request.getParameter("typeAccount");
 		int typeAccount = Integer.parseInt(typeAccount1);
 
-		Account existedAccount = accountService.getAccountById(accountNumber);
-
-		// if (existedAccount == null) {
-		// model.addAttribute("message", "This  Account is not vaid!");
-		// return "support/modifyAccount";
-		//
-		//
-		// } else {
 		accountService.updateAccount(accountNumber, state, role, firstName,
 				lastName, midName, typeAccount, email1, email2, address1,
 				address2, phoneNum1, phoneNum2, idCardNumber);
@@ -75,8 +61,6 @@ public class ModifiAccountController {
 		{
 			String accountNumber1 = request.getParameter("accountNumber1");
 
-			Account account;
-			account = accountService.getAccountById(accountNumber1);
 			Account existedAccount = accountService
 					.getAccountById(accountNumber1);
 

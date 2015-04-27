@@ -45,7 +45,7 @@
 		
 							<div id="frm-AddFund" class="horizontal-form">
 								<div class="form-body">
-									<h3 class="form-section">Available Amount Info</h3>
+									<h3 class="frm-section">Available Amount Info</h3>
 									<div class="row">
 										<form id="frm-Account">
 											<div class="col-lg-6">
@@ -79,10 +79,8 @@
 											</form>
 										</div>
 									</div>
-									
-									
 		
-									<h3 class="form-section">Account Info</h3>
+									<h3 class="frm-section">Account Info</h3>
 									<div class="row">
 										<div class="col-md-4">
 											<div class="form-group">

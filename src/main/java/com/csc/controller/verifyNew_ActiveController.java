@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.Account;
-import com.csc.entities.StateResult;
-import com.csc.entities.TransactionHistory;
 import com.csc.service.AccountService;
 //chuyen tu dis sang remove
 @Controller

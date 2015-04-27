@@ -1,10 +1,8 @@
 package com.csc.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.dao.UserDAO;
 import com.csc.entities.Role;
@@ -24,7 +19,6 @@ import com.csc.entities.State;
 import com.csc.entities.User;
 
 @Service
-@SessionAttributes({"id"})
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired

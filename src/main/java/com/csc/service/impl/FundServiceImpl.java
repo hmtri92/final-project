@@ -71,7 +71,6 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		StateResult result = new StateResult();
 		return transactionDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
 	}
 

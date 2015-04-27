@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.csc.entities.BalanceAmount;
-import com.csc.entities.TransactionHistory;
 
 public interface BalanceDAO {
 
