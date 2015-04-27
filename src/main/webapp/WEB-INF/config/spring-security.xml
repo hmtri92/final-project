@@ -49,7 +49,7 @@
 			always-use-default-target="true" 
 			username-parameter="j_username"
 			password-parameter="j_password"
-			authentication-failure-url="/login?fail" />
+			authentication-failure-url="/loginfail" />
  
 		<logout logout-success-url="/login?logout"  />
 		

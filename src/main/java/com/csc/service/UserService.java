@@ -31,5 +31,7 @@ public interface UserService {
 
 	public List<BalanceAmount> getBalanceByDateRange(String userID,
 			String stringDateFrom, String stringDateTo);
+	
+	public boolean editUserprofile(User user);
 
 }

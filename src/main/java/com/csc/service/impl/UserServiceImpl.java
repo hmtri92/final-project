@@ -25,9 +25,6 @@ import com.csc.ultil.PasswordUtils;
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
-	UserDAO userDAO;
-	
-	@Autowired
 	UserDAO userDao;
 	
 	@Autowired
@@ -40,7 +37,7 @@ public class UserServiceImpl implements UserService{
 	public User getUserInfo(String userId) {
 		User user = null;
 		
-		user = userDAO.getUserByID(userId);
+		user = userDao.getUserByID(userId);
 		
 		return user;
 	}
@@ -49,7 +46,7 @@ public class UserServiceImpl implements UserService{
 	public String changePassword(String id, String oldPassword,
 			String newPassword) {
 		// TODO Auto-generated method stub
-		User user = userDAO.getUserByID(id);
+		User user = userDao.getUserByID(id);
 		
 		if (!PasswordUtils.matchPassword(oldPassword, user.getPassword())) {		
 			return "FAIL: The current password is incorrect!";
@@ -61,7 +58,7 @@ public class UserServiceImpl implements UserService{
 		
 		user.setPassword(PasswordUtils.encodePassword(newPassword));
 		
-		boolean result = userDAO.changeInfo(user);
+		boolean result = userDao.changeInfo(user);
 		
 		if (result) {
 			return "SUCCESS: The password is changed successfully!";
@@ -81,7 +78,7 @@ public class UserServiceImpl implements UserService{
 			return "FAIL: The last name is incorrect!";
 		}
 		
-		User user = userDAO.getUserByID(id);
+		User user = userDao.getUserByID(id);
 		
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -90,7 +87,7 @@ public class UserServiceImpl implements UserService{
 		user.setPhoneNum2(phone2);
 		user.setEmail2(email2);
 		
-		boolean result = userDAO.changeInfo(user);
+		boolean result = userDao.changeInfo(user);
 		
 		if (result) {
 			return "SUCCESS: The information is updated successfully!";
@@ -109,7 +106,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getUserByID(String id) {
-		return userDAO.getUserByID(id);
+		return userDao.getUserByID(id);
 	}
 
 	@Override
@@ -173,6 +170,11 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public boolean editUserprofile(User user) {
+		return userDao.changeInfo(user);
 	}
 
 }

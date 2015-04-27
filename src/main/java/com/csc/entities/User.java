@@ -1,5 +1,6 @@
 package com.csc.entities;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table (name = "users")
-public class User extends Account {
+public class User extends Account implements Serializable {
 
     
     /**
@@ -30,11 +31,11 @@ public class User extends Account {
 	@JoinColumn (name = "id_role")
 	private Role role;
     
-    @JoinColumn (name = "endDateTimeLogin")
-    private Date endDateTimeLogin;
+    @JoinColumn (name = "attempts")
+    private int attempts;
     
-    @JoinColumn (name = "countLogin")
-    private int countLogin;
+    @JoinColumn (name = "lastModified")
+	private Date lastModified;
 
 	public User() {
         super();
@@ -66,14 +67,14 @@ public class User extends Account {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String loginID, String password, Role role,
-			Date endDateTimeLogin, int countLogin) {
+	public User(String loginID, String password, Role role, int attempts,
+			Date lastModified) {
 		super();
 		this.loginID = loginID;
 		this.password = password;
 		this.role = role;
-		this.endDateTimeLogin = endDateTimeLogin;
-		this.countLogin = countLogin;
+		this.attempts = attempts;
+		this.lastModified = lastModified;
 	}
 
 	public Role getRole() {
@@ -100,19 +101,19 @@ public class User extends Account {
 		this.password = password;
 	}
 
-	public Date getEndDateTimeLogin() {
-		return endDateTimeLogin;
+	public int getAttempts() {
+		return attempts;
 	}
 
-	public void setEndDateTimeLogin(Date endDateTimeLogin) {
-		this.endDateTimeLogin = endDateTimeLogin;
+	public void setAttempts(int attempts) {
+		this.attempts = attempts;
 	}
 
-	public int getCountLogin() {
-		return countLogin;
+	public Date getLastModified() {
+		return lastModified;
 	}
 
-	public void setCountLogin(int countLogin) {
-		this.countLogin = countLogin;
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
 	}
 }

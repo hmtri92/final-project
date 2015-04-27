@@ -1,6 +1,7 @@
 package com.csc.ultil;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -130,6 +131,8 @@ public class CreateDatabase {
 		minhtri.setState(state);
 		minhtri.setRole(roleAdmin);
 		minhtri.setAvailableAmount( BigDecimal.valueOf(1000000));
+		minhtri.setAttempts(0);
+		minhtri.setLastModified(new Date());
 		
 		Role roleSupport = em.find(Role.class, Role.ACCOUNT_SUPPORT);
 		State state2 = em.find(State.class, State.ACTIVE);

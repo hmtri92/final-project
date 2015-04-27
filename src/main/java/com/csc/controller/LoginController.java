@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,9 +27,10 @@ public class LoginController {
 
 	@Autowired
 	UserService userService;
+	
 	@Autowired
 	AccountService accountService;
-
+	
 	private Logger logger = Logger.getLogger(LoginController.class);
 
 	@RequestMapping(value = "/login", method = { RequestMethod.GET,
@@ -62,6 +64,7 @@ public class LoginController {
 		// Get username - add session user
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
+		// ID user in db
 		String id = user.getUsername();
 
 		User userEntity = userService.getUserByID(id);
@@ -71,6 +74,11 @@ public class LoginController {
 		model.addAttribute("id", id);
 		// Get role - add session rolesuser
 		Collection<GrantedAuthority> authorities = user.getAuthorities();
+		
+		// Set attempts
+		userEntity.setAttempts(0);
+		userService.editUserprofile(userEntity);
+		
 
 		// Redirect
 
@@ -121,9 +129,13 @@ public class LoginController {
 		return model;
 	}
 	
-	@RequestMapping (value = "/loginAlready", method = { RequestMethod.GET, RequestMethod.POST})
-	public String loginFail(HttpServletRequest request, Model model) {
-		return "500";
+	@RequestMapping (value = "/loginfail", method = { RequestMethod.GET, RequestMethod.POST})
+	public String loginFail( @ModelAttribute( value = "id") String id, HttpServletRequest request, Model model) {
+
+		User userEntity = userService.getUserByID(id);
+		
+		
+		return "login_soft";
 	}
 
 }

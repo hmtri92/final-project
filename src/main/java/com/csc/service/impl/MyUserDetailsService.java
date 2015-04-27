@@ -1,6 +1,7 @@
 package com.csc.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.csc.dao.UserDAO;
 import com.csc.entities.Role;
@@ -18,6 +21,7 @@ import com.csc.entities.State;
 import com.csc.entities.User;
 
 @Service
+@SessionAttributes({"id"})
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -32,10 +36,25 @@ public class MyUserDetailsService implements UserDetailsService {
 		
 		User user = userDao.getUserByLoginID(loginId) ;
 		
+//		Model model = new Model();
+//		model.addAttribute("id", user.getId());
+		
+		
 		boolean enabled = (user.getState().getIdState() == State.ACTIVE);
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
+		
+		// 3 times
+		try {
+			Date dayNow = new Date();
+			long time = (dayNow.getTime() - user.getLastModified().getTime())/60000;
+			if (user.getAttempts() > 3 && (time < 30)) {
+				enabled = false;
+			}
+		} catch (NullPointerException e) {
+			
+		}
 		
 		List<GrantedAuthority> authorities = getAuthorities(user.getRole().getIdRole());
 		
@@ -84,6 +103,5 @@ public class MyUserDetailsService implements UserDetailsService {
 		}
 		return authorities;
 	}
-
-
+	
 }
