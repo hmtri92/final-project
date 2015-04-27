@@ -22,7 +22,7 @@ import com.csc.service.AccountService;
 import com.csc.service.UserService;
 
 @Controller
-@SessionAttributes({ "username", "role", "id", "availableAmount" })
+@SessionAttributes({ "username", "role", "id", "availableAmount", "countLogin" })
 public class LoginController {
 
 	@Autowired
@@ -79,6 +79,9 @@ public class LoginController {
 		userEntity.setAttempts(0);
 		userService.editUserprofile(userEntity);
 		
+		// unlock session
+		model.addAttribute("countLogin", 0);
+		
 
 		// Redirect
 
@@ -130,10 +133,19 @@ public class LoginController {
 	}
 	
 	@RequestMapping (value = "/loginfail", method = { RequestMethod.GET, RequestMethod.POST})
-	public String loginFail( @ModelAttribute( value = "id") String id, HttpServletRequest request, Model model) {
+	public String loginFail(HttpServletRequest request, Model model) {
 
-		User userEntity = userService.getUserByID(id);
+//		User userEntity = userService.getUserByID(id);
 		
+//		lock session
+		int countLogin = 0;
+		try {
+			countLogin = (int) request.getSession().getAttribute("countLogin");
+			countLogin++;
+		} catch (NullPointerException e) {
+			countLogin = 1;
+		}
+		model.addAttribute("countLogin", countLogin);
 		
 		return "login_soft";
 	}

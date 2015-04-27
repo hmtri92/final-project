@@ -58,8 +58,28 @@
 	<!-- BEGIN LOGIN -->
 	<div class="content">
 		<!-- BEGIN LOGIN FORM -->
-		<form class="login-form" action="j_spring_security_check" method="post">
+		<form id="formLogin" class="login-form" action="j_spring_security_check" method="post">
 			<h3 class="form-title">Login to your account</h3>
+			
+			<c:set var="count" scope="session" value="${countLogin}" ></c:set>
+			<c:choose>
+				<c:when test="${count >= 3}">
+					<div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Warning!</strong> Can't login. Login fail 3 times.
+					</div>
+					$(document).ready(function() {
+						$("#formLogin").removeAttr("action");
+					});
+				</c:when>
+				<c:when test="${count > 0}">
+					<div class="alert alert-danger alert-dismissible" role="alert">
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					  <strong>Warning!</strong> Login fail <c:out value="${count}"></c:out> of 3.
+					</div>
+				</c:when>
+			</c:choose>
+			
 			<div class="alert alert-danger display-hide">
 				<button class="close" data-close="alert"></button>
 				<span>
@@ -81,9 +101,18 @@
 				</div>
 			</div>
 			<div class="form-actions">
-				<button type="submit" class="btn blue pull-right">
-				Login <i class="m-icon-swapright m-icon-white"></i>
-				</button>
+				<c:choose>
+					<c:when test="${count >= 3}">
+						<button type="submit" class="btn blue pull-right" disabled="disabled">
+						Login <i class="m-icon-swapright m-icon-white"></i>
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button type="submit" class="btn blue pull-right">
+						Login <i class="m-icon-swapright m-icon-white"></i>
+						</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</form>
 		<!-- END LOGIN FORM -->
