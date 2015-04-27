@@ -36,7 +36,7 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Create Account
+							<i class="glyphicon glyphicon-plus"></i>Create Account
 						</div>
 					</div>
 					<div class="portlet-body form">
@@ -152,7 +152,7 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">TypeAccount :</label> <select
-												name="typeAccount" id="typeAccount" id="typeAccount">
+												name="typeAccount" id="typeAccount" id="typeAccount" class="form-control">
 												<option value="">Choose Type Account</option>
 												<option value="1">DEPOSIT</option>
 												<option value="2">SAVING</option>
@@ -165,13 +165,12 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label class="control-label">Role :</label> <select
-												name="role" id="role" class="validate[required]" id="role">
+												name="role" id="role" class="form-control" id="role">
 												<option value="">Choose role</option>
 												<option value="1">Customer</option>
 												<option value="2">Admin</option>
-												<option value="3">ACCOUNT_SUPPORT</option>
-												<option value="4">CUSTOMER_SUPPORT</option>
-												<option value="5">ACCOUNT_SUPPORT</option>
+												<option value="3">Customer</option>
+												
 											</select>
 										</div>
 									</div>
@@ -188,7 +187,7 @@
 								</center>
 								<button type="button" class="btn default" onclick="goHome();">Cancel</button>
 								<button id="submit" type="submit" class="btn blue">
-									<i class="fa fa-check"></i> Add
+									<i class="glyphicon glyphicon-plus"></i> Add Account
 								</button>
 							</div>
 						</form>

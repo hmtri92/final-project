@@ -53,6 +53,6 @@ public class verifyRemove_RemovedController {
 			model.addAttribute("message", "This account have been  modified");
 
 		}
-		return "forward:verifiStateDisController";
+		return "forward:change_State_removeable-Removed";
 	}
 }

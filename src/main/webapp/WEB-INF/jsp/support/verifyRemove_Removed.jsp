@@ -31,7 +31,7 @@
 	    var RemoveableTable = $('#mytable').dataTable({
 	    });
 
-		$('.click_verify').click(function (){
+		$('.changeState').click(function (){
 			var id = $(this).parent().parent().parent().attr('id');
 			$.ajax({
 		        type : "POST",
@@ -68,9 +68,16 @@
 <body style="padding-top: 100px !important">
 	<%@ include file="../models/navbar.jsp"%>
 
-	<div class="page-content">
-		<div class="container">
-			<div class="portlet light">
+		<div class="page-content">
+		<div class="tab-pane" id="tab_1">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<i class="glyphicon glyphicon-refresh"></i>Change State: Removeable ->Removed
+						</div>
+					</div>
+					</div>
+					<div class="portlet-body form">
 				<div>
 					<table id="mytable" class="table table-striped table-bordered"
 						cellspacing="0" width="100%" data-click-to-select="true"
@@ -90,8 +97,8 @@
 									<td>${listState.state.name}</td>
 									<td>
 										<p data-placement="top" data-toggle="tooltip" title="Verify">
-											<button class="btn btn-primary btn-xs click_verify" action="">
-												Verify</button>
+											<button class="btn btn-primary btn-xs changeState" action="">
+											<i class="glyphicon glyphicon-refresh"></i>Change State</button>
 										</p>
 									</td>
 								</tr>
@@ -100,8 +107,10 @@
 					</table>
 				</div>
 			</div>
+			
+			</div>
+			<!-- </div> -->
 		</div>
-	</div>
 
 	<!-- Message -->
 	<%@ include file="../models/message.jsp"%>

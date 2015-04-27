@@ -36,7 +36,7 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<i class="fa fa-gift"></i>Modify-Account
+							<i class="glyphicon glyphicon-pencil"></i>Modify-Account
 						</div>
 					</div>
 					<div class="portlet-body form">
@@ -57,8 +57,8 @@
 
 								</div>
 									<div class="form-actions right">
-								<center><button id="Checkaccount" type="submit" class="btn blue" onclick="">
-									<i class="fa fa-check"></i> Check Account
+								<center><button id="Checkaccount" type="submit" class="btn blue " onclick="">
+									<i class="glyphicon glyphicon-ok"></i> Check Account
 								</button></center>
 								<center>
 								<font color="red">${message1 }</font>
@@ -175,7 +175,7 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="control-label">TypeAccount :</label> <select
-												name="typeAccount" id="typeAccount" id="typeAccount">
+												name="typeAccount" id="typeAccount" id="typeAccount" class="form-control">
 												<option value="${ accountExit.typeAccount.idType}">${ accountExit.typeAccount.type}</option>
 												<option value="1">DEPOSIT</option>
 												<option value="2">SAVING</option>
@@ -188,20 +188,19 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="control-label">Role :</label> <select
-												name="role" id="role" class="validate[required]" id="role">
+												name="role" id="role" class="form-control" id="role">
 												<option value="${ accountExit.role.idRole}">${ accountExit.role.nameRole}</option>
 												<option value="1">Customer</option>
 												<option value="2">Admin</option>
-												<option value="3">ACCOUNT_SUPPORT</option>
-												<option value="4">CUSTOMER_SUPPORT</option>
-												<option value="5">ACCOUNT_SUPPORT</option>
+												<option value="3">Customer</option>
+												
 											</select>
 										</div>
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
 										<label class="control-label"> State :</label> <select
-											name="state" id="state" class="validate[required]" id="state">
+											name="state" id="state" class="form-control" id="state">
 											<option value="${ accountExit.state.idState}">${ accountExit.state.name}</option>
 											<option value="1">NEW</option>
 											<option value="2">ACTIVE</option>
@@ -222,7 +221,7 @@
 							</center>
 								<button type="button" class="btn default" onclick="goHome();">Cancel</button>
 								<button id="submit" type="submit" class="btn blue">
-									<i class="fa fa-check"></i> Add
+									<i class="glyphicon glyphicon-pencil"></i> Modify Account
 								</button>
 								<center>
 							
