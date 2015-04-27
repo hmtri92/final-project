@@ -2,6 +2,7 @@ package com.csc.controller;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -135,8 +136,6 @@ public class LoginController {
 	@RequestMapping (value = "/loginfail", method = { RequestMethod.GET, RequestMethod.POST})
 	public String loginFail(HttpServletRequest request, Model model) {
 
-//		User userEntity = userService.getUserByID(id);
-		
 //		lock session
 		int countLogin = 0;
 		try {
@@ -146,6 +145,21 @@ public class LoginController {
 			countLogin = 1;
 		}
 		model.addAttribute("countLogin", countLogin);
+		
+//		try {
+//			String id = (String) request.getSession().getAttribute("id");
+//			if (id != null) {
+//				User userEntity = userService.getUserByID(id);
+//				
+//				// Set attempts
+//				int attempts = userEntity.getAttempts();
+//				userEntity.setAttempts(attempts++);
+//				userEntity.setLastModified(new Date());
+//				userService.editUserprofile(userEntity);
+//			}
+//			
+//		} catch (NullPointerException e) {
+//		}
 		
 		return "login_soft";
 	}

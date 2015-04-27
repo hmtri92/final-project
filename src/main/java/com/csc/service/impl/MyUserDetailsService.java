@@ -1,8 +1,10 @@
 package com.csc.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.dao.UserDAO;
 import com.csc.entities.Role;
@@ -36,10 +39,6 @@ public class MyUserDetailsService implements UserDetailsService {
 		
 		User user = userDao.getUserByLoginID(loginId) ;
 		
-//		Model model = new Model();
-//		model.addAttribute("id", user.getId());
-		
-		
 		boolean enabled = (user.getState().getIdState() == State.ACTIVE);
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
@@ -49,12 +48,15 @@ public class MyUserDetailsService implements UserDetailsService {
 		try {
 			Date dayNow = new Date();
 			long time = (dayNow.getTime() - user.getLastModified().getTime())/60000;
-			if (user.getAttempts() > 3 && (time < 30)) {
+			if (user.getAttempts() >= 3 && (time < 30)) {
 				enabled = false;
 			}
 		} catch (NullPointerException e) {
 			
 		}
+		user.setAttempts(user.getAttempts() + 1);
+		user.setLastModified(new Date());
+		userDao.changeInfo(user);
 		
 		List<GrantedAuthority> authorities = getAuthorities(user.getRole().getIdRole());
 		

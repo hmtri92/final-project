@@ -68,9 +68,13 @@
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					  <strong>Warning!</strong> Can't login. Login fail 3 times.
 					</div>
-					$(document).ready(function() {
-						$("#formLogin").removeAttr("action");
-					});
+					
+					<!-- remove action in form -->
+					<script type="text/javascript">
+						$(document).ready(function() {
+							$("#formLogin").removeAttr("action");
+						});
+					</script>
 				</c:when>
 				<c:when test="${count > 0}">
 					<div class="alert alert-danger alert-dismissible" role="alert">
