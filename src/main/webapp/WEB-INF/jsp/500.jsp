@@ -20,7 +20,7 @@
 <body class="page-500-full-page">
 	<div class="row">
 		<div class="col-md-12 page-500" style="margin-top: 0px;">
-			<img alt="" src="<c:url value='images/kidmondo_face_sad.gif' />">
+			<img alt="" src="<c:url value='/images/kidmondo_face_sad.gif' />">
 		</div>
 	</div>
 	<div class="row">

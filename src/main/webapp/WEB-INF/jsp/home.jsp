@@ -73,6 +73,17 @@
 							</div>
 						</div>
 					</div>
+					<c:choose>
+						<c:when test="${role == 'admin'}">
+							<%@ include file="models/bodyHomeAdmin.jsp"%>
+						</c:when>
+						<c:when test="${role == 'account_support'}">
+							<%@ include file="models/bodyHomeSupport.jsp"%>
+						</c:when>
+						<c:when test="${role == 'customer'}">
+							<%@ include file="models/bodyHomeUser.jsp"%>
+						</c:when>
+					</c:choose>
 				</div>
 			</div>
 		</div>
