@@ -284,6 +284,24 @@ function deleteTargetAccount() {
 	});
 }
 
-
+function loadInfoAdmin() {
+	$.ajax({
+		type : "POST",
+		url : "infoHomeAdmin",
+		success : function(result) {
+			/* nav */
+			$("#countverifyTransactionnav").html(result.countverifyTransaction);
+			$("#countChangeStateNewToActivenav").html(result.countChangeStateNewToActive);
+			$("#countChangeTateDisableToRemovenav").html(result.countChangeTateDisableToRemove);
+			$("#countOfAccount").html(result.countChangeStateNewToActive + result.countChangeTateDisableToRemove)
+			/* body */
+			try {
+				$("#countverifyTransaction").html(result.countverifyTransaction);
+				$("#countChangeStateNewToActive").html(result.countChangeStateNewToActive);
+				$("#countChangeTateDisableToRemove").html(result.countChangeTateDisableToRemove);
+			} catch (err){}
+		}
+	});
+}
 
 

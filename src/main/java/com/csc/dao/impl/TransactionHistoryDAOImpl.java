@@ -187,7 +187,7 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 	public StateResult changeStateTransaction(long idTransaction, int idState) {
 		StateResult result = new StateResult();
 		try {
-			String sql = "UPDATE TransactionHistory t SET state = :state WHERE t.id_Transaction = :id";
+			String sql = "UPDATE TransactionHistories t SET state = :state WHERE t.id_Transaction = :id";
 			em.createNativeQuery(sql)
 				.setParameter("state", idState)
 				.setParameter("id", idTransaction)

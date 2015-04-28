@@ -43,6 +43,7 @@ public class TransactionController {
 		
 		return fundService.verifyTransaction(idTransaction);
 	}
+	
 	@RequestMapping (value = "/admin/ignoreTransaction", method = RequestMethod.POST)
 	@ResponseBody
 	public StateResult doIgnoreTransaction(HttpServletRequest request, HttpServletResponse response) {

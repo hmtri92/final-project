@@ -26,6 +26,8 @@
 	src="<c:url value='/js/dataTables.bootstrap.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
+
 <script type="text/javascript">
 	$(document)
 			.ready(

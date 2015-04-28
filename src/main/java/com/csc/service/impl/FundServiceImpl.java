@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.csc.bean.AdminReponse;
 import com.csc.dao.AccountDAO;
+import com.csc.dao.AdminInfo;
 import com.csc.dao.FundDAO;
 import com.csc.dao.ITargetAccountDAO;
 import com.csc.dao.TransactionHistoryDAO;
@@ -33,6 +35,9 @@ public class FundServiceImpl implements FundService {
 	
 	@Autowired
 	AccountDAO accountDao;
+	
+	@Autowired
+	AdminInfo adminInfo;
 	
 	@Override
 	@Transactional
@@ -157,6 +162,18 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult ignoreTransaction(long idTransaction) {
 		return transactionDao.changeStateTransaction(idTransaction, State.DISABLE);
+	}
+
+	@Override
+	@Transactional
+	public AdminReponse getHomeAdminInfo() {
+		AdminReponse result = new AdminReponse();
+		
+		result.setCountverifyTransaction(adminInfo.getCountVerifyTransaction());
+		result.setCountChangeStateNewToActive(adminInfo.getCountAccountNew());
+		result.setCountChangeTateDisableToRemove(adminInfo.getCountAccountDisable());
+		
+		return result;
 	}
 
 }

@@ -19,9 +19,10 @@
 
 <script type="text/javascript" src="<c:url value='/js/jquery-1.11.1.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/bootstrap.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 </head>
-<body style="padding-top: 100px !important">
+<body style="padding-top: 100px !important" >
 
 	<div class="page-content" style="min-height:100%;position:relative;">
 		

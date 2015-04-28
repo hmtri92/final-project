@@ -1,7 +1,7 @@
 
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top narbar-img"
-	role="navigation">
+	role="navigation" >
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -17,14 +17,32 @@
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="<c:url value='/admin/viewVerifyTransaction'/>" >Transaction</a></li>
+			<ul style="font-size: 18px; color: #C7AE99;" class="nav navbar-nav">
+				<li>
+					<a href="<c:url value='/admin/viewVerifyTransaction'/>" >
+						Transaction
+						<span class="badge" id="countverifyTransactionnav"></span>
+					</a>
+				</li>
 				<li class="dropdown">
 					<a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-		          	  Account <span class="caret"></span></a>
+		          	  Account 
+		          	  <span class="badge" id="countOfAccount"></span>
+		          	  <span class="caret"></span>
+					</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="<c:url value='/admin/viewVerifyStateNew'/>" >State new -> active</a></li>
-						<li><a href="<c:url value='/admin/viewVerifyStateDis-Removable'/>" >State disable -> removeable</a></li>
+						<li>
+							<a href="<c:url value='/admin/viewVerifyStateNew'/>" >
+								State new -> active
+								<span class="badge" id="countChangeStateNewToActivenav"></span>
+							</a>
+						</li>
+						<li>
+							<a href="<c:url value='/admin/viewVerifyStateDis-Removable'/>" >
+								State disable -> removeable
+								<span class="badge" id="countChangeTateDisableToRemovenav"></span>
+							</a>
+						</li>
 					</ul>
 				</li>
 			</ul>
@@ -41,4 +59,7 @@
 	      	</ul>
 		</div>
 	</div>
+	<script type="text/javascript">
+		loadInfoAdmin();
+	</script>
 </nav>

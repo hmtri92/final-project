@@ -18,7 +18,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 @Entity
-@Table(name = "TransactionsHistorys")
+@Table(name = "TransactionHistories")
 public class TransactionHistory implements Serializable {
 	
 	/**
