@@ -21,6 +21,9 @@ import com.csc.entities.TargetAccount;
 import com.csc.entities.TransactionHistory;
 import com.csc.service.FundService;
 
+/*
+ * Minh Tri
+ */
 @Service
 public class FundServiceImpl implements FundService {
 
@@ -41,48 +44,65 @@ public class FundServiceImpl implements FundService {
 	
 	@Override
 	@Transactional
-	public boolean addFund(String id, BigDecimal amount) {
+	public StateResult addFund(String id, BigDecimal amount) {
 		return transactionDao.addFundTransaction(id, amount);
 	}
 
+	/*
+	 * 
+	 * @see com.csc.service.FundService#transfer(java.lang.String, java.lang.String, java.math.BigDecimal)
+	 */
 	@Override
 	@Transactional
-	public Account getAccountById(String accountNumber) {
-		return fundDao.getAccountById(accountNumber);
-	}
-
-	@Override
-	@Transactional
-	public StateResult transfer(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount) {
+	public StateResult transfer(String sendAccount_ID, String targetAccount_ID, BigDecimal amount) {
 		StateResult result = new StateResult();
-		Account account = accountDao.getAccountById(targetAccount_ID);
+		Account sendAccount = accountDao.getAccountById(sendAccount_ID);
+		Account targetAccount = accountDao.getAccountById(targetAccount_ID);
 				
-		if (account == null) {
+		if (targetAccount == null || sendAccount == null) {
 			result.setState(false);
-			result.setMessage("Account not fund!");
+			result.setMessage("Account not found!");
 			return result;
 		}
-		return transactionDao.transferTransaction(sendAccount_ID, targetAccount_ID, amount);
-	}
-
-	@Override
-	@Transactional
-	public List<TargetAccount> getTargetAccount(String id) {
-		return fundDao.getTargetAccount(id);
+		
+		StateResult state = checkAccountSource(sendAccount, amount);
+		if (!state.getState()) {
+			return state;
+		}
+		
+		return transactionDao.saveTransfer(sendAccount, targetAccount, amount);
 	}
 
 	@Override
 	@Transactional
 	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
-		return transactionDao.transferTransactionTargetID(sendAccount_ID, targetAccount_ID, amount);
+		
+		Account sendAccount = accountDao.getAccountById(sendAccount_ID);
+		
+		StateResult state = checkAccountSource(sendAccount, amount);
+		if (!state.getState()) {
+			return state;
+		}
+		
+		TargetAccount target = targetAccountDao.getTargetAccountById(targetAccount_ID);
+		Account targetAccount = target.getAccountTarget();
+		
+		return transactionDao.saveTransfer(sendAccount, targetAccount, amount);
 	}
 
 	@Override
 	@Transactional
-	public StateResult withdraw(String accountNumber, BigDecimal amount) {
-		return transactionDao.withdrawTransaction(accountNumber, amount);
+	public StateResult withdraw(String account_id, BigDecimal amount) {
+		
+		Account account = accountDao.getAccountById(account_id);
+		
+		StateResult state = checkAccountSource(account, amount);
+		if (!state.getState()) {
+			return state;
+		}
+		
+		return transactionDao.withdrawTransaction(account, amount);
 	}
 
 	@Override
@@ -94,23 +114,41 @@ public class FundServiceImpl implements FundService {
 	@Override
 	@Transactional
 	public StateResult verifyTransaction(long idTransaction) {
-		TransactionHistory transaction = transactionDao.getTransaction(idTransaction);
-		StateResult result = new StateResult();
+		StateResult result = new StateResult(true, "Success");
 		
-		if (transaction.getTypeTransaction() == TransactionHistory.ADD_FUND)
-		{
-			result = fundDao.addFund(transaction.getSendAccount().getId(), transaction.getAmount());
-		} else if (transaction.getTypeTransaction() == TransactionHistory.TRANSFER) {
+		
+		try {
+			TransactionHistory transaction = transactionDao.getTransaction(idTransaction);
 			
-			result = fundDao.transfer(transaction.getSendAccount().getId(), 
-					transaction.getReceiveAccount().getId(), transaction.getAmount());
-		} else {
-			result = fundDao.withdraw(transaction.getSendAccount().getId(), transaction.getAmount());
+			
+			if (transaction.getTypeTransaction() == TransactionHistory.ADD_FUND)
+			{
+				result = fundDao.addFund(transaction.getSendAccount(), transaction.getAmount());
+			} else if (transaction.getTypeTransaction() == TransactionHistory.TRANSFER) {
+				result = checkAccountSource(transaction.getSendAccount(), transaction.getAmount());
+				if (!result.getState()) {
+					return result;
+				}
+				
+				result = fundDao.transfer(transaction.getSendAccount(), 
+						transaction.getReceiveAccount(), transaction.getAmount());
+			} else {
+				result = checkAccountSource(transaction.getSendAccount(), transaction.getAmount());
+				if (!result.getState()) {
+					return result;
+				}
+				
+				result = fundDao.withdraw(transaction.getSendAccount(), transaction.getAmount());
+			}
+			
+			if (result.getState()) {
+				result = transactionDao.changeStateTransaction(transaction, State.ACTIVE);
+			}
+		} catch(NullPointerException e) {
+			result.setState(false);
+			result.setMessage("Transaction not found!");
 		}
 		
-		if (result.getState()) {
-			return transactionDao.changeStateTransaction(transaction.getIdTransaction(), State.ACTIVE);
-		}
 		
 		return result;
 	}
@@ -126,8 +164,9 @@ public class FundServiceImpl implements FundService {
 			String idAccountTarget, String name) {
 		StateResult result = new StateResult();
 		
-		Account account = accountDao.getAccountById(idAccountTarget);
-		if (account == null) {
+		Account accountOwner = accountDao.getAccountById(idAccountOwner);
+		Account accountTarget = accountDao.getAccountById(idAccountTarget);
+		if (accountTarget == null || accountOwner == null) {
 			result.setState(false);
 			result.setMessage("Account not fund!");
 			return result;
@@ -161,7 +200,9 @@ public class FundServiceImpl implements FundService {
 	@Override
 	@Transactional
 	public StateResult ignoreTransaction(long idTransaction) {
-		return transactionDao.changeStateTransaction(idTransaction, State.DISABLE);
+		TransactionHistory tran = transactionDao.getTransaction(idTransaction);
+		
+		return transactionDao.changeStateTransaction(tran, State.DISABLE);
 	}
 
 	@Override
@@ -173,6 +214,33 @@ public class FundServiceImpl implements FundService {
 		result.setCountChangeStateNewToActive(adminInfo.getCountAccountNew());
 		result.setCountChangeTateDisableToRemove(adminInfo.getCountAccountDisable());
 		
+		return result;
+	}
+	
+	private StateResult checkAccountSource(Account account, BigDecimal amount) {
+		StateResult result = new StateResult();
+		
+		// if availableAmount - sendAmount < 50000 return false;
+		try {
+			BigDecimal money = account.getAvailableAmount().subtract(amount);
+			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
+				result.setState(false);
+				result.setMessage("The amount in the account is not enough to transfer");
+				return result;
+			}
+			
+			// Check state sendAccount
+			if (account.getState().getIdState() != State.ACTIVE) {
+				result.setState(false);
+				result.setMessage("Account is not ACTIVE");
+				return result;
+			}
+		} catch (NullPointerException e) {
+			result.setMessage("Account not found!");
+			return result;
+		}
+		
+		result.setState(true);
 		return result;
 	}
 

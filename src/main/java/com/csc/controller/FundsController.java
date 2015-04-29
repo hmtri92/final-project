@@ -44,7 +44,7 @@ public class FundsController {
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
 		String accountNumber = request.getParameter("accountNumber");
-		Account account = fundService.getAccountById(accountNumber);
+		Account account = accountService.getAccountById(accountNumber);
 		
 		return account;
 	}
@@ -56,12 +56,8 @@ public class FundsController {
 		String accountNumber = request.getParameter("accountNumber");
 		BigDecimal amount = BigDecimal.valueOf(Long.parseLong(request.getParameter("amount")));
 		
-		boolean result = fundService.addFund(accountNumber, amount);
-		if (result) {
-			return "success";
-		} else {
-			return "Error";
-		}
+		StateResult result = fundService.addFund(accountNumber, amount);
+		return result.getMessage();
 	}
 	
 	@RequestMapping (value = "/support/viewTransferBySupport", method = RequestMethod.GET)
@@ -90,7 +86,7 @@ public class FundsController {
 			HttpServletRequest request, HttpServletResponse response){
 		ModelAndView model = new ModelAndView("users/transferTarget");
 		
-		List<TargetAccount> targets = fundService.getTargetAccount(id);
+		List<TargetAccount> targets = fundService.getListTargetByAccountOwnerId(id);
 		if (targets != null) {
 			model.addObject("targetAccounts", targets);
 		}

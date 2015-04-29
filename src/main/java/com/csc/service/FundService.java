@@ -11,18 +11,14 @@ import com.csc.entities.TransactionHistory;
 
 
 public interface FundService {
-	boolean addFund(String id, BigDecimal amount);
-	
-	Account getAccountById(String accountNumber);
+	StateResult addFund(String id, BigDecimal amount);
 	
 	StateResult transfer(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount);
 	
-	List<TargetAccount> getTargetAccount(String id);
-	
 	StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID, BigDecimal amount);
 	
-	StateResult withdraw(String accountNumber, BigDecimal amount);
+	StateResult withdraw(String account_id, BigDecimal amount);
 	
 	List<TransactionHistory> getNewTransaction();
 	

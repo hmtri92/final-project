@@ -28,32 +28,43 @@ public class FundDAOImpl implements FundDAO {
 	}
 	
 	@Override
-	public StateResult addFund(String id, BigDecimal amount) {
+	public StateResult addFund(Account account, BigDecimal amount) {
 		StateResult state = new StateResult();
 		try {
-			Account account = em.find(Account.class, id);
-			try {
-				account.setAvailableAmount(account.getAvailableAmount().add(amount));
-			} catch (NullPointerException e) {
-				account.setAvailableAmount(amount);
-			}
+			account.setAvailableAmount(account.getAvailableAmount().add(amount));
 			
 			state.setState(true);
-			return state;
+			state.setMessage("Success");
+		} catch (NullPointerException e) {
+			// field availableAmount null
+			account.setAvailableAmount(amount);
 		} catch (Exception e) {
 			state.setState(false);
 			state.setMessage("Can't add fund");
-			return state;
 		}
+		return state;
 	}
 	
 	@Override
-	public StateResult transfer(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount) {
-		Account sendAccount = em.find(Account.class, sendAccount_ID);
-		Account targetAccount = em.find(Account.class, targetAccount_ID);
+	public StateResult transfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
+		StateResult state = new StateResult();
 		
-		return checkAndTransfer(sendAccount, targetAccount, amount);
+		BigDecimal money = new BigDecimal(0);
+		try {
+			money = sendAccount.getAvailableAmount().subtract(amount);
+		} catch (NullPointerException e) {}
+		
+		// transfer money
+		sendAccount.setAvailableAmount(money);
+		try {
+			money = targetAccount.getAvailableAmount().add(amount);
+		} catch (NullPointerException e) {
+			money = amount;
+		}
+		targetAccount.setAvailableAmount(money);
+			
+		state.setState(true);
+		return state;
 	}
 
 	@Override
@@ -73,74 +84,19 @@ public class FundDAOImpl implements FundDAO {
 	}
 
 	@Override
-	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount) {
-		Account sendAccount = em.find(Account.class, sendAccount_ID);
-		TargetAccount target = em.find(TargetAccount.class, targetAccount_ID);
-		Account targetAccount = target.getAccountTarget();
-		
-		return checkAndTransfer(sendAccount, targetAccount, amount);
-	}
-	
-	private StateResult checkAndTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
-		StateResult state = new StateResult();
-		
-		BigDecimal money = new BigDecimal(0);
-		try {
-			money = sendAccount.getAvailableAmount().subtract(amount);
-		} catch (NullPointerException e) {
-		}
-		// if availableAmount - sendAmount < 50000 return false;
-		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-			state.setState(false);
-			state.setMessage("The amount in the account is not enough to transfer");
-			return state;
-		}
-		
-		// Check state sendAccount
-		if (sendAccount.getState().getIdState() != State.ACTIVE) {
-			state.setState(false);
-			state.setMessage("Account is not ACTIVE");
-			return state;
-		}
-		
-		// transfer money
-		sendAccount.setAvailableAmount(money);
-		try {
-			money = targetAccount.getAvailableAmount().add(amount);
-		} catch (NullPointerException e) {
-			money = amount;
-		}
-		targetAccount.setAvailableAmount(money);
-			
-		state.setState(true);
-		return state;
-	}
-
-	@Override
-	public StateResult withdraw(String accountNumber, BigDecimal amount) {
+	public StateResult withdraw(Account account, BigDecimal amount) {
 		StateResult state = new StateResult();
 		try {
-			Account account = em.find(Account.class, accountNumber);
-			
 			// if availableAmount - amount < 50000 return false;
-			BigDecimal money = account.getAvailableAmount().subtract(amount);
-			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-				state.setState(false);
-				state.setMessage("The amount in the account is not enough to withdraw");
-				return state;
-			}
-			
-			// Check state sendAccount
-			if (account.getState().getIdState() != State.ACTIVE) {
-				state.setState(false);
-				state.setMessage("Account is not ACTIVE");
-				return state;
-			}
+			BigDecimal money = new BigDecimal(0);
+			try {
+				money = account.getAvailableAmount().subtract(amount);
+			} catch (NullPointerException e) {}
 		
 			account.setAvailableAmount(money);
 			
 			state.setState(true);
+			state.setMessage("Success");
 			return state;
 		} catch (Exception e) {
 			state.setState(false);

@@ -8,18 +8,14 @@ import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
 
 public interface FundDAO {
-	StateResult addFund(String id, BigDecimal amount);
+	StateResult addFund(Account account, BigDecimal amount);
 	
 	Account getAccountById(String accountNumber);
 	
-	StateResult transfer(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount);
+	StateResult transfer(Account sendAccount, Account targetAccount, BigDecimal amount);
 	
 	List<TargetAccount> getTargetAccount(String id);
 	
-	StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount);
-	
-	StateResult withdraw(String accountNumber, BigDecimal amount);
+	StateResult withdraw(Account account, BigDecimal amount);
 	
 }

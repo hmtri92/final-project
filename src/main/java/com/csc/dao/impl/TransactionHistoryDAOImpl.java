@@ -14,7 +14,6 @@ import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
 import com.csc.entities.State;
 import com.csc.entities.StateResult;
-import com.csc.entities.TargetAccount;
 import com.csc.entities.TransactionHistory;
 
 @Repository
@@ -24,148 +23,89 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 	EntityManager em;
 	
 	@Override
-	public boolean addFundTransaction(String id, BigDecimal amount) {
-		Account account = em.find(Account.class, id);
-		State newState = em.find(State.class, State.NEW);
-		
-		TransactionHistory add = new TransactionHistory();
-		add.setDate(new Date());
-		add.setReceiveAccount(account);
-		add.setSendAccount(account);
-		add.setAmount(amount);
-		add.setState(newState);
-		add.setTypeTransaction(TransactionHistory.ADD_FUND);
-		
-		String content = "Add " + amount;
-		add.setContent(content);
-		em.persist(add);
-		
-		return true;
+	public StateResult addFundTransaction(String id, BigDecimal amount) {
+
+		StateResult state = new StateResult();
+		try {
+			Account account = em.find(Account.class, id);
+			State newState = em.find(State.class, State.NEW);
+			
+			TransactionHistory add = new TransactionHistory();
+			add.setDate(new Date());
+			add.setReceiveAccount(account);
+			add.setSendAccount(account);
+			add.setAmount(amount);
+			add.setState(newState);
+			add.setTypeTransaction(TransactionHistory.ADD_FUND);
+			
+			String content = "Add " + amount;
+			add.setContent(content);
+			em.persist(add);
+			
+			state.setState(true);
+			state.setMessage("success");
+			return state;
+		} catch (Exception e) {
+			state.setState(false);
+			state.setMessage("Error");
+			return state;
+		}
 	}
 
-	@Override
-	public StateResult transferTransaction(String sendAccount_ID,
-			String targetAccount_ID, BigDecimal amount) {
-		StateResult state = new StateResult();
-		
-		Account sendAccount = em.find(Account.class, sendAccount_ID);
-		
-		// if availableAmount - sendAmount < 50000 return false;
-		try {
-			BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
-			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-				state.setState(false);
-				state.setMessage("The amount in the account is not enough to transfer");
-				return state;
-			}
-			
-			// Check state sendAccount
-			if (sendAccount.getState().getIdState() != State.ACTIVE) {
-				state.setState(false);
-				state.setMessage("Account is not ACTIVE");
-				return state;
-			}
-		} catch (NullPointerException e) {
-			state.setMessage("The amount in the account is not enough to transfer");
-			return state;
-		}
-		
-		Account targetAccount = em.find(Account.class, targetAccount_ID);
-		
-		return saveTransfer(sendAccount, targetAccount, amount);	
-	}
 	
 	@Override
-	public StateResult transferTransactionTargetID(String sendAccount_ID,
-			String targetAccount_ID, BigDecimal amount) {
+	public StateResult saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
 		StateResult state = new StateResult();
-		
-		Account sendAccount = em.find(Account.class, sendAccount_ID);
-		
-		long idtarget = Long.parseLong(targetAccount_ID);
-		TargetAccount target = em.find(TargetAccount.class, idtarget);
-		
-		// if availableAmount - sendAmount < 50000 return false;
 		try {
-			BigDecimal money = sendAccount.getAvailableAmount().subtract(amount);
-			if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-				state.setState(false);
-				state.setMessage("The amount in the account is not enough to transfer");
-				return state;
-			}
+			State newState = em.find(State.class, State.NEW);
 			
-			// Check state sendAccount
-			if (sendAccount.getState().getIdState() != State.ACTIVE) {
-				state.setState(false);
-				state.setMessage("Account is not ACTIVE");
-				return state;
-			}
-		} catch (NullPointerException e) {
-			state.setMessage("The amount in the account is not enough to transfer");
-			return state;
+			TransactionHistory transfer = new TransactionHistory();
+			transfer.setDate(new Date());
+			transfer.setReceiveAccount(targetAccount);
+			transfer.setSendAccount(sendAccount);
+			transfer.setAmount(amount);
+			transfer.setState(newState);
+			transfer.setTypeTransaction(TransactionHistory.TRANSFER);
+			
+			String content = "Tranfer from " + sendAccount.getId() + " to " + targetAccount.getId() + ": " + amount;
+			transfer.setContent(content);
+			em.persist(transfer);
+			
+			state.setState(true);
+			state.setMessage("Success");
+		} catch (Exception e) {
+			state.setState(false);
+			state.setMessage("Error");
 		}
-		Account targetAccount = target.getAccountTarget();
-		
-		return saveTransfer(sendAccount, targetAccount, amount);	
-	}
-	
-	private StateResult saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
-		StateResult state = new StateResult();
-		State newState = em.find(State.class, State.NEW);
-		
-		TransactionHistory transfer = new TransactionHistory();
-		transfer.setDate(new Date());
-		transfer.setReceiveAccount(targetAccount);
-		transfer.setSendAccount(sendAccount);
-		transfer.setAmount(amount);
-		transfer.setState(newState);
-		transfer.setTypeTransaction(TransactionHistory.TRANSFER);
-		
-		String content = "Tranfer from " + sendAccount.getId() + " to " + targetAccount.getId() + ": " + amount;
-		transfer.setContent(content);
-		em.persist(transfer);
-		
-		state.setState(true);
-		state.setMessage("Success");
 		return state;
 	}
 
 	@Override
-	public StateResult withdrawTransaction(String accountNumber, BigDecimal amount) {
-		StateResult state = new StateResult();
-		Account account = em.find(Account.class, accountNumber);
-		State newState = em.find(State.class, State.NEW);
-		
-		// if availableAmount - sendAmount < 50000 return false;
-		BigDecimal money = account.getAvailableAmount().subtract(amount);
-		if (money.compareTo(BigDecimal.valueOf(50000)) < 0) {
-			state.setState(false);
-			state.setMessage("The amount in the account is not enough to withdraw");
-			return state;
+	public StateResult withdrawTransaction(Account account, BigDecimal amount) {
+		StateResult result = new StateResult();
+		try {
+			State newState = em.find(State.class, State.NEW);
+			
+			TransactionHistory withdraw = new TransactionHistory();
+			withdraw.setDate(new Date());
+			withdraw.setReceiveAccount(account);
+			withdraw.setSendAccount(account);
+			withdraw.setAmount(amount);
+			withdraw.setState(newState);
+			withdraw.setTypeTransaction(TransactionHistory.WITHDRAW);
+			
+			String content = "Withdraw " + amount;
+			withdraw.setContent(content);
+			em.persist(withdraw);
+			
+			
+			result.setState(true);
+			result.setMessage("Success");
+		} catch (Exception e) {
+			result.setState(false);
+			result.setMessage("Error");
 		}
-		
-		// Check state sendAccount
-		if (account.getState().getIdState() != State.ACTIVE) {
-			state.setState(false);
-			state.setMessage("Account is not ACTIVE");
-			return state;
-		}
-		
-		TransactionHistory withdraw = new TransactionHistory();
-		withdraw.setDate(new Date());
-		withdraw.setReceiveAccount(account);
-		withdraw.setSendAccount(account);
-		withdraw.setAmount(amount);
-		withdraw.setState(newState);
-		withdraw.setTypeTransaction(TransactionHistory.WITHDRAW);
-		
-		String content = "Withdraw " + amount;
-		withdraw.setContent(content);
-		em.persist(withdraw);
-		
-		state.setState(true);
-		state.setMessage("success");
-		return state;
+		return result;
 	}
 
 	@Override
@@ -184,14 +124,11 @@ public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 	}
 	
 	@Override
-	public StateResult changeStateTransaction(long idTransaction, int idState) {
+	public StateResult changeStateTransaction(TransactionHistory transaction, int idState) {
 		StateResult result = new StateResult();
+		State state = em.find(State.class, idState);
 		try {
-			String sql = "UPDATE TransactionHistories t SET state = :state WHERE t.id_Transaction = :id";
-			em.createNativeQuery(sql)
-				.setParameter("state", idState)
-				.setParameter("id", idTransaction)
-				.executeUpdate();
+			transaction.setState(state);
 			
 			result.setState(true);
 			result.setMessage("Success");

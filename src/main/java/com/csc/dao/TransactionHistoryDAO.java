@@ -3,23 +3,20 @@ package com.csc.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.csc.entities.Account;
 import com.csc.entities.StateResult;
 import com.csc.entities.TransactionHistory;
 
 public interface TransactionHistoryDAO {
-	boolean addFundTransaction(String id, BigDecimal amount);
+	StateResult addFundTransaction(String id, BigDecimal amount);
 	
-	StateResult transferTransaction(String sendAccount_ID, String targetAccount_ID,
-			BigDecimal amount);
-	
-	StateResult withdrawTransaction(String accountNumber, BigDecimal amount);
+	StateResult withdrawTransaction(Account account, BigDecimal amount);
 	
 	List<TransactionHistory> getNewTransaction();
 	
-	StateResult transferTransactionTargetID(String sendAccount_ID,
-			String targetAccount_ID, BigDecimal amount);
-
 	TransactionHistory getTransaction(long idTransaction);
 	
-	StateResult changeStateTransaction(long idTransaction, int idState);
+	StateResult changeStateTransaction(TransactionHistory transaction, int idState);
+	
+	StateResult saveTransfer(Account sendAccount, Account targetAccount, BigDecimal amount);
 }

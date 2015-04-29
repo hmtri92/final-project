@@ -105,6 +105,12 @@ public class TargetAccountDAOImpl implements ITargetAccountDAO {
 		TargetAccount targetAccount = query.getSingleResult();
 		return targetAccount;
 	}
+
+	@Override
+	public TargetAccount getTargetAccountById(String id) {
+		long idTarget = Long.parseLong(id);
+		return em.find(TargetAccount.class, idTarget);
+	}
 	
 	
 

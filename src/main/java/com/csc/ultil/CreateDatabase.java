@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.csc.entities.Account;
 import com.csc.entities.Role;
 import com.csc.entities.State;
+import com.csc.entities.TargetAccount;
+import com.csc.entities.TransactionHistory;
 import com.csc.entities.TypeAccount;
 import com.csc.entities.User;
 
@@ -187,6 +189,8 @@ public class CreateDatabase {
 	@Transactional
 	public void createAccount() {
 		State state = em.find(State.class, State.ACTIVE);
+		State stateNotActive = em.find(State.class, State.DISABLE);
+		
 		TypeAccount type = em.find(TypeAccount.class, TypeAccount.OTHER);
 		
 		Account minhtri = new Account();
@@ -215,14 +219,89 @@ public class CreateDatabase {
 		pug.setAddress2("Thu Duc");
 		pug.setEmail1("pugTran@gmail.com");
 		pug.setPhoneNum1("0913131313");
-		pug.setState(state);
+		pug.setState(stateNotActive);
 		pug.setTypeAccount(type);
 		pug.setAvailableAmount( BigDecimal.valueOf(1000000));
+		
+		Account hung = new Account();
+		hung.setId("123456789003");
+		hung.setIdCardNumber("272015010"); 
+		hung.setFirstName("Nguye");
+		hung.setMidName("Vu");
+		hung.setLastName("Hung");
+		hung.setAddress1("Tan Binh");
+		hung.setAddress2("Thu Duc");
+		hung.setEmail1("hungNguyen@gmail.com");
+		hung.setPhoneNum1("0913131313");
+		hung.setState(state);
+		hung.setTypeAccount(type);
+		hung.setAvailableAmount( BigDecimal.valueOf(1000000));
 		
 		try {
 			em.persist(minhtri);
 			em.persist(pug);
+			em.persist(hung);
 			System.err.println("add customer successfully!");
+		} catch (Exception e) {}
+	}
+	
+	@Transactional
+	public void createTranSaction() {
+		State state = em.find(State.class, State.NEW);
+		
+		Account minhtri = em.find(Account.class, "123456789001");
+		Account pug = em.find(Account.class, "123456789002");
+		
+		TransactionHistory addTran = new TransactionHistory();
+		addTran.setSendAccount(minhtri);
+		addTran.setReceiveAccount(minhtri);
+		addTran.setAmount(BigDecimal.valueOf(1000000));
+		addTran.setDate(new Date());
+		addTran.setState(state);
+		addTran.setTypeTransaction(TransactionHistory.ADD_FUND);
+		
+		TransactionHistory transferTran = new TransactionHistory();
+		transferTran.setSendAccount(minhtri);
+		transferTran.setReceiveAccount(pug);
+		transferTran.setAmount(BigDecimal.valueOf(100000));
+		transferTran.setDate(new Date());
+		transferTran.setState(state);
+		transferTran.setTypeTransaction(TransactionHistory.TRANSFER);
+		
+		TransactionHistory withdrawTran = new TransactionHistory();
+		withdrawTran.setSendAccount(minhtri);
+		withdrawTran.setReceiveAccount(minhtri);
+		withdrawTran.setAmount(BigDecimal.valueOf(100000));
+		withdrawTran.setDate(new Date());
+		withdrawTran.setState(state);
+		withdrawTran.setTypeTransaction(TransactionHistory.WITHDRAW);
+		
+		try {
+			em.persist(addTran);
+			em.persist(transferTran);
+			em.persist(withdrawTran);
+		} catch (Exception e) {}
+	}
+	
+	@Transactional
+	public void createTargetAccount() {
+		Account minhtri = em.find(Account.class, "123456789001");
+		Account pug = em.find(Account.class, "123456789002");
+		Account hung = em.find(Account.class, "123456789003");
+		
+		TargetAccount targetAccount1 = new TargetAccount();
+		targetAccount1.setAccountOwner(minhtri);
+		targetAccount1.setAccountTarget(pug);
+		targetAccount1.setName("Pug Tran");
+		
+		TargetAccount targetAccount2 = new TargetAccount();
+		targetAccount2.setAccountOwner(minhtri);
+		targetAccount2.setAccountTarget(hung);
+		targetAccount2.setName("Hung Nguyen");
+		
+		try {
+			em.persist(targetAccount1);
+			em.persist(targetAccount2);
 		} catch (Exception e) {}
 	}
 }
