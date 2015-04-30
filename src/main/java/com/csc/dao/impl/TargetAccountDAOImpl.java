@@ -33,16 +33,21 @@ public class TargetAccountDAOImpl implements ITargetAccountDAO {
 			String idAccountTarget, String name) {
 		StateResult result = new StateResult();
 		try {
-			String sql = "INSERT INTO TargetAccount(accountOwner, accountTarget, name) " +
+			String sql = "INSERT INTO TargetAccounts(accountOwner, accountTarget, name) " +
 				"VALUE(?,?,?) ";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter(1, idAccountOwner);
 			query.setParameter(2, idAccountTarget);
 			query.setParameter(3, name);
-			query.executeUpdate();
+			int success = query.executeUpdate();
 			
-			result.setState(true);
-			result.setMessage("Success");
+			if (success == 0) {
+				result.setState(false);
+				result.setMessage("Error");
+			} else {
+				result.setState(true);
+				result.setMessage("Success");
+			}
 		} catch (Exception e) {
 			result.setState(false);
 			result.setMessage("Can't not create TargetAccount");
@@ -57,19 +62,25 @@ public class TargetAccountDAOImpl implements ITargetAccountDAO {
 		StateResult result = new StateResult();
 		try {
 			long idTarget = Long.parseLong(id);
-			String sql = "UPDATE TargetAccount t SET t.accountTarget = :accountTarget, t.name = :name"
-					+ " WHERE t.idtagrget = :idtagrget";
+			String sql = "UPDATE TargetAccounts t SET t.accountTarget = :accountTarget, t.name = :name"
+					+ " WHERE t.idTarget = :idTarget";
 			Query query = em.createNativeQuery(sql);
 			query.setParameter("accountTarget", idAccountTarget);
 			query.setParameter("name", name);
-			query.setParameter("idtagrget", idTarget);
-			query.executeUpdate();
+			query.setParameter("idTarget", idTarget);
+			int success = query.executeUpdate();
 			
-			result.setState(true);
-			result.setMessage("Success");
+			if (success == 0) {
+				result.setState(false);
+				result.setMessage("Error");
+			} else {
+				result.setState(true);
+				result.setMessage("Success");
+			}
+			
 		} catch (Exception e) {
 			result.setState(false);
-			result.setMessage("Fail");
+			result.setMessage("Error");
 		}
 		return result;
 	}
@@ -79,16 +90,22 @@ public class TargetAccountDAOImpl implements ITargetAccountDAO {
 		StateResult result = new StateResult();
 		try {
 			long idTarget = Long.parseLong(id);
-			String sql = "DELETE FROM TargetAccount t WHERE t.idtagrget = :idtagrget";
+			String sql = "DELETE FROM TargetAccount t WHERE t.idTarget = :idTarget";
 			Query query = em.createQuery(sql);
-			query.setParameter("idtagrget", idTarget);
-			query.executeUpdate();
+			query.setParameter("idTarget", idTarget);
+			int success = query.executeUpdate();
 			
-			result.setState(true);
-			result.setMessage("Success");
+			if (success == 0) {
+				result.setState(false);
+				result.setMessage("Fail");
+			} else {
+				result.setState(true);
+				result.setMessage("Success");
+			}
 		} catch (Exception e) {
 			result.setState(false);
-			result.setMessage("Fail");
+			result.setMessage("Error");
+			System.out.println(e);
 		}
 		return result;
 	}

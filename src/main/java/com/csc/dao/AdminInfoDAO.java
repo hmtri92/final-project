@@ -1,6 +1,6 @@
 package com.csc.dao;
 
-public interface AdminInfo {
+public interface AdminInfoDAO {
 
 	int getCountVerifyTransaction();
 	int getCountAccountNew();

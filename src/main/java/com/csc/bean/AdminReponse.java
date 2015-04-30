@@ -11,7 +11,7 @@ public class AdminReponse implements Serializable {
 	
 	private int countverifyTransaction;
 	private int countChangeStateNewToActive;
-	private int countChangeTateDisableToRemove;
+	private int countChangeStateDisableToRemove;
 	
 	public int getCountverifyTransaction() {
 		return countverifyTransaction;
@@ -29,11 +29,11 @@ public class AdminReponse implements Serializable {
 		this.countChangeStateNewToActive = countChangeStateNewToActive;
 	}
 	
-	public int getCountChangeTateDisableToRemove() {
-		return countChangeTateDisableToRemove;
+	public int getCountChangeStateDisableToRemove() {
+		return countChangeStateDisableToRemove;
 	}
 	
-	public void setCountChangeTateDisableToRemove(int countChangeTateDisableToRemove) {
-		this.countChangeTateDisableToRemove = countChangeTateDisableToRemove;
+	public void setCountChangeStateDisableToRemove(int countChangeTateDisableToRemove) {
+		this.countChangeStateDisableToRemove = countChangeTateDisableToRemove;
 	}
 }

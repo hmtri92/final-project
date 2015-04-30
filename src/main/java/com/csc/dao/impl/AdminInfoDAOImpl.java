@@ -6,11 +6,11 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.csc.dao.AdminInfo;
+import com.csc.dao.AdminInfoDAO;
 import com.csc.entities.State;
 
 @Repository
-public class AdminInfoImpl implements AdminInfo {
+public class AdminInfoDAOImpl implements AdminInfoDAO {
 
 	@PersistenceContext
 	EntityManager em;

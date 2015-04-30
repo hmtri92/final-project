@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.csc.bean.AdminReponse;
 import com.csc.dao.AccountDAO;
-import com.csc.dao.AdminInfo;
+import com.csc.dao.AdminInfoDAO;
 import com.csc.dao.FundDAO;
 import com.csc.dao.ITargetAccountDAO;
 import com.csc.dao.TransactionHistoryDAO;
@@ -40,7 +40,7 @@ public class FundServiceImpl implements FundService {
 	AccountDAO accountDao;
 	
 	@Autowired
-	AdminInfo adminInfo;
+	AdminInfoDAO adminInfoDao;
 	
 	@Override
 	@Transactional
@@ -184,7 +184,7 @@ public class FundServiceImpl implements FundService {
 		Account account = accountDao.getAccountById(idAccountTarget);
 		if (account == null) {
 			result.setState(false);
-			result.setMessage("Account not fund!");
+			result.setMessage("Account not found!");
 			return result;
 		}
 		
@@ -201,8 +201,12 @@ public class FundServiceImpl implements FundService {
 	@Transactional
 	public StateResult ignoreTransaction(long idTransaction) {
 		TransactionHistory tran = transactionDao.getTransaction(idTransaction);
-		
-		return transactionDao.changeStateTransaction(tran, State.DISABLE);
+		if (tran == null) {
+			StateResult result = new StateResult(false, "Error. Transaction not found!");
+			return result;
+		} else {
+			return transactionDao.changeStateTransaction(tran, State.DISABLE);
+		}
 	}
 
 	@Override
@@ -210,9 +214,9 @@ public class FundServiceImpl implements FundService {
 	public AdminReponse getHomeAdminInfo() {
 		AdminReponse result = new AdminReponse();
 		
-		result.setCountverifyTransaction(adminInfo.getCountVerifyTransaction());
-		result.setCountChangeStateNewToActive(adminInfo.getCountAccountNew());
-		result.setCountChangeTateDisableToRemove(adminInfo.getCountAccountDisable());
+		result.setCountverifyTransaction(adminInfoDao.getCountVerifyTransaction());
+		result.setCountChangeStateNewToActive(adminInfoDao.getCountAccountNew());
+		result.setCountChangeStateDisableToRemove(adminInfoDao.getCountAccountDisable());
 		
 		return result;
 	}

@@ -1,6 +1,6 @@
 package com.csc.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -15,8 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 
+import com.csc.bean.AdminReponse;
 import com.csc.dao.AccountDAO;
-import com.csc.dao.TransactionDAO;
 import com.csc.dao.TransactionHistoryDAO;
 import com.csc.entities.Account;
 import com.csc.entities.StateResult;
@@ -137,6 +137,7 @@ public class FundServiceImplTest {
 		assertEquals(transactionHistory.getState().getIdState(), 2);
 		Account acc = accountDao.getAccountById(transactionHistory.getSendAccount().getId());
 		assertEquals(money, acc.getAvailableAmount());
+		assertEquals(result.getState(), true);
 		
 		//withdraw
 		transactionHistory = transactionDao.getTransaction(3);
@@ -146,6 +147,7 @@ public class FundServiceImplTest {
 		assertEquals(transactionHistory.getState().getIdState(), 2);
 		acc = accountDao.getAccountById(transactionHistory.getSendAccount().getId());
 		assertEquals(money, acc.getAvailableAmount());
+		assertEquals(result.getState(), true);
 		
 		//transfer
 		transactionHistory = transactionDao.getTransaction(2);
@@ -158,6 +160,7 @@ public class FundServiceImplTest {
 		acc = accountDao.getAccountById(transactionHistory.getSendAccount().getId());
 		Account accTarget = accountDao.getAccountById(transactionHistory.getReceiveAccount().getId());
 		assertEquals(moneyTarget, accTarget.getAvailableAmount());
+		assertEquals(result.getState(), true);
 	}
 	
 	@Test
@@ -184,21 +187,50 @@ public class FundServiceImplTest {
 	
 	@Test
 	public void testModifyTarget() {
-		fail("Not yet implemented");
+		// null id target
+		StateResult result = null;
+		result = fundService.modifyTarget("00000000000", "012345678902", "Minh Tri");
+		assertEquals(result.getMessage(), "Error");
+		
+		// Account not found
+		result = fundService.modifyTarget("1", "00000000000", "Minh Tri");
+		assertEquals(result.getMessage(), "Account not found!");
+		
+		// Success
+		result = fundService.modifyTarget("1", "012345678903", "Minh Tri");
+		assertEquals(result.getMessage(), "Success");
 	}
 
 	@Test
 	public void testDeleteTarget() {
-		fail("Not yet implemented");
+		// Null target
+		StateResult result = fundService.deleteTarget("0");
+		assertEquals(result.getMessage(), "Fail");
+		
+		// Success
+		result = fundService.deleteTarget("1");
+		assertEquals(result.getMessage(), "Success");
+		
 	}
 
 	@Test
 	public void testIgnoreTransaction() {
-		fail("Not yet implemented");
+		StateResult result = null;
+		
+		// null id transaction
+		result = fundService.ignoreTransaction(0);
+		assertEquals(result.getMessage(), "Error. Transaction not found!");
+		
+		// Success
+		result = fundService.ignoreTransaction(1);
+		assertEquals(result.getMessage(), "Success");
 	}
 	
 	@Test
 	public void testGetHomeAdminInfo() {
-		fail("Not yet implemented");
+		AdminReponse result = fundService.getHomeAdminInfo();
+		assertEquals(result.getCountverifyTransaction(), 3);
+		assertEquals(result.getCountChangeStateNewToActive(), 0);
+		assertEquals(result.getCountChangeStateDisableToRemove(), 1);
 	}
 }

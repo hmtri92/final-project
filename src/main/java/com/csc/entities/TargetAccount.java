@@ -22,7 +22,7 @@ public class TargetAccount implements Serializable {
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
-	@Column(name = "idtagrget")
+	@Column(name = "idTarget")
 	private long idTarget;
 	
 	@Column (name = "name")
