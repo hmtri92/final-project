@@ -48,27 +48,27 @@
 							</div>
 							<div class="panel-body">
 								<dl class="dl-horizontal">
-									<dt>User Name</dt>
+									<dt>User Name:</dt>
 									<dd>${user.loginID}</dd>
-									<dt>ID Card Number</dt>
+									<dt>ID Card Number:</dt>
 									<dd>${user.idCardNumber}</dd>
 									<c:if test="${role == 'customer'}">
-										<dt>Balance amount</dt>
+										<dt>Balance amount:</dt>
 										<dd>${user.availableAmount}</dd>
 									</c:if>
-									<dt>Full name</dt>
+									<dt>Full name:</dt>
 									<dd>${user.firstName} ${user.midName} ${user.lastName}</dd>
-									<dt>Address 1</dt>
+									<dt>Address 1:</dt>
 									<dd>${user.address1}</dd>
-									<dt>Address 2</dt>
+									<dt>Address 2:</dt>
 									<dd>${user.address2}</dd>
-									<dt>Phone Number 1</dt>
+									<dt>Phone Number 1:</dt>
 									<dd>${user.phoneNum1}</dd>
-									<dt>Email 1</dt>
+									<dt>Email 1:</dt>
 									<dd>${user.phoneNum2}</dd>
-									<dt>Phone Number 2</dt>
+									<dt>Phone Number 2:</dt>
 									<dd>${user.email1}</dd>
-									<dt>Email 2</dt>
+									<dt>Email 2:</dt>
 									<dd>${user.email2}</dd>
 								</dl>
 							</div>
