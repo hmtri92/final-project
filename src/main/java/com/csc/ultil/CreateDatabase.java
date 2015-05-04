@@ -241,7 +241,6 @@ public class CreateDatabase {
 			em.persist(minhtri);
 			em.persist(pug);
 			em.persist(hung);
-			System.err.println("add customer successfully!");
 		} catch (Exception e) {}
 	}
 	

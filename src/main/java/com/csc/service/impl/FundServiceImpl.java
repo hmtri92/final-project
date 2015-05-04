@@ -21,8 +21,10 @@ import com.csc.entities.TargetAccount;
 import com.csc.entities.TransactionHistory;
 import com.csc.service.FundService;
 
-/*
- * Minh Tri
+/**
+ * 
+ * @author MinhTri
+ *
  */
 @Service
 public class FundServiceImpl implements FundService {
@@ -48,9 +50,12 @@ public class FundServiceImpl implements FundService {
 		return transactionDao.addFundTransaction(id, amount);
 	}
 
-	/*
+	/**
+	 * transfer from sendAccount_ID to targetAccount_ID with amount
+	 * @param sendAccount_ID
+	 * @param targetAccount_ID
+	 * @param amount
 	 * 
-	 * @see com.csc.service.FundService#transfer(java.lang.String, java.lang.String, java.math.BigDecimal)
 	 */
 	@Override
 	@Transactional
@@ -58,59 +63,90 @@ public class FundServiceImpl implements FundService {
 		StateResult result = new StateResult();
 		Account sendAccount = accountDao.getAccountById(sendAccount_ID);
 		Account targetAccount = accountDao.getAccountById(targetAccount_ID);
-				
+		
+		// check account
 		if (targetAccount == null || sendAccount == null) {
 			result.setState(false);
 			result.setMessage("Account not found!");
 			return result;
 		}
 		
+		// Check money and state in sendAccount
 		StateResult state = checkAccountSource(sendAccount, amount);
 		if (!state.getState()) {
 			return state;
 		}
 		
+		// Add transaction transfer to TransactionHistory
 		return transactionDao.saveTransfer(sendAccount, targetAccount, amount);
 	}
 
+	/**
+	 * transfer from sendAccount_ID to account in targetAccount with amount
+	 * @param sendAccount_ID
+	 * @param targetAccount_ID
+	 * @param amount
+	 */
 	@Override
 	@Transactional
 	public StateResult transferTargetID(String sendAccount_ID, String targetAccount_ID,
 			BigDecimal amount) {
 		
+		// get sendAccount
 		Account sendAccount = accountDao.getAccountById(sendAccount_ID);
 		
+		// check atate and money of sendAccount
 		StateResult state = checkAccountSource(sendAccount, amount);
 		if (!state.getState()) {
 			return state;
 		}
 		
+		// Get account target in TargetAccount
 		TargetAccount target = targetAccountDao.getTargetAccountById(targetAccount_ID);
 		Account targetAccount = target.getAccountTarget();
 		
+		// Add transaction transfer to TransactionHistory
 		return transactionDao.saveTransfer(sendAccount, targetAccount, amount);
 	}
 
+	/**
+	 * withdraw account with amount
+	 * @param account_id
+	 * @param amount
+	 * @return StateResult
+	 */
 	@Override
 	@Transactional
 	public StateResult withdraw(String account_id, BigDecimal amount) {
 		
+		// get Account by account_id
 		Account account = accountDao.getAccountById(account_id);
 		
+		// check state and amount in account
 		StateResult state = checkAccountSource(account, amount);
 		if (!state.getState()) {
 			return state;
 		}
 		
+		// Add transaction withdraw to TransactionHistory
 		return transactionDao.withdrawTransaction(account, amount);
 	}
 
+	/**
+	 * get all transaction have new state
+	 * @return List<TransactionHistory>
+	 */
 	@Override
 	@Transactional
 	public List<TransactionHistory> getNewTransaction() {
 		return transactionDao.getNewTransaction();
 	}
 
+	/**
+	 * verify transaction by id
+	 * @param idTransaction
+	 * @return StateResult
+	 */
 	@Override
 	@Transactional
 	public StateResult verifyTransaction(long idTransaction) {
@@ -120,11 +156,15 @@ public class FundServiceImpl implements FundService {
 		try {
 			TransactionHistory transaction = transactionDao.getTransaction(idTransaction);
 			
-			
+			// if transaction is add_fund
 			if (transaction.getTypeTransaction() == TransactionHistory.ADD_FUND)
 			{
 				result = fundDao.addFund(transaction.getSendAccount(), transaction.getAmount());
+				
 			} else if (transaction.getTypeTransaction() == TransactionHistory.TRANSFER) {
+				// if transaction is transfer
+				
+				// Check state account and money
 				result = checkAccountSource(transaction.getSendAccount(), transaction.getAmount());
 				if (!result.getState()) {
 					return result;
@@ -133,6 +173,9 @@ public class FundServiceImpl implements FundService {
 				result = fundDao.transfer(transaction.getSendAccount(), 
 						transaction.getReceiveAccount(), transaction.getAmount());
 			} else {
+				//else transaction is withdraw
+				
+				//Check state account and money
 				result = checkAccountSource(transaction.getSendAccount(), transaction.getAmount());
 				if (!result.getState()) {
 					return result;
@@ -152,18 +195,30 @@ public class FundServiceImpl implements FundService {
 		
 		return result;
 	}
-
+	
+	/**
+	 * get list target Account by owner
+	 * @param idAccountOwner
+	 * @see com.csc.service.FundService#getListTargetByAccountOwnerId(java.lang.String)
+	 * @return List<TargetAccount>
+	 */
 	@Override
 	public List<TargetAccount> getListTargetByAccountOwnerId(String id) {
 		return targetAccountDao.getListTargetByAccountOwnerId(id);
 	}
 
+	/**
+	 * add target account in to account owner
+	 * @param idAccountOwner, idAccountTarget, name
+	 * @return StateResult
+	 */
 	@Override
 	@Transactional
 	public StateResult addTargetAccount(String idAccountOwner,
 			String idAccountTarget, String name) {
 		StateResult result = new StateResult();
 		
+		// check account
 		Account accountOwner = accountDao.getAccountById(idAccountOwner);
 		Account accountTarget = accountDao.getAccountById(idAccountTarget);
 		if (accountTarget == null || accountOwner == null) {
@@ -172,9 +227,15 @@ public class FundServiceImpl implements FundService {
 			return result;
 		}
 		
+		// add targetAccount in TargetAccount
 		return targetAccountDao.addTargetAccount(idAccountOwner, idAccountTarget, name);
 	}
 
+	/**
+	 * modify targetAccount
+	 * @param idtargetAccount, idAccountTarget, name
+	 * @return StateResult
+	 */
 	@Override
 	@Transactional
 	public StateResult modifyTarget(String id, String idAccountTarget,
@@ -191,12 +252,20 @@ public class FundServiceImpl implements FundService {
 		return targetAccountDao.modifyTarget(id, idAccountTarget, name);
 	}
 
+	/**
+	 * delete targetAccount
+	 * @param idtarget
+	 */
 	@Override
 	@Transactional
 	public StateResult deleteTarget(String id) {
 		return targetAccountDao.deleteTarget(id);
 	}
 
+	/**
+	 * ignore transaction by idtransaction
+	 * @param idTransaction
+	 */
 	@Override
 	@Transactional
 	public StateResult ignoreTransaction(long idTransaction) {
@@ -209,6 +278,11 @@ public class FundServiceImpl implements FundService {
 		}
 	}
 
+	/**
+	 * get infomation in home page admin
+	 * count transaction new state. count change state account
+	 * @return bean AdminReponse
+	 */
 	@Override
 	@Transactional
 	public AdminReponse getHomeAdminInfo() {
@@ -221,6 +295,12 @@ public class FundServiceImpl implements FundService {
 		return result;
 	}
 	
+	/**
+	 * check state and money account
+	 * @param account
+	 * @param amount
+	 * @return
+	 */
 	private StateResult checkAccountSource(Account account, BigDecimal amount) {
 		StateResult result = new StateResult();
 		

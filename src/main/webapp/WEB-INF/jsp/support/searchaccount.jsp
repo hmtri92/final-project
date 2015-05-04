@@ -78,7 +78,6 @@
 			keyword = $("#keyInput").val();
 		}
 		
-		alert(keyword);
 		
 		$.ajax ({
 			type : "POST",
@@ -94,9 +93,9 @@
 				}
 		});	 
 	}
-	
+
 function test(){
-	alert("asdasdasd");
+	$("#message").css("display","none");
 	
 }
 </script>
@@ -151,12 +150,12 @@ function test(){
 										<div class="form-group">
 											<label class="control-label">Account State</label>
 											<select id="stateAccount" name="stateAccount"
-														class="form-control">
+														class="form-control" onchange="changeValue(this)">
 													<option value="1" onclick="changeValue(this)">NEW</option>
-													<option value="2" onclick="changeValue(this)">ACTIVE</option>
-													<option value="3" onclick="changeValue(this)">DISABLE</option>
-													<option value="4" onclick="changeValue(this)">REMOVABLE</option>
-													<option value="5" onclick="changeValue(this)">REMOVED</option>																											
+													<option value="2" >ACTIVE</option>
+													<option value="3" >DISABLE</option>
+													<option value="4" >REMOVABLE</option>
+													<option value="5" >REMOVED</option>																											
 											</select>
 										</div>
 									</div>									
@@ -165,11 +164,11 @@ function test(){
 									<div class="col-md-4 hiddable"  id="typeInput"  style="display:none">
 										<div class="form-group">
 											<label class="control-label">Account Type</label>
-											<select id="typeAccount" name="typeAccount" onchange=""
+											<select id="typeAccount" name="typeAccount" onchange="changeValue(this)"
 														class="form-control">
 													<option value="1" onclick="changeValue(this)">DEPOSIT</option>
-													<option value="2" onclick="changeValue(this)">SAVING</option>
-													<option value="3" onclick="changeValue(this)">OTHER</option>														
+													<option value="2">SAVING</option>
+													<option value="3">OTHER</option>														
 											</select>
 										</div>
 									</div>									

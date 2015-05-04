@@ -1,6 +1,5 @@
 package com.csc.controller;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,12 @@ import com.csc.entities.User;
 import com.csc.service.AccountService;
 import com.csc.service.UserService;
 
+/**
+ * 
+ * @author MinhTri
+ * Login success and goHome
+ *
+ */
 @Controller
 @SessionAttributes({ "username", "role", "id", "countLogin", "user" })
 public class LoginController {
@@ -37,14 +42,20 @@ public class LoginController {
 		return "login_soft";
 	}
 
-	// 
+	/**
+	 * set Session attributes
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/home")
 	public String goHome(HttpServletRequest request, Model model) {
 		logger.info("Go Home!");
-		String url = "";
+		
 		// Get username - add session user
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
+		
 		// ID user in db
 		String id = user.getUsername();
 
@@ -56,7 +67,7 @@ public class LoginController {
 		// Get role - add session rolesuser
 		Collection<GrantedAuthority> authorities = user.getAuthorities();
 		
-		// Set attempts
+		// Set attempts 0
 		userEntity.setAttempts(0);
 		userService.editUserprofile(userEntity);
 		
@@ -64,8 +75,7 @@ public class LoginController {
 		model.addAttribute("countLogin", 0);
 		
 
-		// Redirect
-
+		// set role attribute
 		if (authorities.toString().contains("ROLE_ADMIN")) {
 			model.addAttribute("role", "admin");
 
@@ -74,16 +84,6 @@ public class LoginController {
 
 		} else if (authorities.toString().contains("CUSTOMER")) {
 			model.addAttribute("role", "customer");
-
-			try {
-				BigDecimal availableAmount = accountService.getAccountById(id)
-						.getAvailableAmount();
-				model.addAttribute("availableAmount",
-						availableAmount.toString());
-			} catch (Exception e) {
-				model.addAttribute("availableAmount", "0");
-			}
-
 		} else if (authorities.toString().contains("REPORT_SUPPORT")) {
 			model.addAttribute("role", "report_support");
 
@@ -92,9 +92,8 @@ public class LoginController {
 		}
 
 		model.addAttribute("user", userEntity);
-		url = "forward:/userhome";
 
-		return url;
+		return "forward:/userhome";
 	}
 
 	@RequestMapping(value = {"/userhome","user/userHome","admin/userhome","support/userhome"}, 
@@ -105,6 +104,12 @@ public class LoginController {
 		return model;
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param model
+	 * @return login_soft.jsp
+	 */
 	@RequestMapping (value = "/loginfail", method = { RequestMethod.GET, RequestMethod.POST})
 	public String loginFail(HttpServletRequest request, Model model) {
 

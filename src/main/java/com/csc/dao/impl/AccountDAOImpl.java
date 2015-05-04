@@ -165,22 +165,22 @@ public class AccountDAOImpl implements AccountDAO {
 			sql1 = "SELECT a.id FROM Account a";
 			break;
 		case 2:
-			sql1 = "SELECT a.idCardNumber FROM Account a";
+			sql1 = "SELECT DISTINCT a.idCardNumber FROM Account a";
 			break;
 		case 3:
-			sql1 = "SELECT CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName)  FROM Account a";
+			sql1 = "SELECT DISTINCT CONCAT( a.firstName, ' ', a.midName, ' ', a.lastName)  FROM Account a";
 			break;
 		case 6:
-			sql1 = "SELECT a.phoneNum1 FROM Account a";
-			sql2 = "SELECT a.phoneNum2 FROM Account a";			
+			sql1 = "SELECT DISTINCT a.phoneNum1 FROM Account a";
+			sql2 = "SELECT DISTINCT a.phoneNum2 FROM Account a";			
 			break;
 		case 7:
-			sql1 = "SELECT a.address1 FROM Account a";
-			sql2 = "SELECT a.address2 FROM Account a";
+			sql1 = "SELECT DISTINCT a.address1 FROM Account a";
+			sql2 = "SELECT DISTINCT a.address2 FROM Account a";
 			break;
 		case 8:
-			sql1 = "SELECT a.email1 FROM Account a";
-			sql2 = "SELECT a.email2 FROM Account a";
+			sql1 = "SELECT DISTINCT a.email1 FROM Account a";
+			sql2 = "SELECT DISTINCT a.email2 FROM Account a";
 			break;
 		default:
 			break;
@@ -257,12 +257,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		List<Account> result = null;
 		
-		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		String sql = "SELECT a FROM Account a WHERE a.typeAccount.idType = :key";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
-		query.setParameter("key1", key  + "%");
-		query.setParameter("key2", "%" +  key);
-		query.setParameter("key3", "%" + key + "%");
-				
+		query.setParameter("key", Integer.parseInt(key));
+	
 		result = query.getResultList();		
 		
 		return result;
@@ -273,12 +271,10 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		List<Account> result = null;
 		
-		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		String sql = "SELECT a FROM Account a WHERE a.state.idState = :key";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
-		query.setParameter("key1", key  + "%");
-		query.setParameter("key2", "%" +  key);
-		query.setParameter("key3", "%" + key + "%");
-				
+		query.setParameter("key", Integer.parseInt(key));
+	
 		result = query.getResultList();		
 		
 		return result;
@@ -289,7 +285,8 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		List<Account> result = null;
 		
-		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		String sql = "SELECT a FROM Account a WHERE a.phoneNum1 LIKE :key1 OR a.phoneNum1 LIKE :key2 OR a.phoneNum1 LIKE :key3 "
+				+ "OR a.phoneNum2 LIKE :key1 OR a.phoneNum2 LIKE :key2 OR a.phoneNum2 LIKE :key3 ";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("key1", key  + "%");
 		query.setParameter("key2", "%" +  key);
@@ -305,7 +302,8 @@ public class AccountDAOImpl implements AccountDAO {
 		// TODO Auto-generated method stub
 		List<Account> result = null;
 		
-		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		String sql = "SELECT a FROM Account a WHERE a.address1 LIKE :key1 OR a.address1 LIKE :key2 OR a.address1 LIKE :key3 "
+				+ "OR a.address2 LIKE :key1 OR a.address2 LIKE :key2 OR a.address2 LIKE :key3 ";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("key1", key  + "%");
 		query.setParameter("key2", "%" +  key);
@@ -319,9 +317,10 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public List<Account> searchAccountByEmail(String key) {
 		// TODO Auto-generated method stub
-		List<Account> result = null;
+List<Account> result = null;
 		
-		String sql = "SELECT a FROM Account a WHERE a.id LIKE :key1 OR a.id LIKE :key2 OR a.id LIKE :key3";
+		String sql = "SELECT a FROM Account a WHERE a.email1 LIKE :key1 OR a.email1 LIKE :key2 OR a.email1 LIKE :key3 "
+				+ "OR a.email2 LIKE :key1 OR a.email2 LIKE :key2 OR a.email2 LIKE :key3 ";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("key1", key  + "%");
 		query.setParameter("key2", "%" +  key);
@@ -329,7 +328,8 @@ public class AccountDAOImpl implements AccountDAO {
 				
 		result = query.getResultList();		
 		
-		return result;
+		return result;	
+		
 	}
 
 	@Override

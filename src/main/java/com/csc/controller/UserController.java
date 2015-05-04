@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.csc.entities.BalanceAmount;
+import com.csc.entities.Role;
 import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 import com.csc.service.UserService;
@@ -66,7 +67,22 @@ public class UserController {
 	
 	@RequestMapping (value = "/viewprofile")
 	public String viewProfile(HttpServletRequest request, Model model){
-		User user = userService.getUserByLoginId(request.getSession().getAttribute("username").toString());
+		HttpSession session = request.getSession();
+		
+		String role = (String) session.getAttribute("role");
+		
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("chosenaccount");
+			if (userID == null) {
+				return "support/searchaccount";
+			}
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
+		
+		User user = userService.getUserByID(userID);
 		
 		model.addAttribute("user", user);
 		
@@ -77,10 +93,20 @@ public class UserController {
 	public String viewuserlog(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
 		
-		String userID = (String) session.getAttribute("id");
+		String role = (String) session.getAttribute("role");
 		
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("chosenaccount");
+			if (userID == null) {
+				return "support/searchaccount";
+			}
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
+				
 		List<TransactionHistory> listTransaction = null;
-		
 		
 		listTransaction = userService.getTransactionByUserId(userID, 2);
 		
@@ -102,12 +128,28 @@ public class UserController {
 	
 	@RequestMapping (value = "/user/viewbalance", method = RequestMethod.GET)
 	public String viewbalancelog(HttpServletRequest request, Model model){
+		
+		HttpSession session = request.getSession();
+		
+		String role = (String) session.getAttribute("role");
+
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("chosenaccount");
+			if (userID == null) {
+				return "support/searchaccount";
+			}
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
+		
 		List<BalanceAmount> listBalance = null;
 		
-		listBalance = userService.getBalanceLogByUserId("123456789012");
+		listBalance = userService.getBalanceLogByUserId(userID);
 		
 		
-		model.addAttribute("accountNumber", "123456789012");
+		model.addAttribute("accountNumber", userID);
 		if (listBalance == null) {
 			model.addAttribute("listBalance", new ArrayList<BalanceAmount>());
 			model.addAttribute("RESULT", "No result found");

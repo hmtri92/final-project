@@ -22,6 +22,11 @@ import com.csc.service.AccountService;
 import com.csc.service.FundService;
 import com.csc.service.UserService;
 
+/**
+ * 
+ * @author MinhTri
+ * @Method: addFund, transfer by support, transfer by user, transfer in target by User, withdraw
+ */
 @Controller
 @SessionAttributes({"username", "role", "id" })
 public class FundsController {
@@ -40,6 +45,13 @@ public class FundsController {
 		return "support/addFunds";
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @return Account
+	 * getAccountById: get infomation
+	 */
 	@RequestMapping (value = "/support/getAccountById", method={RequestMethod.POST, RequestMethod.GET})
 	@ResponseBody
 	public Account getAccountById(HttpServletRequest request, HttpServletResponse response) {
@@ -49,6 +61,11 @@ public class FundsController {
 		return account;
 	}
 	
+	/**
+	 * addFund by accountId, amount to account
+	 * Use @ResponseBody: call by ajax
+	 * @return: message
+	 */
 	@RequestMapping (value = "/support/addFund", method = RequestMethod.POST)
 	@ResponseBody
 	public String addFund(HttpServletRequest request, HttpServletResponse response) {
@@ -65,7 +82,11 @@ public class FundsController {
 		return "support/transferNew";
 	}
 	
-	
+	/**
+	 * Transfer by support
+	 * @param sendAccount, targetAccount, amount
+	 * @return: StateResult(Account not found!, Success or fail)
+	 */
 	@RequestMapping (value = "/support/transferBySupport", method=RequestMethod.POST)
 	@ResponseBody
 	public StateResult transferBySupport(HttpServletRequest request, HttpServletResponse response) {
@@ -81,6 +102,13 @@ public class FundsController {
 		return "users/transfer";
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return: message result
+	 */
 	@RequestMapping (value = "/user/viewTransferTarget", method=RequestMethod.GET)
 	public ModelAndView viewTransferTarget (@ModelAttribute( value = "id") String id, 
 			HttpServletRequest request, HttpServletResponse response){
@@ -94,7 +122,11 @@ public class FundsController {
 		return model;
 	}
 	
-	
+	/**
+	 * Ajax call
+	 * Transfer by user, get idUser in session, targetAccount and amount from client
+	 * @return: StateResult(Account not found!, Success or fail)
+	 */
 	@RequestMapping (value = "/user/transferByUser", method=RequestMethod.POST)
 	@ResponseBody
 	public StateResult transferByUser (@ModelAttribute( value = "id") String id,
@@ -105,6 +137,13 @@ public class FundsController {
 		return fundService.transfer(id, targetAccount, amount);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @param request
+	 * @param response
+	 * @return: StateResult(Account not found!, Success or fail)
+	 */
 	@RequestMapping (value = "/user/transferTargetID", method=RequestMethod.POST)
 	@ResponseBody
 	public StateResult transferTargetID(@ModelAttribute( value = "id") String id,
@@ -120,6 +159,15 @@ public class FundsController {
 		return "support/withdraw";
 	}
 	
+	/**
+	 * By support
+	 * get accountNumber, amount from client
+	 * @return StateResult
+	 * 	if availableAmount - sendAmount < 50000 return: The amount in the account is not enough to transfer
+	 * 	if Account not active return: Account is not ACTIVE
+	 * 	if account not found return: Account not found!
+	 * 	if success return: Success.
+	 */
 	@RequestMapping (value = "/support/withdraw", method = RequestMethod.POST)
 	@ResponseBody
 	public StateResult withdraw(HttpServletRequest request, HttpServletResponse response) {

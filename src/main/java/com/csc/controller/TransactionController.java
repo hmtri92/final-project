@@ -17,6 +17,11 @@ import com.csc.entities.StateResult;
 import com.csc.entities.TransactionHistory;
 import com.csc.service.FundService;
 
+/**
+ * 
+ * @author MinhTri
+ * verify and ignore transaction
+ */
 @Controller
 @SessionAttributes({"username", "role" })
 public class TransactionController {
@@ -24,6 +29,9 @@ public class TransactionController {
 	@Autowired
 	FundService fundService;
 	
+	/**
+	 * @return all transacion have state new
+	 */
 	@RequestMapping (value = "/admin/viewVerifyTransaction", method = RequestMethod.GET)
 	public ModelAndView verifyTransaction(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView model = new ModelAndView("admin/verifyTransaction");
@@ -35,6 +43,13 @@ public class TransactionController {
 		return model;
 	}
 	
+	/**
+	 * verify transaction by IdTransaction
+	 * @return StateResult
+	 * @return if id not found: return Transaction not found!
+	 * @return if success: return Success
+	 * @return if error: return message error.
+	 */
 	@RequestMapping (value = "/admin/verifyTransaction", method = RequestMethod.POST)
 	@ResponseBody
 	public StateResult doVerifyTransaction(HttpServletRequest request, HttpServletResponse response) {
@@ -44,6 +59,10 @@ public class TransactionController {
 		return fundService.verifyTransaction(idTransaction);
 	}
 	
+	/**
+	 * ignore transaction
+	 * @return StateResult: message and state(true, false)
+	 */
 	@RequestMapping (value = "/admin/ignoreTransaction", method = RequestMethod.POST)
 	@ResponseBody
 	public StateResult doIgnoreTransaction(HttpServletRequest request, HttpServletResponse response) {

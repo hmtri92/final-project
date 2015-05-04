@@ -32,6 +32,8 @@
 		
 		<!-- ROLE_SUPPORT -->
 		<intercept-url pattern="/support/**" access="hasRole('ACCOUNT_SUPPORT')"/>
+		<intercept-url pattern="/user/viewbalance" access="hasRole('ACCOUNT_SUPPORT')"/>
+		<intercept-url pattern="/user/viewlog" access="hasRole('ACCOUNT_SUPPORT')"/>
 		
 		<!-- ROLE_USER -->
 		<intercept-url pattern="/user/**" access="hasRole('CUSTOMER')"/>
