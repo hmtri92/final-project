@@ -16,6 +16,11 @@ import com.csc.entities.State;
 import com.csc.entities.StateResult;
 import com.csc.entities.TransactionHistory;
 
+/**
+ * 
+ * @author MinhTri
+ * Create transactionHistory
+ */
 @Repository
 public class TransactionHistoryDAOImpl implements TransactionHistoryDAO {
 

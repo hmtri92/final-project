@@ -11,5 +11,7 @@ public interface BalanceDAO {
 
 	List<BalanceAmount> getBalanceByDateRange(String userID, Date dateFrom,
 			Date dateTo);
+	
+	
 
 }

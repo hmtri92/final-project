@@ -8,6 +8,12 @@ import com.csc.entities.User;
 public interface AccountDAO {
 	boolean addAccount(Account account, int idRole, int idType);
 
+	/**
+	 * @author MinhTri
+	 * get account by id
+	 * @param id
+	 * @return
+	 */
 	public Account getAccountById(String id);
 
 	public Account updateStateAccountById(String id, int state);

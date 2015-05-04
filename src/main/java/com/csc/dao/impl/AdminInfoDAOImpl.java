@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.csc.dao.AdminInfoDAO;
 import com.csc.entities.State;
 
+/**
+ * 
+ * @author MinhTri
+ *
+ */
 @Repository
 public class AdminInfoDAOImpl implements AdminInfoDAO {
 

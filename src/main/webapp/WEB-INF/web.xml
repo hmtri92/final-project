@@ -29,9 +29,14 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
-    <context-param>
+	<context-param>
  		<param-name>contextConfigLocation</param-name>
  		<param-value>/WEB-INF/config/spring-context.xml</param-value>
+ 	</context-param>
+ 	
+    <context-param>
+ 		<param-name>contextQuartz</param-name>
+ 		<param-value>/WEB-INF/config/quartz-context.xml</param-value>
  	</context-param>
     
     <listener>

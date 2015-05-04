@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.csc.dao.BalanceDAO;
 import com.csc.dao.TransactionDAO;
 import com.csc.dao.UserDAO;
+import com.csc.dao.UtilDAO;
 import com.csc.entities.BalanceAmount;
 import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
@@ -32,6 +33,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	BalanceDAO balanceDAO;
+	
+	@Autowired
+	UtilDAO utilDAO;
 
 	@Override
 	public User getUserInfo(String userId) {
@@ -58,7 +62,7 @@ public class UserServiceImpl implements UserService{
 		
 		user.setPassword(PasswordUtils.encodePassword(newPassword));
 		
-		boolean result = userDao.changeInfo(user);
+		boolean result = utilDAO.updateEntity(user);
 		
 		if (result) {
 			return "SUCCESS: The password is changed successfully!";
@@ -87,7 +91,7 @@ public class UserServiceImpl implements UserService{
 		user.setPhoneNum2(phone2);
 		user.setEmail2(email2);
 		
-		boolean result = userDao.changeInfo(user);
+		boolean result = utilDAO.updateEntity(user);
 		
 		if (result) {
 			return "SUCCESS: The information is updated successfully!";

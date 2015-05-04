@@ -11,22 +11,24 @@ import org.springframework.stereotype.Repository;
 
 import com.csc.dao.FundDAO;
 import com.csc.entities.Account;
-import com.csc.entities.State;
 import com.csc.entities.StateResult;
 import com.csc.entities.TargetAccount;
 
+/**
+ * 
+ * @author MinhTri
+ *
+ */
 @Repository
 public class FundDAOImpl implements FundDAO {
 
 	@PersistenceContext
 	EntityManager em;
 	
-	@Override
-	public Account getAccountById(String accountNumber) {
-		Account account = em.find(Account.class, accountNumber);
-		return account;
-	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.FundDAO#addFund(com.csc.entities.Account, java.math.BigDecimal)
+	 */
 	@Override
 	public StateResult addFund(Account account, BigDecimal amount) {
 		StateResult state = new StateResult();
@@ -45,6 +47,10 @@ public class FundDAOImpl implements FundDAO {
 		return state;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.FundDAO#transfer(com.csc.entities.Account, com.csc.entities.Account, java.math.BigDecimal)
+	 */
 	@Override
 	public StateResult transfer(Account sendAccount, Account targetAccount, BigDecimal amount) {
 		StateResult state = new StateResult();
@@ -67,6 +73,10 @@ public class FundDAOImpl implements FundDAO {
 		return state;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.FundDAO#getTargetAccount(java.lang.String)
+	 */
 	@Override
 	public List<TargetAccount> getTargetAccount(String id) {
 		try {
@@ -83,6 +93,10 @@ public class FundDAOImpl implements FundDAO {
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.FundDAO#withdraw(com.csc.entities.Account, java.math.BigDecimal)
+	 */
 	@Override
 	public StateResult withdraw(Account account, BigDecimal amount) {
 		StateResult state = new StateResult();
