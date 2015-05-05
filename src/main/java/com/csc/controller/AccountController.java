@@ -90,12 +90,13 @@ public class AccountController {
 		user.setPhoneNum2(phoneNum2);
 		user.setPassword(passwordEncode);
 		user.setLoginID(loginId);
-
+//check account
 		Account existedAccount = accountService.getAccountById(accountNumber);
 
 		if (existedAccount == null) {
 			boolean result = accountService.checkLoginid(loginId);
 			if (!result) {
+				// them account
 				accountService.addUser(user, role, typeAccount);
 				// accountService.addUser(accountNumber, state, role,
 				// idCardNumber, pass2, loginId);

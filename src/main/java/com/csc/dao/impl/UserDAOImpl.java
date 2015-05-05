@@ -2,6 +2,8 @@ package com.csc.dao.impl;
 
 
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -18,7 +20,6 @@ public class UserDAOImpl implements UserDAO{
 	EntityManager em;
 	
 	@Override
-	@Transactional
 	public boolean changeInfo(User user) {
 		// TODO Auto-generated method stub
 		try {
@@ -41,11 +42,18 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	@Transactional
 	public User getUserByLoginID(String loginId) {
 		String sql = "SELECT u FROM User u WHERE u.loginID = :loginId";
 		TypedQuery<User> query = em.createQuery(sql, User.class);
 		query.setParameter("loginId", loginId);
 		return query.getSingleResult();
+	}
+
+	@Override
+	public List<User> getAllUser() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT u FROM User u";
+		TypedQuery<User> query = em.createQuery(sql, User.class);
+		return query.getResultList();
 	}
 }

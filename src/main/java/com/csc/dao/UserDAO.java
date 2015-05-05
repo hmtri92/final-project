@@ -1,5 +1,7 @@
 package com.csc.dao;
 
+import java.util.List;
+
 import com.csc.entities.User;
 
 public interface UserDAO {
@@ -9,4 +11,6 @@ public interface UserDAO {
 	public User getUserByID(String id);
 	
 	User getUserByLoginID(String loginId);
+	
+	List<User> getAllUser();
 }

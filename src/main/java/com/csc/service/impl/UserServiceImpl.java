@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,7 +24,6 @@ import com.csc.service.UserService;
 import com.csc.ultil.PasswordUtils;
 
 @Service
-@SessionAttributes({ "customer", "role", "id" })
 public class UserServiceImpl implements UserService{
 	
 	@Autowired
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override	
+	@Transactional
 	public String changePassword(String id, String oldPassword,
 			String newPassword) {
 		// TODO Auto-generated method stub
@@ -71,6 +73,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	@Transactional
 	public String editUserInfo(String id, String firstName, String midName,
 			String lastName, String address2, String phone2, String email2) {
 		
@@ -177,6 +180,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	@Transactional
 	public boolean editUserprofile(User user) {
 		return userDao.changeInfo(user);
 	}

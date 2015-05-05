@@ -7,9 +7,10 @@
  
     <context:component-scan base-package="com.csc" />
 
-<!-- For times when you need more complex processing, passing data to the scheduled job -->
+
+	<!-- For times when you need more complex processing, passing data to the scheduled job -->
     <bean name="complexJobDetail"    class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-        <property name="jobClass" value="com.csc.service.impl.ScheduledServiceImpl" />        
+        <property name="jobClass" value="com.csc.ultil.AutoUpdateBalanceHistory" />        
         <property name="durability" value="true" />
     </bean> 
  
@@ -22,6 +23,12 @@
  
     <!-- Scheduler factory bean to glue together jobDetails and triggers to Configure Quartz Scheduler -->
     <bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    	<property name="schedulerContextAsMap">
+		<map>
+		   <entry key="scheduledService" value-ref="scheduledService" />
+		</map>
+		</property>
+    	
         <property name="jobDetails">
             <list>                
                 <ref bean="complexJobDetail" />

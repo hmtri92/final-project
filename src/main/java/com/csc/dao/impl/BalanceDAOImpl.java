@@ -1,5 +1,6 @@
 package com.csc.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +9,13 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.csc.dao.BalanceDAO;
+import com.csc.entities.Account;
 import com.csc.entities.BalanceAmount;
 
-@Repository
+@Repository("balanceDAO")
 public class BalanceDAOImpl implements BalanceDAO {
 	
 	@PersistenceContext
@@ -49,5 +52,19 @@ public class BalanceDAOImpl implements BalanceDAO {
 		
 		return result;
 	}
+
+	@Override
+	public List<BalanceAmount> getAllBalanceHistory() {
+		// TODO Auto-generated method stub
+		List<BalanceAmount> result = null;
+		
+		TypedQuery<BalanceAmount> query = em.createQuery("SELECT b FROM BalanceAmount b ", BalanceAmount.class);	
+		
+		result = query.getResultList();
+		
+		return result;
+	}
+
+	
 
 }

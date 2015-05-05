@@ -15,9 +15,13 @@ import com.csc.entities.Role;
 import com.csc.entities.State;
 import com.csc.entities.TypeAccount;
 import com.csc.entities.User;
+/**
+ * 
+ * @author Quocanh
+ *
+ */
 
-
-@Repository
+@Repository("accountDAO")
 public class AccountDAOImpl implements AccountDAO {
 	@PersistenceContext
 	EntityManager em;
@@ -35,12 +39,19 @@ public class AccountDAOImpl implements AccountDAO {
 	
 		return true;
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#getAccountById(java.lang.String)
+	 */
 	@Override
 	public Account getAccountById(String id) {
 		return em.find(Account.class, id);
+		//get account by id 
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#updateStateAccountById(java.lang.String, int)
+	 */
 	@Override
 	@Transactional
 	public Account updateStateAccountById(String id,int idstate) {
@@ -48,15 +59,18 @@ public class AccountDAOImpl implements AccountDAO {
 			State state = em.find(State.class, idstate);
 			account.setState(state);
 			em.persist(account);
-			
+			//change State
 			return account;
 	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#updateAccount(java.lang.String, int, int, java.lang.String, java.lang.String, java.lang.String, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	@Transactional
 	public Account updateAccount(String id, int idstate, int idRole,String firtname,String lastname,String midname,
 			int idType,String email1,String email2,String address1,String address2,String phoneNumber1,String phoneNumber2,String idcardNumber) {
-		
+		//modify account
 			Account account = em.find(Account.class, id);
 			State state = em.find(State.class, idstate);
 			TypeAccount type = em.find(TypeAccount.class, idType);
@@ -75,41 +89,56 @@ public class AccountDAOImpl implements AccountDAO {
 			em.persist(account);
 			return account;
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#getStateNew()
+	 */
 	@Override
 	@Transactional
 	public List<Account> getStateNew() {
 		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("state", State.NEW);
-		
+		//.get state new
 		List<Account> listState = query.getResultList();
 		
 		return listState;
 		
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#getStateDis()
+	 */
 	@Override
 	@Transactional
 	public List<Account> getStateDis() {
 		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("state", State.DISABLE);
-		
+		//get state Disable
 		List<Account> listState = query.getResultList();
 		
 		return listState;		
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#getStateActive()
+	 */
 	@Override
 	@Transactional
 	public List<Account> getStateActive() {
 		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("state", State.ACTIVE);
-		
+		//get state acctive
 		List<Account> listState = query.getResultList();
 		
 		return listState;		
 	}
-
+/*
+ * (non-Javadoc)
+ * @see com.csc.dao.AccountDAO#addUser(com.csc.entities.User, int, int)
+ */
 	@Override
 	@Transactional
 	public boolean addUser(User user, int idRole, int idType) {
@@ -125,7 +154,10 @@ public class AccountDAOImpl implements AccountDAO {
 	
 		return true;
 	}
-
+/*
+ * (non-Javadoc)
+ * @see com.csc.dao.AccountDAO#getAllUser()
+ */
 	@Override
 	public List<User> getAllUser() {
 		String sql = "SELECT t FROM User t ";
@@ -135,7 +167,10 @@ public class AccountDAOImpl implements AccountDAO {
 		
 		return listUser;		
 	}
-
+/*
+ * (non-Javadoc)
+ * @see com.csc.dao.AccountDAO#checkLoginid(java.lang.String)
+ */
 	@Override
 	public boolean checkLoginid(String LoginId) {
 		try {
@@ -154,7 +189,10 @@ public class AccountDAOImpl implements AccountDAO {
 		}
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * @see com.csc.dao.AccountDAO#getRecomendedKeyList(int)
+	 */
 	@Override
 	public List<String> getRecomendedKeyList(int searchType) {
 		String sql1 = null;
@@ -331,14 +369,17 @@ List<Account> result = null;
 		return result;	
 		
 	}
-
+/*
+ * (non-Javadoc)
+ * @see com.csc.dao.AccountDAO#getStateRemvo()
+ */
 	@Override
 	@Transactional
 	public List<Account> getStateRemvo() {
 		String sql = "SELECT t FROM Account t WHERE t.state.idState = :state";
 		TypedQuery<Account> query = em.createQuery(sql, Account.class);
 		query.setParameter("state", State.REMOVEABLE);
-		
+		//get state removeable
 		List<Account> listState = query.getResultList();
 		
 		return listState;

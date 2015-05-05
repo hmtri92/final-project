@@ -7,13 +7,12 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import com.csc.dao.UtilDAO;
 
-@Repository
+@Repository("utilDAO")
 public class UtilDAOImpl implements UtilDAO {
 	@PersistenceContext
-	EntityManager em;
+	public EntityManager em;
 
 	@Override
-	@Transactional
 	public boolean addEntity(Object obj) {
 		// TODO Auto-generated method stub
 		em.persist(obj); 
@@ -21,7 +20,6 @@ public class UtilDAOImpl implements UtilDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean updateEntity(Object obj) {
 		// TODO Auto-generated method stub
 		em.merge(obj);
@@ -29,7 +27,6 @@ public class UtilDAOImpl implements UtilDAO {
 	}
 
 	@Override
-	@Transactional
 	public boolean removeEntity(Object obj) {
 		// TODO Auto-generated method stub
 		em.remove(obj);

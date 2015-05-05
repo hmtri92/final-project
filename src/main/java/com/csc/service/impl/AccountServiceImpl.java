@@ -3,6 +3,8 @@ package com.csc.service.impl;
 import java.util.List;
 import java.util.Random;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +32,13 @@ public class AccountServiceImpl implements AccountService {
 	public Account getAccountById(String id) {
 		return	accountDao.getAccountById(id);
 	}
-
+	@Transactional
 	@Override
 	public Account updateStateAccountById(String id, int state) {
 		return accountDao.updateStateAccountById(id, state);
 	}
 	
-
+	@Transactional
 	@Override
 	public Account updateAccount(String id, int idstate, int idRole,
 			String firtname, String lastname, String midname, int idType,
@@ -77,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
 		return accountDao.getRecomendedKeyList(searchType);
 	}
 
-
+	@Transactional
 	@Override
 	public boolean addUser(User user, int idRole, int idType) {
 		Boolean result = accountDao.addUser(user, idRole, idType);
