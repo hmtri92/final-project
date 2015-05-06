@@ -1,6 +1,8 @@
 package com.csc.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -15,6 +17,7 @@ import com.csc.service.AccountService;
 
 @Service
 public class AccountServiceImpl implements AccountService {
+
 	@Autowired
 	AccountDAO accountDao;
 
@@ -109,6 +112,8 @@ public class AccountServiceImpl implements AccountService {
 	public List<Account> searchAccount(String key, int typeSearch) {
 		// TODO Auto-generated method stub
 		List<Account> result = null;
+		
+		
 		
 		switch (typeSearch) {
 		case 1:

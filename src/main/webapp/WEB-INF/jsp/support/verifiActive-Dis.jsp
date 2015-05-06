@@ -38,23 +38,25 @@
 		       	url : "doVerifyStateActive",
 		       	data : {"id" : id},
 		       	success : function (result){
-			       	if (result.state == true) {
-				       	$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-success");
-				       	$('#'+ id + ' button').attr('disabled','disabled');
+			       	if (result == true) {
+			       		$('#' + id + ' button').removeClass("btn-primary");
+						$('#' + id + ' button').addClass("btn-success");
+						$('#' + id + ' button').attr('disabled','disabled');
+						$("#bodyMessage").html("Change state Success!");
+						$("#message").modal('show');
 			       	} else {
-			       		$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-danger");
-				       	
-				       	$("#bodyMessage").html("Verify State:Active -> Disable Success!");
+			       		$('#' + id + ' button') .removeClass("btn-primary");
+						$('#' + id + ' button').addClass("btn-danger");
+
+						$("#bodyMessage").html("Verify account Fail!");
 						$("#message").modal('show');
 			       	}
 		       	},
 		        error : function() {
-		        	$('#'+ id + ' button').removeClass("btn-primary");
-			       	$('#'+ id + ' button').addClass("btn-danger");
-			       	
-			       	$("#bodyMessage").html("Error while request..");
+		        	$('#' + id + ' button').removeClass("btn-primary");
+					$('#' + id + ' button').addClass("btn-danger");
+
+					$("#bodyMessage").html("Error while request..");
 					$("#message").modal('show');
 		        }
 	        });

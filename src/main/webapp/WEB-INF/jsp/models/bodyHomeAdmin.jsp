@@ -8,7 +8,7 @@
 		</a>
 		<a href="<c:url value='/admin/viewVerifyStateNew'/>" class="list-group-item">
 			<span class="badge" id="countChangeStateNewToActive"></span>
-			Change state new -> active
+			Verify Account
 		</a>
 		<a href="<c:url value='/admin/viewVerifyStateDis-Removable'/>" class="list-group-item list-group-item-success">
 			<span class="badge" id="countChangeTateDisableToRemove"></span>

@@ -27,41 +27,48 @@
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-	    var RemoveableTable = $('#mytable').dataTable({
-	    });
+	$(document)
+			.ready(
+					function() {
+						var StatDisableTable = $('#mytable').dataTable({});
 
-		$('.changeState').click(function (){
-			var id = $(this).parent().parent().parent().attr('id');
-			$.ajax({
-		        type : "POST",
-		       	url : "doVerifiStateRemove",
-		       	data : {"id" : id},
-		       	success : function (result){
-			       	if (result.state == true) {
-				       	$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-success");
-				       	$('#'+ id + ' button').attr('disabled','disabled');
-			       	} else {
-			       		$('#'+ id + ' button').removeClass("btn-primary");
-				       	$('#'+ id + ' button').addClass("btn-danger");
-				       	
-				       	$("#bodyMessage").html("Verify State:Removable -> Removed Success!");
-						$("#message").modal('show');
-			       	}
-		       	},
-		        error : function() {
-		        	$('#'+ id + ' button').removeClass("btn-primary");
-			       	$('#'+ id + ' button').addClass("btn-danger");
-			       	
-			       	$("#bodyMessage").html("Error while request..");
-					$("#message").modal('show');
-		        }
-	        });
-		});
-	    
-	} );
+						$('.changeState')
+								.click(
+										function() {
+											var id = $(this).parent().parent().parent().attr('id');
+											$.ajax({
+														type : "POST",
+														url : "doVerifiStateRemove",
+														data : {
+															"id" : id
+														},
+														success : function(
+																result) {
+															if (result == true) {
+																$('#' + id + ' button').removeClass("btn-primary");
+																$('#' + id + ' button').addClass("btn-success");
+																$('#' + id + ' button').attr('disabled','disabled');
+																$("#bodyMessage").html("change state Success!");
+																$("#message").modal('show');
+															} else {
+																$('#' + id + ' button') .removeClass("btn-primary");
+																$('#' + id + ' button').addClass("btn-danger");
 
+																$("#bodyMessage").html("Verify account Fail!");
+																$("#message").modal('show');
+															}
+														},
+														error : function() {
+															$('#' + id + ' button').removeClass("btn-primary");
+															$('#' + id + ' button').addClass("btn-danger");
+
+															$("#bodyMessage").html("Error while request..");
+															$("#message").modal('show');
+														}
+													});
+										});
+
+					});
 </script>
 
 </head>

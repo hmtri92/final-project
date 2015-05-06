@@ -156,6 +156,18 @@ public class FundServiceImpl implements FundService {
 		try {
 			TransactionHistory transaction = transactionDao.getTransaction(idTransaction);
 			
+			// Transaction had active
+			if (transaction.getState().getIdState() != State.ACTIVE) {
+				result.setMessage("Transaction had active");
+				return result;
+			}
+			
+			// transaction had ignore
+			if (transaction.getState().getIdState() != State.DISABLE) {
+				result.setMessage("Transaction had ignore");
+				return result;
+			}
+			
 			// if transaction is add_fund
 			if (transaction.getTypeTransaction() == TransactionHistory.ADD_FUND)
 			{

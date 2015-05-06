@@ -52,6 +52,7 @@ function showResult(){
 		type : "POST",
 		url : "getBalanceLog",
 		data : {
+			"chosenaccount": ${accountNumber},
 			"dateFrom": $("#datepickerFrom").val(),
 			"dateTo" : $("#datepickerTo").val()},					
 			success : function (result) {
@@ -68,9 +69,23 @@ function showResult(){
 </head>
 <body>
 <body style="padding-top: 100px !important">
-	<%@ include file="../models/navbarCustomer.jsp"%>
-
 	<div class="page-content">
+		<%
+			String role = (String)request.getSession().getAttribute("role");
+		%>
+		<c:choose>
+			<c:when test="${role == 'admin'}">
+				<%@ include file="../models/navbarAdmin.jsp"%>
+			</c:when>
+			<c:when test="${role == 'account_support'}">
+				<%@ include file="../models/navbar.jsp"%>
+			</c:when>
+			<c:when test="${role == 'customer'}">
+				<%@ include file="../models/navbarCustomer.jsp"%>
+			</c:when>
+		</c:choose>
+
+	
 		<div class="container">			
 			<div class="portlet light">
 				<div class="row">

@@ -18,16 +18,16 @@ public interface UserService {
 	/*
 	 * MinhTri
 	 */
-	User getUserByLoginId (String loginId);
+	public User getUserByLoginId (String loginId);
 	
-	User getUserByID(String id);
+	public User getUserByID(String id);
 
-	public List<TransactionHistory> getTransactionByUserId(String Id, int state);
+	public List<TransactionHistory> getTransactionByUserId(String Id);
 
 	public List<BalanceAmount> getBalanceLogByUserId(String accounNumber);
 
 	public List<TransactionHistory> getTransactionByDateRange(String userID,
-			String stringDateFrom, String stringDateTo, int state);
+			String stringDateFrom, String stringDateTo);
 
 	public List<BalanceAmount> getBalanceByDateRange(String userID,
 			String stringDateFrom, String stringDateTo);

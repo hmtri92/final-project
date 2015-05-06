@@ -67,6 +67,7 @@ function cancelChangePassword(){
 	$("#buttonSubmit").css("display","none");
 	$("#changePassSection").css("display","none");
 	$("#password").attr("disabled","disabled");	
+	$("#password").val();	
 }
 
 var oldFirstName;

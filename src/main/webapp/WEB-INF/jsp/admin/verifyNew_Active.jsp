@@ -28,93 +28,44 @@
 <script type="text/javascript" src="<c:url value='/js/myScript.js'/>"></script>
 
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						var StatNewTable = $('#mytable').dataTable({});
+	$(document).ready(function() {
+		var StatNewTable = $('#mytable').dataTable({});
 
-						$('.changeState')
-								.click(
-										function() {
-											var id = $(this).parent().parent()
-													.parent().attr('id');
-											$
-													.ajax({
-														type : "POST",
-														url : "doVerifySateNew",
-														data : {
-															"id" : id
-														},
-														success : function(
-																result) {
-															if (result.state == true) {
-																$(
-																		'#'
-																				+ id
-																				+ ' button')
-																		.removeClass(
-																				"btn-primary");
-																$(
-																		'#'
-																				+ id
-																				+ ' button')
-																		.addClass(
-																				"btn-success");
-																$(
-																		'#'
-																				+ id
-																				+ ' button')
-																		.attr(
-																				'disabled',
-																				'disabled');
-															} else {
-																$(
-																		'#'
-																				+ id
-																				+ ' button')
-																		.removeClass(
-																				"btn-primary");
-																$(
-																		'#'
-																				+ id
-																				+ ' button')
-																		.addClass(
-																				"btn-danger");
+		$('.changeState').click( function() {
+			var id = $(this).parent().parent()
+					.parent().attr('id');
+			$.ajax({
+				type : "POST",
+				url : "doVerifySateNew",
+				data : {
+					"id" : id
+				},
+				success : function(result) {
+					if (result == true) {
+						$('#' + id + ' button').removeClass("btn-primary");
+						$('#' + id + ' button').addClass("btn-success");
+						$('#' + id + ' button').attr('disabled','disabled');
+						$("#bodyMessage").html("Verify account Success!");
+						$("#message").modal('show');
+					} else {
+						$('#' + id + ' button').removeClass("btn-primary");
+						$('#' + id + ' button').addClass("btn-danger");
 
-																$(
-																		"#bodyMessage")
-																		.html(
-																				"Verify State:New -> Active Success!");
-																$("#message")
-																		.modal(
-																				'show');
-															}
-														},
-														error : function() {
-															$(
-																	'#'
-																			+ id
-																			+ ' button')
-																	.removeClass(
-																			"btn-primary");
-															$(
-																	'#'
-																			+ id
-																			+ ' button')
-																	.addClass(
-																			"btn-danger");
+						$("#bodyMessage").html("Verify account Fail!");
+						$("#message").modal('show');
+					}
+				},
+				error : function() {
+					$('#' + id + ' button').removeClass("btn-primary");
+					$('#' + id + ' button').addClass("btn-danger");
 
-															$("#bodyMessage")
-																	.html(
-																			"Error while request..");
-															$("#message")
-																	.modal(
-																			'show');
-														}
-													});
-										});
+					$("#bodyMessage").html("Error while request..");
+					$("#message").modal('show');
+				}
+			});
+		});
 
-					});
+	});
 </script>
 
 </head>

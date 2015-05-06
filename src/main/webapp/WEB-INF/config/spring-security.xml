@@ -31,12 +31,10 @@
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
 		
 		<!-- ROLE_SUPPORT -->
-		<intercept-url pattern="/support/**" access="hasRole('ACCOUNT_SUPPORT')"/>
-		<intercept-url pattern="/user/viewbalance" access="hasRole('ACCOUNT_SUPPORT')"/>
-		<intercept-url pattern="/user/viewlog" access="hasRole('ACCOUNT_SUPPORT')"/>
+		<intercept-url pattern="/support/**" access="hasRole('ACCOUNT_SUPPORT')"/>		
 		
 		<!-- ROLE_USER -->
-		<intercept-url pattern="/user/**" access="hasRole('CUSTOMER')"/>
+		<intercept-url pattern="/user/**" access="hasAnyRole('ROLE_ADMIN', 'ACCOUNT_SUPPORT', 'CUSTOMER')"/>
 		
 		<!-- hasAnyRole -->
 		<intercept-url pattern='/**'

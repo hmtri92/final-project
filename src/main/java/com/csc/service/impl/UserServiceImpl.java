@@ -51,16 +51,16 @@ public class UserServiceImpl implements UserService{
 	@Transactional
 	public String changePassword(String id, String oldPassword,
 			String newPassword) {
-		// TODO Auto-generated method stub
-		User user = userDao.getUserByID(id);
-		
-		if (!PasswordUtils.matchPassword(oldPassword, user.getPassword())) {		
-			return "FAIL: The current password is incorrect!";
-		}
 		
 		if (newPassword.length() < 8 || newPassword.indexOf(' ') != -1){
 			return "FAIL: The new password is incorrect!";
 		}
+		
+		User user = userDao.getUserByID(id);
+		
+		if (!PasswordUtils.matchPassword(oldPassword, user.getPassword())) {		
+			return "FAIL: The current password is incorrect!";
+		}		
 		
 		user.setPassword(PasswordUtils.encodePassword(newPassword));
 		
@@ -117,11 +117,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<TransactionHistory> getTransactionByUserId(String id, int state) {
+	public List<TransactionHistory> getTransactionByUserId(String id) {
 		// TODO Auto-generated method stub
 		List<TransactionHistory> result = null;
 		
-		result = transactionDAO.getTransactionByUserId(id, state);
+		result = transactionDAO.getTransactionByUserId(id);
 		
 		return result;
 	}
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService{
 	@SuppressWarnings("deprecation")
 	@Override
 	public List<TransactionHistory> getTransactionByDateRange(String userID,
-			String stringDateFrom, String stringDateTo, int state) {
+			String stringDateFrom, String stringDateTo) {
 		// TODO Auto-generated method stub
 		
 		Date dateFrom = toDate(stringDateFrom);
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService{
 		
 		dateTo.setDate(dateTo.getDate() + 1);		
 		
-		return transactionDAO.getTransactionByDateRange(userID, dateFrom, dateTo, state);
+		return transactionDAO.getTransactionByDateRange(userID, dateFrom, dateTo);
 		
 	}
 

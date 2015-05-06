@@ -19,14 +19,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 	EntityManager em;
 
 	@Override
-	public List<TransactionHistory> getTransactionByUserId(String id, int state) {
+	public List<TransactionHistory> getTransactionByUserId(String id) {
 		// TODO Auto-generated method stub
 		List<TransactionHistory> result = null;
 		
-		TypedQuery<TransactionHistory> query = em.createQuery("SELECT t FROM TransactionHistory t WHERE (t.sendAccount.id = :id "
-				+ " OR t.receiveAccount.id = :id) AND t.state.idState = :state", TransactionHistory.class);
+		TypedQuery<TransactionHistory> query = em.createQuery("SELECT t FROM TransactionHistory t WHERE t.sendAccount.id = :id "
+				+ " OR t.receiveAccount.id = :id", TransactionHistory.class);
 		query.setParameter("id", id);
-		query.setParameter("state", state);
 		result = query.getResultList();
 		
 		return result;
@@ -34,17 +33,15 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public List<TransactionHistory> getTransactionByDateRange(String userID,
-			Date dateFrom, Date dateTo, int state) {
+			Date dateFrom, Date dateTo) {
 		// TODO Auto-generated method stub
 		List<TransactionHistory> result = null;
 		
 		TypedQuery<TransactionHistory> query = em.createQuery("SELECT t FROM TransactionHistory t WHERE"
 				+ " (t.sendAccount.id = :id OR t.receiveAccount.id = :id) "
-				+ "AND t.state.idState = :state "
 				+ "AND (t.date >= :dateFrom AND t.date <= :dateTo)", TransactionHistory.class);			
 		
 		query.setParameter("id", userID);
-		query.setParameter("state", state);
 		query.setParameter("dateFrom", dateFrom);
 		query.setParameter("dateTo", dateTo);
 		result = query.getResultList();

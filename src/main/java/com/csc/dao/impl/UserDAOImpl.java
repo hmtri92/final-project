@@ -14,11 +14,19 @@ import org.springframework.stereotype.Repository;
 import com.csc.dao.UserDAO;
 import com.csc.entities.User;
 
+/**
+ * Handles actions on user entities
+ * @author Phuc Doan *
+ */
 @Repository
 public class UserDAOImpl implements UserDAO{
 	@PersistenceContext
 	EntityManager em;
 	
+	/**
+	 * Change user information
+	 * @author Phuc Doan
+	 */
 	@Override
 	public boolean changeInfo(User user) {
 		// TODO Auto-generated method stub
@@ -41,6 +49,10 @@ public class UserDAOImpl implements UserDAO{
 		return em.find(User.class, id);
 	}
 
+	/**
+	 * Get user entity by login Id
+	 * @author Phuc Doan
+	 */
 	@Override
 	public User getUserByLoginID(String loginId) {
 		String sql = "SELECT u FROM User u WHERE u.loginID = :loginId";
@@ -49,6 +61,10 @@ public class UserDAOImpl implements UserDAO{
 		return query.getSingleResult();
 	}
 
+	/**
+	 * Get all user enity
+	 * @author Phuc Doan
+	 */
 	@Override
 	public List<User> getAllUser() {
 		// TODO Auto-generated method stub

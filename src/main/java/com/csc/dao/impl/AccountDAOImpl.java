@@ -223,9 +223,6 @@ public class AccountDAOImpl implements AccountDAO {
 		default:
 			break;
 		}
-
-		
-		
 		
 		TypedQuery<String> query = em.createQuery(sql1, String.class);
 		

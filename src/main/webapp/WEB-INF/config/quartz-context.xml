@@ -17,7 +17,7 @@
     <!-- Run the job every min -->
     <bean id="cronTrigger"  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="complexJobDetail" />
-        <property name="cronExpression" value="0 * * * * ?" />
+        <property name="cronExpression" value="0 20 * * * ?" />
     </bean>
  
  

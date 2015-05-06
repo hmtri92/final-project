@@ -33,7 +33,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li>
 							<a href="<c:url value='/admin/viewVerifyStateNew'/>" >
-								State new -> active
+								Verify account
 								<span class="badge" id="countChangeStateNewToActivenav"></span>
 							</a>
 						</li>

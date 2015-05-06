@@ -37,7 +37,6 @@ public class ScheduledServiceImpl implements ScheduledService{
 			BalanceAmount balance = new BalanceAmount(account.getAvailableAmount(), new Date(), account);
 			utilDAO.addEntity(balance);
 			
-			System.err.println("account " + account.getId());
 		}
 		return true;
 	}

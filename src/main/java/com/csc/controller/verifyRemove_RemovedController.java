@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,21 +39,29 @@ public class verifyRemove_RemovedController {
 
 	@RequestMapping(value = "/support/doVerifiStateRemove", method = { RequestMethod.GET,
 			RequestMethod.POST })
-	public String addAccount(HttpServletRequest request,
+	@ResponseBody
+	public boolean addAccount(HttpServletRequest request,
 			HttpServletResponse response, Model model) {
 
-		String id = request.getParameter("id");
-		int state = 5;
-		Account existedAccount = accountService.getAccountById(id);
-
-		if (existedAccount == null) {
-			model.addAttribute("message", "This account is not valid");
-
-		} else {
-			accountService.updateStateAccountById(id, state);
-			model.addAttribute("message", "This account have been  modified");
-
+		try {
+			String id = request.getParameter("id");
+			int state = 5;
+			Account existedAccount = accountService.getAccountById(id);
+			
+			if (existedAccount == null) {
+				return false;
+			} else {
+				Account account = accountService.updateStateAccountById(id, state);
+				
+				if (account.getState().getIdState() == state) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			
+		} catch (Exception e) {
+			return false;
 		}
-		return "forward:change_State_removeable-Removed";
 	}
 }

@@ -22,38 +22,73 @@ import com.csc.entities.TransactionHistory;
 import com.csc.entities.User;
 import com.csc.service.UserService;
 
+/**
+ * Handle services for user
+ * @author Phuc Doan
+ *
+ */
 @Controller
 @SessionAttributes({ "username", "role", "id" })
 public class UserController {
 	@Autowired
 	UserService userService;
 	
-	
+	/**
+	 * Handles changing password request
+	 * @param request
+	 * @param response
+	 * @return String represent the result of changing password
+	 */
+			
 	@RequestMapping (value = "/changeUserPassword", method=RequestMethod.POST)
 	@ResponseBody
 	public String changePassword(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+
+		String role = (String) session.getAttribute("role");
 		
-//		User user = (User)session.getAttribute("user");
-//		
-//		if (user != null) {
-//			return "Error";
-//		}
+		String userID = null;
 		
-		String id = (String) session.getAttribute("id");
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("id");
+			if (userID == null) {
+				return "FAIL: Error while processing request...";
+			}
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
+		
 		String oldPassword = request.getParameter("password");
 		String newPassword = request.getParameter("newPassword");
 		
-		return userService.changePassword(id, oldPassword, newPassword);		
+		return userService.changePassword(userID, oldPassword, newPassword);		
 		
 	}
 	
+	/**
+	 * Handles editing information request
+	 * @param request
+	 * @param response
+	 * @return String represent the result of editing
+	 */
 	@RequestMapping (value = "/editUserInfo", method=RequestMethod.POST)
 	@ResponseBody
 	public String editUserInfo(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
+
+		String role = (String) session.getAttribute("role");
 		
-		String id = (String) session.getAttribute("id");
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("id");
+			if (userID == null) {
+				return "FAIL: Error while processing request...";
+			}
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
+		
 		String firstName = request.getParameter("firstName");
 		String midName = request.getParameter("midName");
 		String lastName = request.getParameter("lastName");
@@ -61,10 +96,15 @@ public class UserController {
 		String phone2 = request.getParameter("phone2");
 		String email2 = request.getParameter("email2");
 		
-		return userService.editUserInfo(id, firstName, midName, lastName, address2, phone2, email2);		
-		
+		return userService.editUserInfo(userID, firstName, midName, lastName, address2, phone2, email2);			
 	}
 	
+	/**
+	 * Handles viewing profile page request
+	 * @param request
+	 * @param model
+	 * @return view profile page
+	 */
 	@RequestMapping (value = "/viewprofile")
 	public String viewProfile(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
@@ -76,7 +116,7 @@ public class UserController {
 		if (role == "account_support" || role == "admin") {
 			userID = request.getParameter("chosenaccount");
 			if (userID == null) {
-				return "support/searchaccount";
+				userID = (String) session.getAttribute("id");
 			}
 		} else {
 			userID = (String) session.getAttribute("id");
@@ -89,6 +129,12 @@ public class UserController {
 		return "viewprofile";
 	}
 	
+	/**
+	 * Handles viewing transaction log request
+	 * @param request
+	 * @param model
+	 * @return Transaction log page
+	 */
 	@RequestMapping (value = "/user/viewlog", method = RequestMethod.GET)
 	public String viewuserlog(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
@@ -108,7 +154,7 @@ public class UserController {
 				
 		List<TransactionHistory> listTransaction = null;
 		
-		listTransaction = userService.getTransactionByUserId(userID, 2);
+		listTransaction = userService.getTransactionByUserId(userID);
 		
 		model.addAttribute("userId", userID);
 		if (listTransaction == null) {
@@ -125,7 +171,12 @@ public class UserController {
 	}
 	
 	
-	
+	/**
+	 * Handles viewing balance history request
+	 * @param request
+	 * @param model
+	 * @return balance history page
+	 */
 	@RequestMapping (value = "/user/viewbalance", method = RequestMethod.GET)
 	public String viewbalancelog(HttpServletRequest request, Model model){
 		
@@ -162,20 +213,33 @@ public class UserController {
 		
 	}
 	
-
+	/**
+	 * Handles get transaction log by date range
+	 * @param request
+	 * @param response
+	 * @return transaction log data table
+	 */
 	@RequestMapping (value = "/user/getTransactionLog", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView getTransactionLog(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
-		String userID = (String) session.getAttribute("id");
+		String role = (String) session.getAttribute("role");
+		
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("chosenaccount");			
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
 		
 		List<TransactionHistory> listTransaction = null;
 		
 		String stringDateFrom = request.getParameter("dateFrom");
 		String stringDateTo = request.getParameter("dateTo");
 				
-		listTransaction = userService.getTransactionByDateRange(userID, stringDateFrom, stringDateTo, 2);	
+		listTransaction = userService.getTransactionByDateRange(userID, stringDateFrom, stringDateTo);	
 		
 			
 		ModelAndView modelnview = new ModelAndView("/models/transactiontable");
@@ -191,12 +255,26 @@ public class UserController {
 		return modelnview;
 	}
 	
+	/**
+	 * Handles get balance history by date range
+	 * @param request
+	 * @param response
+	 * @return balance history data table
+	 */
 	@RequestMapping (value = "/user/getBalanceLog", method=RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView getBalanceLog(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		
-		String userID = (String) session.getAttribute("id");
+		String role = (String) session.getAttribute("role");
+		
+		String userID = null;
+		
+		if (role == "account_support" || role == "admin") {
+			userID = request.getParameter("chosenaccount");			
+		} else {
+			userID = (String) session.getAttribute("id");
+		}
 		
 		List<BalanceAmount> listBalance = null;
 		

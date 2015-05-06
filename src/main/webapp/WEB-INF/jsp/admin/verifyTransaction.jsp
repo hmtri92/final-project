@@ -96,6 +96,7 @@
 		<div class="container">
 			<div class="portlet light">
 				<div >
+					<h3 class="frm-section" style="color: rgb(21, 110, 189);">Verify Transaction</h3>
 					<table id="mytable" class="table table-striped table-bordered" cellspacing="0" width="100%"
 						data-click-to-select="true" data-single-select="true" data-pagination="true" data-search="true">
 						<thead>

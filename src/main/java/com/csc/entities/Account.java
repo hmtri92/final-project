@@ -33,45 +33,35 @@ public class Account implements Serializable {
 	@Size(min = 12, max = 12)
 	private String id;
 	
-	@Size(min = 1, message="First name must be at least 1 character!")
 	@Column (name = "firstname")
 	private String firstName;
 	
-	@Size(min = 1, message="Last name must be at least 1 character!")
 	@Column (name = "lastname")
 	private String lastName;
 	
-	@Size(min = 1, message="Mid name must be at least 1 character!")
 	@Column (name = "midname")
 	private String midName;
 	
-	@Size(min = 8, message="Phone must be at least 8 number!")
 	@Column (name = "phoneNum1")
 	private String phoneNum1;
 	
-	@Size(min = 8, message="Phone must be at least 8 number!")
 	@Column (name = "phoneNum2")
 	private String phoneNum2;
 	
-	@Size(min = 1, message="Address must be at least 1 character!")
 	@Column (name = "address1")
 	private String address1;
 	
-	@Size(min = 1, message="Address must be at least 1 character!")
 	@Column (name = "address2")
 	private String address2;
 	
-	@Size(min = 3, message="Email must be at least 3 character!")
 	@Column (name = "email1")
 	@Email
 	private String email1;
 	
-	@Size(min = 3, message="Email must be at least 3 character!")
 	@Column (name = "email2")
 	@Email
 	private String email2;
 	
-	@Size(min = 9, message="Id card must be at least 9 number!")
 	@Column (name = "id_cardNumber")
 	private String idCardNumber;
 		

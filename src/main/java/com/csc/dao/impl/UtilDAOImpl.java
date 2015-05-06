@@ -15,22 +15,40 @@ public class UtilDAOImpl implements UtilDAO {
 	@Override
 	public boolean addEntity(Object obj) {
 		// TODO Auto-generated method stub
-		em.persist(obj); 
-		return false;
+		try {
+			em.persist(obj); 
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public boolean updateEntity(Object obj) {
 		// TODO Auto-generated method stub
-		em.merge(obj);
-		return false;
+		try {
+			em.merge(obj);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+		return true;		
 	}
 
 	@Override
 	public boolean removeEntity(Object obj) {
-		// TODO Auto-generated method stub
-		em.remove(obj);
-		return false;
+		// TODO Auto-generated method stub		
+		try {
+			em.remove(obj);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+		
+		return true;
 	}
 
 }

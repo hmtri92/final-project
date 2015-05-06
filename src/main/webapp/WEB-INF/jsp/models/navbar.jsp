@@ -19,9 +19,15 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul style="font-size: 18px" class="nav navbar-nav">
-				<li><a href="<c:url value='/support/createAccount'/>">Creare Account</a></li>
-				<li><a href="<c:url value='/support/modifyAccount'/>">Modify Account</a></li>
-				<li><a href="<c:url value='/support/searchaccount'/>">Search Account</a></li>
+				<li class="dropdown">
+					<a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+		          	Account <span class="caret"></span></a>
+		          	<ul class="dropdown-menu" role="menu">
+		          		<li><a href="<c:url value='/support/createAccount'/>">Create Account</a></li>
+						<li><a href="<c:url value='/support/modifyAccount'/>">Modify Account</a></li>
+		          	</ul>
+				</li>
+				<li><a href="<c:url value='/support/searchaccount'/>">Search</a></li>
 				<li class="dropdown">
 		          <a style="font-size: 18px;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 		          	State <span class="caret"></span></a>

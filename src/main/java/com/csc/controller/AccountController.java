@@ -23,7 +23,8 @@ import com.csc.ultil.PasswordUtils;
 
 @Controller
 @SessionAttributes({ "username", "role", "id" })
-public class AccountController {
+public class AccountController {	
+	
 	@Autowired
 	AccountService accountService;
 
