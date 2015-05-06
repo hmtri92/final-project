@@ -57,6 +57,8 @@
 		<session-management>
 		    <concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>
 		</session-management>
+		<!-- session timeout -->
+		<session-management invalid-session-url="/login?sessionTimeout" />
 	</http>
  
 	<authentication-manager>
