@@ -130,7 +130,7 @@ function addFund() {
 }
 
 function tranferBySupport() {
-	var validateResult = $("#frm-AddFund").valid();
+	var validateResult = $("#frm-Account").valid();
 	validateResult = $("#frm-targetAccount").valid() && validateResult;
 	validateResult = $("#frm-amount").valid() && validateResult;
 	
@@ -196,7 +196,7 @@ function transferTargetID() {
 }
 
 function withdraw() {
-	var validateResult = $("#frm-AddFund").valid();
+	var validateResult = $("#frm-Account").valid();
 	validateResult = $("#frm-amount").valid() && validateResult;
 	
 	if (validateResult == true) {
@@ -224,7 +224,7 @@ function addTargetAccount() {
 		$.ajax ({
 			type : "POST",
 			url : "addTargetAccount",
-			data : $("#frmAddtarget").serialize(),
+			data : $("#frm-Addtarget").serialize(),
 			success : function (result) {
 				$("#bodyMessage").html(result.message);
 				$("#message").modal('show');
