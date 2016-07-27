@@ -26,7 +26,7 @@ public class CreateDBController {
 		db.createAccount();
 		db.createUser();
 		db.createTranSaction();
-		db.createTargetAccount();
+//		db.createTargetAccount();
 
 		return "forward:login";
 	}
